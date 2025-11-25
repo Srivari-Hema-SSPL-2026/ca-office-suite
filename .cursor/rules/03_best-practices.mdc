@@ -1,0 +1,170 @@
+# Best Practices
+
+**Version**: 1.0  
+**Last Updated**: November 13, 2025
+
+---
+
+## Error Handling
+
+- Always use structured error responses with proper HTTP status codes
+- Implement global exception handling middleware
+- Log errors with contextual information using structured logging
+- Never expose sensitive information in error messages
+
+### Error Middleware Pattern
+
+```csharp
+public class ErrorHandlingMiddleware
+{
+    private readonly RequestDelegate _next;
+    private readonly ILogger<ErrorHandlingMiddleware> _logger;
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
+        {
+            await _next(context);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An unhandled exception occurred");
+            await HandleExceptionAsync(context, ex);
+        }
+    }
+
+    private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+    {
+        var code = HttpStatusCode.InternalServerError;
+        var result = JsonSerializer.Serialize(new
+        {
+            error = new
+            {
+                code = "INTERNAL_ERROR",
+                message = "An error occurred processing your request"
+            }
+        });
+
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = (int)code;
+        return context.Response.WriteAsync(result);
+    }
+}
+```
+
+---
+
+## Security
+
+- Use JWT Bearer authentication for protected endpoints
+- Implement role-based access control (RBAC)
+- Validate all input using FluentValidation
+- Use BCrypt for password hashing
+- Implement rate limiting for API endpoints
+- Use HTTPS in production
+
+---
+
+## Performance
+
+- Implement caching strategies (Redis for distributed, in-memory for local)
+- Use async/await consistently
+- Implement pagination for list endpoints
+- Add database indexes for frequently queried fields
+- Use connection pooling for database connections
+- Implement query result caching
+
+---
+
+## Testing
+
+- Write unit tests with 80%+ code coverage target
+- Create integration tests for API endpoints
+- Mock external dependencies in tests
+- Use xUnit as the testing framework
+- Use Testcontainers for integration tests with real databases
+
+### Unit Test Pattern
+
+```csharp
+public class ProductServiceTests
+{
+    private readonly Mock<IProductRepository> _mockRepository;
+    private readonly Mock<ILogger<ProductService>> _mockLogger;
+    private readonly ProductService _service;
+
+    public ProductServiceTests()
+    {
+        _mockRepository = new Mock<IProductRepository>();
+        _mockLogger = new Mock<ILogger<ProductService>>();
+        _service = new ProductService(_mockRepository.Object, _mockLogger.Object);
+    }
+
+    [Fact]
+    public async Task GetProductById_ReturnsProduct_WhenProductExists()
+    {
+        // Arrange
+        var productId = Guid.NewGuid();
+        var expectedProduct = new Product { ProductId = productId, Name = "Test Product" };
+        _mockRepository.Setup(r => r.GetByIdAsync(productId))
+            .ReturnsAsync(expectedProduct);
+
+        // Act
+        var result = await _service.GetProductByIdAsync(productId);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(productId, result.ProductId);
+    }
+}
+```
+
+---
+
+## Observability
+
+- Add structured logging with Serilog
+- Implement health checks (/health, /health/ready)
+- Use OpenTelemetry for distributed tracing
+- Add custom metrics for business operations
+- Use Aspire Dashboard for monitoring
+
+### Health Checks
+
+```csharp
+builder.Services.AddHealthChecks()
+    .AddNpgSql(connectionString, name: "database")
+    .AddRedis(redisConnectionString, name: "cache")
+    .AddCheck<CustomHealthCheck>("custom-check");
+
+app.MapHealthChecks("/health");
+app.MapHealthChecks("/health/ready", new HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("ready")
+});
+```
+
+### Structured Logging
+
+```csharp
+_logger.LogInformation(
+    "Processing order {OrderId} for user {UserId} with {ItemCount} items",
+    orderId, userId, itemCount);
+```
+
+---
+
+## Code Generation Checklist
+
+When generating code, always:
+
+1. **Include proper error handling**
+2. **Add XML documentation comments for public APIs**
+3. **Use dependency injection for all services**
+4. **Implement logging at appropriate levels**
+5. **Include input validation**
+6. **Follow SOLID principles**
+7. **Write testable code**
+8. **Consider performance implications**
+9. **Think about security from the start**
+10. **Make code maintainable and readable**

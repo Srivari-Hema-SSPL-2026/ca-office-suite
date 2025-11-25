@@ -1,0 +1,397 @@
+# Code Generation Guidelines
+
+**Version**: 1.0  
+**Last Updated**: November 13, 2025
+
+---
+
+## Two-Phase Development Approach
+
+This project follows a two-phase modernization approach:
+1. **Phase 1 (Days 2-4)**: Build Node.js API with Express + TypeScript + Prisma
+2. **Phase 2 (Days 5-7)**: Migrate to .NET 10 + EF Core + Aspire
+
+All code generation should align with the current phase and `docs/01_Requirements.md`.
+
+---
+
+## Phase 1: Node.js API Endpoints (Express + TypeScript)
+
+### Express Router Pattern
+
+```typescript
+import express, { Request, Response } from 'express';
+import { ProductService } from '../services/product.service';
+
+const router = express.Router();
+
+// GET /api/products
+router.get('/', async (req: Request, res: Response) => {
+  try {
+    const { page = 1, pageSize = 20 } = req.query;
+    const products = await productService.getProducts(Number(page), Number(pageSize));
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// GET /api/products/:id
+router.get('/:id', async (req: Request, res: Response) => {
+  try {
+    const product = await productService.getProductById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// POST /api/products
+router.post('/', async (req: Request, res: Response) => {
+  try {
+    const product = await productService.createProduct(req.body);
+    res.status(201).json(product);
+  } catch (error) {
+    res.status(400).json({ error: 'Bad request' });
+  }
+});
+
+export default router;
+```
+
+### TypeScript DTOs
+
+```typescript
+export interface CreateProductRequest {
+  name: string;
+  price: number;
+  description?: string;
+}
+
+export interface ProductResponse {
+  id: string;
+  name: string;
+  price: number;
+  description?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+---
+
+## Phase 2: .NET API Endpoints
+
+### Minimal APIs for Simple Endpoints
+
+Use minimal APIs for straightforward endpoints:
+
+```csharp
+app.MapPost("/api/auth/login", async (LoginRequest request, IAuthService authService) =>
+{
+    var result = await authService.LoginAsync(request);
+    return result.IsSuccess ? Results.Ok(result.Value) : Results.Unauthorized();
+})
+.WithName("Login")
+.WithOpenApi()
+.Produces<LoginResponse>(StatusCodes.Status200OK)
+.Produces(StatusCodes.Status401Unauthorized);
+```
+
+### Controllers for Complex Logic
+
+Use controllers when you need complex routing, multiple actions, or advanced features:
+
+```csharp
+[ApiController]
+[Route("api/[controller]")]
+public class ProductsController : ControllerBase
+{
+    private readonly IProductService _productService;
+    private readonly ILogger<ProductsController> _logger;
+
+    public ProductsController(IProductService productService, ILogger<ProductsController> logger)
+    {
+        _productService = productService;
+        _logger = logger;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<ProductListResponse>> GetProducts([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
+    {
+        var result = await _productService.GetProductsAsync(page, pageSize);
+        return Ok(result);
+    }
+}
+```
+
+---
+
+## Phase 1: Prisma ORM (Node.js)
+
+### Prisma Schema Pattern
+
+```prisma
+// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id        String   @id @default(uuid())
+  name      String
+  price     Decimal  @db.Decimal(10, 2)
+  description String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("products")
+  @@index([name])
+}
+```
+
+### Prisma Repository Pattern
+
+```typescript
+import { PrismaClient, Product } from '@prisma/client';
+
+export class ProductRepository {
+  private prisma: PrismaClient;
+
+  constructor(prisma: PrismaClient) {
+    this.prisma = prisma;
+  }
+
+  async findAll(page: number = 1, pageSize: number = 20): Promise<Product[]> {
+    return this.prisma.product.findMany({
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  async findById(id: string): Promise<Product | null> {
+    return this.prisma.product.findUnique({
+      where: { id },
+    });
+  }
+
+  async create(data: { name: string; price: number; description?: string }): Promise<Product> {
+    return this.prisma.product.create({
+      data,
+    });
+  }
+
+  async update(id: string, data: Partial<Product>): Promise<Product> {
+    return this.prisma.product.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.product.delete({
+      where: { id },
+    });
+  }
+}
+```
+
+### Prisma Service Setup
+
+```typescript
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'],
+});
+
+export default prisma;
+```
+
+---
+
+## Phase 2: EF Core Database Context Pattern
+
+```csharp
+public class ApplicationDbContext : DbContext
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options) { }
+
+    public DbSet<User> Users => Set<User>();
+    public DbSet<Product> Products => Set<Product>();
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+        
+        // Configure indexes
+        modelBuilder.Entity<Product>()
+            .HasIndex(p => p.Sku)
+            .IsUnique();
+    }
+}
+```
+
+---
+
+## Repository Pattern
+
+```csharp
+public interface IRepository<T> where T : class
+{
+    Task<T?> GetByIdAsync(Guid id);
+    Task<IEnumerable<T>> GetAllAsync();
+    Task<T> AddAsync(T entity);
+    Task UpdateAsync(T entity);
+    Task DeleteAsync(Guid id);
+}
+
+public class Repository<T> : IRepository<T> where T : class
+{
+    protected readonly ApplicationDbContext _context;
+    protected readonly DbSet<T> _dbSet;
+
+    public Repository(ApplicationDbContext context)
+    {
+        _context = context;
+        _dbSet = context.Set<T>();
+    }
+
+    public virtual async Task<T?> GetByIdAsync(Guid id)
+    {
+        return await _dbSet.FindAsync(id);
+    }
+
+    public virtual async Task<T> AddAsync(T entity)
+    {
+        await _dbSet.AddAsync(entity);
+        await _context.SaveChangesAsync();
+        return entity;
+    }
+}
+```
+
+---
+
+## Redis Caching Pattern (Cache-Aside)
+
+```csharp
+public async Task<Product?> GetProductByIdAsync(Guid id)
+{
+    var cacheKey = $"product:{id}";
+    var cachedProduct = await _cache.GetStringAsync(cacheKey);
+
+    if (!string.IsNullOrEmpty(cachedProduct))
+    {
+        _logger.LogInformation("Cache hit for product {ProductId}", id);
+        return JsonSerializer.Deserialize<Product>(cachedProduct);
+    }
+
+    _logger.LogInformation("Cache miss for product {ProductId}", id);
+    var product = await _productService.GetProductByIdAsync(id);
+
+    if (product != null)
+    {
+        var serialized = JsonSerializer.Serialize(product);
+        await _cache.SetStringAsync(cacheKey, serialized, new DistributedCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15)
+        });
+    }
+
+    return product;
+}
+```
+
+---
+
+## Aspire Configuration
+
+### App Host Setup
+
+```csharp
+var builder = DistributedApplication.CreateBuilder(args);
+
+// Add PostgreSQL database
+var postgres = builder.AddPostgres("postgres")
+    .WithPgAdmin()
+    .WithDataVolume();
+
+var authDb = postgres.AddDatabase("authdb");
+var userDb = postgres.AddDatabase("userdb");
+var productDb = postgres.AddDatabase("productdb");
+var orderDb = postgres.AddDatabase("orderdb");
+
+// Add Redis cache
+var cache = builder.AddRedis("cache")
+    .WithRedisCommander()
+    .WithDataVolume();
+
+// Add services
+var authApi = builder.AddProject<Projects.AuthenticationApi>("authapi")
+    .WithReference(authDb)
+    .WithReference(cache);
+
+var userApi = builder.AddProject<Projects.UserManagementApi>("userapi")
+    .WithReference(userDb)
+    .WithReference(cache)
+    .WithReference(authApi);
+
+builder.Build().Run();
+```
+
+### Service Configuration (Program.cs)
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// Add service defaults & Aspire components
+builder.AddServiceDefaults();
+
+// Configure PostgreSQL with Aspire
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(connectionString));
+
+// Add Redis caching with Aspire
+builder.AddRedisClient("cache");
+
+// Configure services
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+// Configure Swagger/OpenAPI
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure middleware pipeline
+app.MapDefaultEndpoints(); // Health checks
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+
+// Map endpoints
+app.MapProductEndpoints();
+
+app.Run();
+```

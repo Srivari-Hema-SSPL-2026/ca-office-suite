@@ -1,0 +1,77 @@
+# Naming Conventions
+
+**Version**: 1.0  
+**Last Updated**: November 13, 2025
+
+---
+
+## Code Naming Conventions
+
+- **Projects**: PascalCase (e.g., `AuthenticationApi`, `ProductCatalogApi`)
+- **Namespaces**: PascalCase matching folder structure
+- **Classes/Interfaces**: PascalCase (e.g., `IProductService`, `ProductService`)
+- **Methods**: PascalCase (e.g., `GetProductByIdAsync`)
+- **Variables**: camelCase (e.g., `userId`, `productId`)
+- **Constants**: PascalCase (e.g., `MaxRetryAttempts`, `DefaultCacheExpiration`)
+
+---
+
+## Database Naming Conventions
+
+- **Database Tables**: snake_case (e.g., `user_addresses`, `order_items`)
+- **Database Columns**: snake_case (e.g., `user_id`, `created_at`)
+- **Primary Keys**: Use `{table_name}_id` pattern (e.g., `user_id`, `product_id`)
+
+---
+
+## API Naming Conventions
+
+- **API Routes**: kebab-case (e.g., `/api/auth/login`, `/api/products/search`)
+- **API Endpoints**: Use RESTful conventions
+  - GET for retrieval
+  - POST for creation
+  - PUT for full updates
+  - PATCH for partial updates
+  - DELETE for deletion
+
+---
+
+## File Organization
+
+```
+src/
+├── NodeToAspire.AppHost/          # Aspire orchestration
+├── NodeToAspire.ServiceDefaults/  # Aspire service defaults
+├── Services/
+│   ├── AuthenticationApi/
+│   │   ├── Controllers/
+│   │   ├── Models/
+│   │   ├── Services/
+│   │   ├── Data/
+│   │   ├── Program.cs
+│   │   └── AuthenticationApi.csproj
+│   ├── UserManagementApi/
+│   ├── ProductCatalogApi/
+│   ├── OrderProcessingApi/
+│   └── NotificationService/
+└── Shared/
+    ├── Common/                    # Shared models and utilities
+    └── ServiceDefaults/           # Aspire service defaults
+
+tests/
+├── AuthenticationApi.Tests/
+├── UserManagementApi.Tests/
+├── ProductCatalogApi.Tests/
+├── OrderProcessingApi.Tests/
+└── IntegrationTests/
+
+docs/
+├── 01_Requirements.md
+├── 02_RAPID_8DAY_PLAN.md
+├── 03_ARCHITECTURE.md
+├── 04_DATABASE_DESIGN.md
+├── 05_API_CONTRACT.yaml
+├── 06_IMPLEMENTATION_GUIDE.md
+├── 07_SEQUENCE_DIAGRAMS.md
+└── 08_MODERNIZATION_PLAN.md
+```

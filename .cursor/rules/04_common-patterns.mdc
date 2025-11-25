@@ -1,0 +1,84 @@
+# Common Patterns
+
+**Version**: 1.0  
+**Last Updated**: November 13, 2025
+
+---
+
+## Circuit Breaker (Polly)
+
+```csharp
+builder.Services.AddHttpClient<IPaymentGatewayClient, PaymentGatewayClient>()
+    .AddPolicyHandler(HttpPolicyExtensions
+        .HandleTransientHttpError()
+        .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
+```
+
+---
+
+## Retry Policy
+
+```csharp
+builder.Services.AddHttpClient<IExternalApiClient, ExternalApiClient>()
+    .AddPolicyHandler(HttpPolicyExtensions
+        .HandleTransientHttpError()
+        .WaitAndRetryAsync(3, retryAttempt => 
+            TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))));
+```
+
+---
+
+## Service-to-Service Communication
+
+### Using HttpClient with Service Discovery
+
+```csharp
+// Configure HttpClient with service discovery
+builder.Services.AddHttpClient<IProductCatalogClient, ProductCatalogClient>(client =>
+{
+    client.BaseAddress = new Uri("http://productapi");
+});
+
+// In service
+public class OrderService
+{
+    private readonly HttpClient _httpClient;
+    
+    public async Task<bool> ValidateProductAvailabilityAsync(Guid productId, int quantity)
+    {
+        var response = await _httpClient.GetAsync($"/api/products/{productId}/availability?quantity={quantity}");
+        return response.IsSuccessStatusCode;
+    }
+}
+```
+
+---
+
+## Entity Configuration Pattern
+
+```csharp
+public class ProductConfiguration : IEntityTypeConfiguration<Product>
+{
+    public void Configure(EntityTypeBuilder<Product> builder)
+    {
+        builder.ToTable("products");
+        
+        builder.HasKey(p => p.ProductId);
+        
+        builder.Property(p => p.ProductId)
+            .HasColumnName("product_id")
+            .HasDefaultValueSql("gen_random_uuid()");
+        
+        builder.Property(p => p.Name)
+            .HasColumnName("name")
+            .HasMaxLength(200)
+            .IsRequired();
+        
+        builder.HasIndex(p => p.Sku)
+            .IsUnique()
+            .HasFilter("\"is_deleted\" = false");
+        
+        builder.HasQueryFilter(p => !p.IsDeleted);
+    }
+}
+```
