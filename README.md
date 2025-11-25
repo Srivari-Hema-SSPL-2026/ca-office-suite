@@ -1,2 +1,427 @@
-# ca-office-suite
-A comprehensive Chartered Accountant office management suite with modules for client management, GST, ITR, invoicing, workflows, document management, and automation. Built to streamline CA operations end-to-end.
+# ⭐ Chartered Accountants Office Suite
+
+A modern, scalable, and fully integrated office management platform designed specifically for Chartered Accountants and tax professionals. The suite centralizes all core operations—clients, compliance tasks, filings, documents, billing, workflows, and analytics—into a unified digital workspace.
+
+Built with React.js, .NET Aspire, Python (FastAPI), PostgreSQL, and secure document storage, it streamlines daily operations and enhances productivity across the entire CA practice.
+
+---
+
+## 📋 Table of Contents
+
+- [Key Features](#-key-features)
+- [Technology Stack](#-technology-stack)
+- [Architecture Overview](#-architecture-overview)
+- [Prerequisites](#-prerequisites)
+- [Getting Started](#-getting-started)
+- [Project Structure](#-project-structure)
+- [Configuration](#configuration)
+- [API Documentation](#-api-documentation)
+- [Deployment](#-deployment)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Support & Contact](#-support--contact)
+- [Developed By](#-developed-by)
+
+---
+
+## ⭐ Key Features
+
+### 1. Client Control & Engagement
+
+Maintain detailed client profiles including identifiers, registrations, PAN, file numbers, contact details, documentation, engagement type, assigned staff, compliance history, billing information, and more. Quickly filter, search, and manage clients across practice areas.
+
+**Capabilities:**
+
+- Comprehensive client database with advanced search and filtering
+- Multi-engagement tracking per client
+- Staff assignment and workload management
+- Document association and history tracking
+- Client communication logs
+
+### 2. Task & Compliance Management
+
+Plan, assign, and track compliance work such as GST, ITR, TDS, audits, ROC filings, and other statutory tasks. Includes due dates, target dates, escalations, reminders, workload distribution, and real-time progress tracking.
+
+**Capabilities:**
+
+- Task creation, assignment, and prioritization
+- Compliance calendar with deadline tracking
+- Automated reminders and notifications
+- Workload balancing across team members
+- Progress monitoring and reporting
+
+### 3. Returns & Filings Management
+
+Streamline the preparation and filing of GST returns, income tax returns, audit reports, TDS returns, and statutory forms. Track filing status, e-verification, acknowledgements, deadlines, and post-filing tasks with structured workflows.
+
+**Capabilities:**
+
+- Filing status tracking (Draft, Submitted, Verified, Acknowledged)
+- E-verification workflow management
+- Acknowledgement receipt storage
+- Deadline alerts and escalation
+- Post-filing task automation
+
+### 4. Billing, Invoicing & Payments
+
+Generate professional invoices, manage fees and receivables, record payments, reconcile client accounts, and maintain audit-friendly financial records. Supports multiple payment modes and full billing history per client.
+
+**Capabilities:**
+
+- Professional invoice generation
+- Multiple payment mode support
+- Receivables tracking and aging reports
+- Payment reconciliation
+- Financial audit trails
+
+### 5. Document Management System (DMS)
+
+Securely store, categorize, and retrieve client documents, working papers, invoices, acknowledgements, and statutory reports. Supports versioning, metadata tagging, folder organization, search, and document previews.
+
+**Capabilities:**
+
+- Secure document storage with encryption
+- Version control and document history
+- Advanced search with metadata filtering
+- Folder-based organization
+- Document preview and download
+
+### 6. Workflow Automation & Notifications
+
+Standardize office processes using reusable workflows. Automate reminders for due dates, missing documents, pending approvals, e-verification follow-ups, and compliance cycles. Reduces manual tracking and improves consistency.
+
+**Capabilities:**
+
+- Customizable workflow templates
+- Automated notification system
+- Rule-based task assignment
+- Escalation management
+- Process standardization
+
+### 7. Analytics, Dashboards & Reporting
+
+Gain instant visibility into workload, compliance deadlines, pending filings, team productivity, billing reports, revenue insights, client distribution, and operational KPIs. Custom dashboards allow powerful, actionable insights.
+
+**Capabilities:**
+
+- Real-time dashboard with key metrics
+- Customizable reports and visualizations
+- Team productivity analytics
+- Revenue and billing insights
+- Compliance status overview
+
+---
+
+## 🛠 Technology Stack
+
+### Frontend
+
+- **React.js** - Modern UI framework for building responsive interfaces
+- **TypeScript** - Type-safe JavaScript for better code quality
+- **State Management** - Redux/Zustand (TBD)
+- **UI Framework** - Material-UI / Ant Design (TBD)
+- **Build Tool** - Vite / Webpack
+
+### Backend
+
+- **.NET Aspire** - Cloud-native application framework for microservices orchestration
+- **C# / .NET 8+** - Primary backend services
+- **Python FastAPI** - High-performance API services for specialized operations
+- **RESTful APIs** - Standardized API architecture
+
+### Database & Storage
+
+- **PostgreSQL** - Primary relational database
+- **Document Storage** - Secure file storage system (Azure Blob / AWS S3 / Local)
+- **Caching** - Redis (for session management and performance)
+
+### Infrastructure & DevOps
+
+- **Containerization** - Docker
+- **Orchestration** - Docker Compose / Kubernetes (TBD)
+- **CI/CD** - GitHub Actions / Azure DevOps (TBD)
+- **Monitoring** - Application insights and logging
+
+### Security
+
+- **Authentication** - JWT / OAuth 2.0
+- **Authorization** - Role-based access control (RBAC)
+- **Data Encryption** - At-rest and in-transit encryption
+- **Audit Logging** - Comprehensive audit trails
+
+---
+
+## 🏗 Architecture Overview
+
+The application follows a **microservices architecture** with clear separation of concerns:
+
+```text
+┌─────────────────────────────────────────────────────────┐
+│                    Frontend (React.js)                   │
+│              User Interface & Client Logic               │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+┌──────────────────────┴──────────────────────────────────┐
+│              API Gateway / .NET Aspire                   │
+│         Service Orchestration & Routing                  │
+└──────┬──────────────┬──────────────┬────────────────────┘
+       │              │              │
+┌──────▼──────┐ ┌────▼──────┐ ┌─────▼────────┐
+│  .NET APIs  │ │ FastAPI   │ │  Other       │
+│  Services   │ │ Services  │ │  Services    │
+└──────┬──────┘ └────┬──────┘ └─────┬────────┘
+       │             │              │
+┌──────┴─────────────┴──────────────┴──────┐
+│         PostgreSQL Database               │
+│      + Document Storage System            │
+└───────────────────────────────────────────┘
+```
+
+---
+
+## 📦 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** (v18.x or higher) and npm/yarn
+- **.NET SDK** (8.0 or higher)
+- **Python** (3.10 or higher) and pip
+- **PostgreSQL** (14.x or higher)
+- **Docker** and Docker Compose (optional, for containerized setup)
+- **Git** for version control
+
+---
+
+## 🚀 Getting Started
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/your-org/ca-office-suite.git
+cd ca-office-suite
+```
+
+### Quick Start (Development)
+
+1. **Set up the database:**
+
+   ```bash
+   # Create PostgreSQL database
+   createdb ca_office_suite
+   ```
+
+2. **Configure environment variables:**
+
+   ```bash
+   # Copy example environment files
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
+
+3. **Install dependencies:**
+
+   ```bash
+   # Frontend
+   cd frontend
+   npm install
+   
+   # Backend (.NET)
+   cd ../backend
+   dotnet restore
+   
+   # Python services
+   cd ../services
+   pip install -r requirements.txt
+   ```
+
+4. **Run database migrations:**
+
+   ```bash
+   # .NET migrations
+   dotnet ef database update
+   ```
+
+5. **Start the application:**
+
+   ```bash
+   # Using Docker Compose (recommended)
+   docker-compose up
+   
+   # Or run services individually
+   # Frontend: npm run dev
+   # Backend: dotnet run
+   # Python API: uvicorn main:app --reload
+   ```
+
+---
+
+## 📁 Project Structure
+
+```text
+ca-office-suite/
+├── frontend/                 # React.js frontend application
+│   ├── src/
+│   │   ├── components/      # Reusable UI components
+│   │   ├── pages/           # Page components
+│   │   ├── services/        # API service layer
+│   │   ├── store/           # State management
+│   │   └── utils/           # Utility functions
+│   ├── public/
+│   └── package.json
+│
+├── backend/                  # .NET Aspire backend services
+│   ├── src/
+│   │   ├── Api/             # API projects
+│   │   ├── Services/        # Business logic services
+│   │   ├── Infrastructure/  # Data access, external services
+│   │   └── Shared/          # Shared libraries
+│   └── tests/               # Unit and integration tests
+│
+├── services/                 # Python FastAPI services
+│   ├── api/                 # API endpoints
+│   ├── models/              # Data models
+│   ├── services/            # Business logic
+│   └── requirements.txt
+│
+├── database/                 # Database scripts and migrations
+│   ├── migrations/
+│   └── seeds/
+│
+├── docs/                     # Documentation
+│   ├── api/                 # API documentation
+│   ├── architecture/        # Architecture diagrams
+│   └── guides/              # User and developer guides
+│
+├── docker/                   # Docker configuration files
+├── .github/                  # GitHub workflows and templates
+├── .env.example             # Example environment variables
+├── docker-compose.yml       # Docker Compose configuration
+└── README.md                # This file
+```
+
+---
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+Key environment variables to configure:
+
+```env
+# Database
+DATABASE_CONNECTION_STRING=Host=localhost;Database=ca_office_suite;Username=postgres;Password=your_password
+
+# JWT Authentication
+JWT_SECRET=your-secret-key
+JWT_EXPIRATION_MINUTES=60
+
+# Document Storage
+STORAGE_TYPE=local|azure|aws
+STORAGE_CONNECTION_STRING=your-storage-connection-string
+
+# API URLs
+FRONTEND_URL=http://localhost:3000
+BACKEND_API_URL=http://localhost:5000
+PYTHON_API_URL=http://localhost:8000
+
+# Email (for notifications)
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=your-email@example.com
+SMTP_PASSWORD=your-password
+```
+
+---
+
+## 📚 API Documentation
+
+API documentation is available at:
+
+- **Swagger UI**: `http://localhost:5000/swagger` (when running)
+- **FastAPI Docs**: `http://localhost:8000/docs` (when running)
+
+For detailed API reference, see [docs/api/README.md](docs/api/README.md)
+
+---
+
+## 🚢 Deployment
+
+### Docker Deployment
+
+```bash
+# Build and run with Docker Compose
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+### Production Deployment
+
+1. **Build the application:**
+
+   ```bash
+   # Frontend
+   cd frontend && npm run build
+   
+   # Backend
+   cd backend && dotnet publish -c Release
+   ```
+
+2. **Set up production environment variables**
+
+3. **Run database migrations**
+
+4. **Deploy to your hosting platform** (Azure, AWS, etc.)
+
+For detailed deployment instructions, see [docs/deployment.md](docs/deployment.md)
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+Please ensure:
+
+- Code follows the project's style guidelines
+- Tests are added/updated for new features
+- Documentation is updated as needed
+- All tests pass before submitting
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 💬 Support & Contact
+
+- **Issues**: [GitHub Issues](https://github.com/your-org/ca-office-suite/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/your-org/ca-office-suite/discussions)
+- **Email**: [support@example.com](mailto:support@example.com)
+
+---
+
+## 🙏 Acknowledgments
+
+- Built with modern web technologies and best practices
+- Designed for the CA and tax professional community
+- Inspired by the need for better office management tools in the accounting profession
+
+---
+
+## 🏢 Developed By
+
+**Srivari Software Solutions Private Limited**
+
+---
+
+**⭐ Star this repository if you find it useful!**
