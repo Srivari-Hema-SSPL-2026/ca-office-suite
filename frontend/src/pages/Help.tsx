@@ -107,7 +107,7 @@ export function Help() {
             <div className="contact-card">
               <FontAwesomeIcon icon={faEnvelope} className="contact-icon" />
               <h3>Email Support</h3>
-              <p>Send us an email and we&apos;ll respond within 24 hours.</p>
+              <p>Send us an email and we'll respond within 24 hours.</p>
               <a href="mailto:support@caoffice.com" className="contact-link">
                 support@caoffice.com
               </a>

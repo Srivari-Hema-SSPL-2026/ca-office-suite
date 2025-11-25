@@ -106,7 +106,7 @@ export function Home() {
     <div className="home-dashboard">
       <div className="dashboard-header">
         <h1>Welcome back, {user?.name}!</h1>
-        <p>Here&apos;s an overview of your practice</p>
+        <p>Here's an overview of your practice</p>
       </div>
 
       <div className="stats-grid">
