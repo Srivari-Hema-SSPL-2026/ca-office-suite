@@ -15,6 +15,7 @@ Built with React.js, .NET Aspire, Python (FastAPI), PostgreSQL, and secure docum
 - [Getting Started](#-getting-started)
 - [Project Structure](#-project-structure)
 - [Configuration](#configuration)
+- [Development Tools & AI Assistance](#-development-tools--ai-assistance)
 - [API Documentation](#-api-documentation)
 - [Deployment](#-deployment)
 - [Contributing](#-contributing)
@@ -292,8 +293,22 @@ ca-office-suite/
 │   ├── architecture/        # Architecture diagrams
 │   └── guides/              # User and developer guides
 │
-├── docker/                   # Docker configuration files
 ├── .github/                  # GitHub workflows and templates
+│   ├── copilot-instructions.md  # GitHub Copilot instructions
+│   └── prompts/             # AI prompt templates
+│
+├── .cursor/                  # Cursor IDE rules and guidelines
+│   └── rules/               # Cursor AI coding rules
+│       ├── 01_project-context.mdc
+│       ├── 02_code-generation-guidelines.mdc
+│       ├── 03_best-practices.mdc
+│       ├── 04_common-patterns.mdc
+│       ├── 05_naming-conventions.mdc
+│       ├── 06_database-design.mdc
+│       ├── 07_ai-reasoning-framework.mdc
+│       └── README.md
+│
+├── docker/                   # Docker configuration files
 ├── .env.example             # Example environment variables
 ├── docker-compose.yml       # Docker Compose configuration
 └── README.md                # This file
@@ -330,6 +345,38 @@ SMTP_PORT=587
 SMTP_USER=your-email@example.com
 SMTP_PASSWORD=your-password
 ```
+
+---
+
+## 🤖 Development Tools & AI Assistance
+
+This project includes configuration files for AI-powered development tools to enhance productivity and maintain code quality.
+
+### Cursor IDE Rules
+
+The `.cursor/rules/` directory contains comprehensive coding guidelines and rules for Cursor IDE:
+
+- **Project Context** - Architecture and project overview
+- **Code Generation Guidelines** - Standards for AI-assisted code generation
+- **Best Practices** - Development best practices and patterns
+- **Common Patterns** - Reusable code patterns and templates
+- **Naming Conventions** - Consistent naming standards
+- **Database Design** - Database design principles
+- **AI Reasoning Framework** - Guidelines for AI-assisted reasoning
+
+These rules help ensure consistent code quality and assist AI tools in generating code that aligns with project standards.
+
+### GitHub Copilot Instructions
+
+The `.github/copilot-instructions.md` file contains specific instructions for GitHub Copilot, including:
+
+- General coding guidelines
+- Frontend (React) development standards
+- Backend/API development practices
+- Testing requirements
+- Documentation standards
+
+These instructions help Copilot understand the project's context and generate appropriate code suggestions.
 
 ---
 
