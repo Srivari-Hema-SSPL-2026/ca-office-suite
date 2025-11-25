@@ -1,6 +1,7 @@
 # Portal React.js UI Requirements
 
 ## 1. Layout & Structure
+
 - **Sticky Top Navbar**
   - Always visible at the top while scrolling.
   - Contains logo/app name, primary navigation (Home, Client Control, Tasks Mgt, Help), and user profile/login state.
@@ -15,6 +16,7 @@
   - Use responsive grid/flexbox to handle content on different screen sizes.
 
 ## 2. Typography & Icons
+
 - **Fonts**
   - Use Google Fonts (e.g., `Inter`, `Roboto`, or similar clean sans-serif).
   - Define a global typography scale for headings, body text, captions.
@@ -24,6 +26,7 @@
   - Icons for navigation items, buttons (add, edit, delete, save), status indicators, and alerts.
 
 ## 3. Visual Design
+
 - **Color Palette**
   - Soft, professional colors suitable for a CA office (e.g., blues, teals, greys, subtle accents).
   - Ensure sufficient contrast for readability and accessibility (WCAG AA where possible).
@@ -39,6 +42,7 @@
   - Tables and lists should degrade nicely (horizontal scroll or card view on mobile).
 
 ## 4. Core Screens & Navigation
+
 - **Authentication (Login/Logout)**
   - Simple login form with email/username and password.
   - Show clear validation messages and error feedback.
@@ -65,6 +69,7 @@
   - Optionally, link to external documentation in `docs/`.
 
 ## 5. UX & Interaction
+
 - **Navigation**
   - Primary routes: `Login`, `Home`, `Client Control`, `Tasks Mgt`, `Help`.
   - Use React Router (or similar) for client-side routing.
@@ -79,6 +84,7 @@
   - Inline validation messages (e.g., required fields, invalid formats).
 
 ## 6. Technical Notes
+
 - **Tech Stack (UI)**
   - React.js (latest stable version).
   - Preferred styling approach: CSS-in-JS (e.g., styled-components, Emotion), Tailwind CSS, or CSS Modules (to be finalized for the project).
