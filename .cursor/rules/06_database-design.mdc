@@ -1,0 +1,86 @@
+# Database Design Principles
+
+**Version**: 1.0  
+**Last Updated**: November 13, 2025
+
+---
+
+## Database Design Principles
+
+### Common Principles (Both Phases)
+
+- Use UUID for primary keys (string in Node.js/TypeScript, Guid in C#)
+- Add indexes for foreign keys and frequently queried columns
+- Implement soft deletes with `is_deleted` flags (if needed)
+- Use automatic timestamp updates (createdAt, updatedAt)
+- Follow normalization principles (3NF minimum)
+- **Same Database**: Both Node.js (Prisma) and .NET (EF Core) use the same PostgreSQL database
+- **Schema Consistency**: Prisma schema and EF Core migrations must match
+
+### Phase 1: Prisma ORM (Node.js)
+
+- Use Prisma schema for database schema definition
+- Run `npx prisma migrate dev` to create migrations
+- Use `npx prisma generate` to generate Prisma Client
+- Product entity fields: `id, name, price, createdAt, updatedAt` (as per 01_Requirements.md)
+- Prisma migrations are forward-only; use `prisma migrate reset` for development
+
+### Phase 2: EF Core (.NET)
+
+- Use EF Core migrations for schema management
+- Migrations must match Prisma schema exactly
+- Apply database configurations via IEntityTypeConfiguration<T>
+- Use `dotnet ef migrations add` to create migrations
+- Use `dotnet ef database update` to apply migrations
+
+---
+
+## Entity Configuration Pattern
+
+```csharp
+public class ProductConfiguration : IEntityTypeConfiguration<Product>
+{
+    public void Configure(EntityTypeBuilder<Product> builder)
+    {
+        builder.ToTable("products");
+        
+        builder.HasKey(p => p.ProductId);
+        
+        builder.Property(p => p.ProductId)
+            .HasColumnName("product_id")
+            .HasDefaultValueSql("gen_random_uuid()");
+        
+        builder.Property(p => p.Name)
+            .HasColumnName("name")
+            .HasMaxLength(200)
+            .IsRequired();
+        
+        builder.HasIndex(p => p.Sku)
+            .IsUnique()
+            .HasFilter("\"is_deleted\" = false");
+        
+        builder.HasQueryFilter(p => !p.IsDeleted);
+    }
+}
+```
+
+---
+
+## API Contract Standards
+
+- Follow OpenAPI 3.0 specification (see `docs/05_API_CONTRACT.yaml`)
+- Use consistent naming conventions (camelCase for JSON)
+- Include proper response schemas
+- Document all error responses
+- Use semantic versioning for APIs
+- Include pagination for list endpoints
+- Use proper HTTP status codes
+
+---
+
+## Package Management
+
+- Use Central Package Management (Directory.Packages.props)
+- All package versions are managed centrally
+- Reference packages without version in .csproj files
+- Check Directory.Packages.props for available packages

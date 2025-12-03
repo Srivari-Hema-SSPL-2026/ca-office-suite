@@ -1,0 +1,121 @@
+# Project Context & Architecture
+
+**Version**: 1.0  
+**Last Updated**: November 13, 2025
+
+---
+
+## Project Overview
+
+This is an AI-assisted modernization project demonstrating the migration of a Node.js-based e-commerce application to a cloud-native .NET 10 Aspire architecture. The project uses GitHub Copilot and AI tools throughout development.
+
+**Key Documents:**
+- Requirements: `docs/01_Requirements.md` (Single source of truth)
+- Rapid 8-Day Plan: `docs/02_RAPID_8DAY_PLAN.md`
+- Architecture: `docs/03_ARCHITECTURE.md`
+- Database Design: `docs/04_DATABASE_DESIGN.md`
+- API Contract: `docs/05_API_CONTRACT.yaml`
+- Implementation Guide: `docs/06_IMPLEMENTATION_GUIDE.md`
+- Sequence Diagrams: `docs/07_SEQUENCE_DIAGRAMS.md`
+- Modernization Plan: `docs/08_MODERNIZATION_PLAN.md`
+- Copilot Instructions: `.github/copilot-instructions.md`
+
+---
+
+## Architecture Overview
+
+### Two-Phase Modernization Approach
+
+**Phase 1: Node.js API Development (Days 2-4)**
+- Build Node.js Web API with Express + TypeScript
+- Products domain with CRUD operations
+- PostgreSQL integration using **Prisma ORM**
+- External API client with retry/circuit breaker patterns
+- Jest testing framework
+- Docker containerization
+
+**Phase 2: .NET 10 Migration & Aspire (Days 5-7)**
+- Migrate Node.js API to .NET 10
+- Same API contract and endpoints (feature parity)
+- PostgreSQL integration using **Entity Framework Core**
+- .NET Aspire orchestration
+- xUnit testing framework
+- OpenTelemetry and Aspire Dashboard
+
+### Technology Stack
+
+**Phase 1 - Node.js Stack:**
+- Node.js 18+
+- Express.js with TypeScript
+- Prisma ORM (for PostgreSQL)
+- Jest (testing)
+- Axios (HTTP client)
+- Swagger/OpenAPI documentation
+
+**Phase 2 - .NET Stack:**
+- .NET 10
+- ASP.NET Core 10 (Minimal APIs or Controllers)
+- Entity Framework Core 10 (for PostgreSQL)
+- .NET Aspire 13.0.0
+- xUnit (testing)
+- OpenTelemetry
+
+**Shared Infrastructure:**
+- PostgreSQL 16+ (same database for both phases)
+- Docker & docker-compose
+- OpenAPI/Swagger documentation
+
+**Observability (Phase 2):**
+- OpenTelemetry
+- Aspire Dashboard
+- Structured logging
+
+---
+
+## Project Status
+
+### Current Phase
+- **Phase**: Foundation & Setup (Day 1 ✅ COMPLETED)
+- **Remaining**: 7 days (Days 2-8)
+- **Current Focus**: Node.js API development (Days 2-4)
+- **Solution**: NodeToDotnetModernization.sln (for .NET phase)
+- **AppHost**: NodeToAspire.AppHost (minimal setup, used in Phase 2)
+
+### 8-Day Sprint Plan (7 Days Remaining)
+
+**Phase 1: Node.js API (Days 2-4)**
+1. Day 1: Foundation & Setup ✅ **COMPLETED**
+2. Day 2: Build Node.js Web API with AI-Assisted Scaffolding
+3. Day 3: Integrate PostgreSQL Using Prisma ORM
+4. Day 4: Implement External API Communication
+
+**Phase 2: .NET Migration & Aspire (Days 5-7)**
+5. Day 5: Generate Modernization Recommendations & Refactors
+6. Day 6: Migrate Node.js API to .NET 10
+7. Day 7: Modernize Architecture to .NET Aspire
+
+**Finalization**
+8. Day 8: Final Touches & AI-Assisted Demo Preparation
+
+### Migration Strategy
+- **Single API Focus**: Products domain with CRUD operations
+- **Two-Phase Approach**: Build Node.js first, then migrate to .NET
+- **Same Database**: PostgreSQL used by both Node.js (Prisma) and .NET (EF Core)
+- **API Contract Consistency**: Same OpenAPI spec for both implementations
+- **Feature Parity**: .NET API must match Node.js API exactly
+- **Aspire Integration**: Cloud-native patterns in Phase 2
+- **AI-Assisted**: GitHub Copilot throughout both phases
+
+---
+
+## Project Principles
+
+- This is a **demonstration project** showcasing modernization best practices
+- Focus on **clarity and maintainability** over clever code
+- Always consider the **learning value** of the code being generated
+- Prioritize **cloud-native patterns** and observability
+- Make the code **production-ready** with proper error handling and logging
+- Reference existing documentation before creating new patterns
+- Follow the established architecture and patterns
+- Use Aspire components for infrastructure (PostgreSQL, Redis, etc.)
+- Enable observability from the start (OpenTelemetry, health checks, logging)

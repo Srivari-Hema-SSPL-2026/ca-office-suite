@@ -1,0 +1,121 @@
+# AI Agent Reasoning Framework
+
+**Version**: 1.0  
+**Last Updated**: November 13, 2025
+
+---
+
+## Chain-of-Thought (CoT) - Problem Decomposition
+
+When approaching tasks, break them down systematically:
+
+### Simple Tasks (Quick CoT)
+- "Need to create API endpoint → Define route → Implement handler → Add tests → Done"
+
+### Complex Tasks (Full CoT)
+1. **Decompose**: Split into smaller, manageable components
+2. **Sequential Logic**: Show clear progression from problem → solution
+3. **Explicit Reasoning**: Articulate WHY each step is necessary
+4. **Intermediate Steps**: Don't jump to conclusions; show the work
+
+**Example:**
+```
+To implement authentication:
+1. Create User entity and DbContext (Foundation)
+2. Implement password hashing service (Security)
+3. Create JWT token generator (Authentication)
+4. Build register/login endpoints (API)
+5. Add integration tests (Validation)
+```
+
+---
+
+## ReAct (Reasoning + Acting) - Iterative Development
+
+Use this six-phase cycle for complex implementations:
+
+### 1. OBSERVE 🔍
+- Current state: What exists now?
+- User request: What is being asked?
+- Context: What's the broader situation?
+- Constraints: What limitations exist?
+
+### 2. ANALYZE 🧠
+- Root cause: Why does this issue exist?
+- Dependencies: What else is affected?
+- Implications: What are the consequences?
+- Alternatives: What other approaches exist?
+
+### 3. PLAN 📋
+- Step-by-step approach with clear milestones
+- Verification points at each step
+- Rollback strategy if issues arise
+- Resource requirements (tools, packages, configurations)
+
+### 4. ACT ⚡
+- Execute with incremental changes, not big bangs
+- Use existing patterns before creating new ones
+- Make changes systematically
+- Document as you go
+
+### 5. VERIFY ✅
+- Check results against expected outcomes
+- Run validation (build, tests, lint)
+- Update documentation
+- Test edge cases
+
+### 6. REFLECT 🤔
+- What worked well?
+- What could be improved?
+- What patterns emerged?
+- Update instructions based on learnings
+
+---
+
+## System 2 Reasoning - Deliberate Analysis
+
+Engage deep analytical thinking for complex decisions:
+
+### Five Key Practices
+1. **Question Assumptions**: Don't accept requirements at face value
+2. **Consider Trade-offs**: Every decision has pros and cons
+3. **Think Long-term**: How will this affect future work?
+4. **Pattern Recognition**: Have we solved similar problems before?
+5. **Meta-cognition**: Monitor your own reasoning process
+
+### Red Flags Requiring Deep Analysis
+- ⚠️ Architectural changes (affects multiple services)
+- ⚠️ Security implementations (authentication, authorization)
+- ⚠️ Performance optimizations (caching, database queries)
+- ⚠️ New patterns (precedent-setting decisions)
+- ⚠️ Breaking changes (API contracts, database schema)
+
+---
+
+## Application Guidelines
+
+### For Simple Tasks
+- Quick CoT: "Need X → Create Y → Test Z → Done"
+- Single OBSERVE → ACT cycle
+
+### For Complex Tasks
+- Full ReAct cycle required
+- Multiple iterations through all six phases
+- Deep System 2 reasoning for critical decisions
+- Document reasoning in commit messages
+
+### When Mistakes Occur
+1. **Acknowledge**: "You're right, I missed X"
+2. **Root Cause**: "This happened because..."
+3. **Immediate Fix**: Correct the issue
+4. **Prevention**: "Adding [check/validation] to prevent recurrence"
+5. **Learn**: Update patterns and instructions
+
+---
+
+## Remember
+
+- **Apply CoT/ReAct/Reasoning** for all complex tasks to ensure systematic, thoughtful implementation
+- Follow the ReAct cycle for complex tasks
+- Apply CoT reasoning for problem decomposition
+- Use System 2 reasoning for critical architectural decisions

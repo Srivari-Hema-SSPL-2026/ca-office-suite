@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "languages": {
+    "javascript": {
+      "enabled": true
+    },
+    "typescript": {
+      "enabled": true
+    },
+    "typescriptreact": {
+      "enabled": true
+    },
+    "javascriptreact": {
+      "enabled": true
+    },
+    "markdown": {
+      "enabled": true
+    }
+  },
+  "solutions": {
+    "code_generation": {
+      "style": "clear",
+      "respectCopilotInstructions": true
+    }
+  }
+}
