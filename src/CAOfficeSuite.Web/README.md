@@ -1,73 +1,145 @@
-# React + TypeScript + Vite
+# CA Office Suite - React Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript + Vite frontend for the CA Office Suite application.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Modern React with TypeScript
+- Advanced DataGrid component with sorting, filtering, pagination, and column management
+- Responsive design with mobile support
+- Font Awesome icons
+- React Router for navigation
+- Vitest for testing
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Run tests
+npm test
+
+# Run linter
+npm run lint
+```
+
+## DataGrid Component
+
+The application includes a reusable `DataGrid` component for displaying tabular data with advanced features.
+
+### Usage Example
+
+```tsx
+import { DataGrid, type Column } from '../components/common';
+
+function MyComponent() {
+  const [data, setData] = useState<MyDataType[]>([]);
+
+  const columns: Column<MyDataType>[] = [
+    {
+      id: 'name',
+      label: 'Name',
+      accessor: 'name',
+      sortable: true,
+      filterable: true,
+    },
+    {
+      id: 'status',
+      label: 'Status',
+      accessor: 'status',
+      sortable: true,
+      filterable: true,
+      filterType: 'select',
+      filterOptions: [
+        { label: 'Active', value: 'active' },
+        { label: 'Inactive', value: 'inactive' },
+      ],
+      render: (value) => <span className={`status-${value}`}>{value}</span>,
+    },
+    {
+      id: 'date',
+      label: 'Date',
+      accessor: 'date',
+      sortable: true,
+      filterable: true,
+      filterType: 'date',
+    },
+  ];
+
+  return (
+    <DataGrid
+      data={data}
+      columns={columns}
+      loading={false}
+      emptyMessage="No data found"
+      storageKey="my-data-grid" // For localStorage persistence
+    />
+  );
+}
+```
+
+### DataGrid Features
+
+- **Column Management**: Users can show/hide columns and reorder them using the column manager modal
+- **Sorting**: Click column headers to sort ascending, descending, or remove sort
+- **Filtering**: 
+  - Global search across all visible columns
+  - Column-specific filters (text, date, select dropdowns)
+  - "Clear All Filters" button
+- **Pagination**: 
+  - Configurable page size (10, 25, 50, 100)
+  - First/Previous/Next/Last navigation
+  - Page indicator showing "Showing X-Y of Z entries"
+- **Persistence**: Column preferences saved to localStorage
+- **Responsive**: Works on desktop, tablet, and mobile devices
+
+### Column Configuration
+
+Each column can be configured with the following options:
+
+- `id` (required): Unique identifier
+- `label` (required): Display label for the column header
+- `accessor` (required): Property key or function to extract value from row data
+- `visible`: Whether the column is visible by default (default: true)
+- `sortable`: Whether the column can be sorted (default: true)
+- `filterable`: Whether the column can be filtered (default: true)
+- `filterType`: Type of filter ('text', 'date', 'select')
+- `filterOptions`: Options for select filter type
+- `render`: Custom render function for cell content
+- `width`: Optional column width
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── common/          # Reusable components (DataGrid, etc.)
+│   └── layout/          # Layout components (Navbar, Footer, etc.)
+├── pages/               # Page components (Home, Clients, Tasks, etc.)
+├── services/            # API services
+├── store/               # State management
+├── types/               # TypeScript type definitions
+└── test/                # Test files
+```
+
+## Technology Stack
+
+- React 19
+- TypeScript 5
+- Vite 7
+- React Router 7
+- Font Awesome
+- Vitest + Testing Library
 
 ## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+See the [ESLint TypeScript documentation](https://typescript-eslint.io/getting-started) for more information.
