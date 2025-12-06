@@ -97,3 +97,34 @@
 - **Theming & Extensibility**
   - Centralized theme configuration for colors, typography, and spacing.
   - Ability to adjust branding (logo, primary color) with minimal changes.
+
+## 7. Data Grid Requirements
+
+- **General Capabilities**
+  - All list views (Client Control, Tasks Mgt, etc.) must support a rich data grid experience.
+
+- **Column Management (CRUD for Columns)**
+  - **Create/Add**: Users can select which columns to display from a pool of available fields.
+  - **Read/View**: Columns render data correctly based on type (text, date, currency, status badges).
+  - **Update/Edit**: Users can reorder columns (drag-and-drop or configuration modal) and resize them.
+  - **Delete/Remove**: Users can hide columns they do not need.
+  - *Persistence*: Column preferences should ideally be saved to local storage or user profile.
+
+- **Pagination**
+  - Server-side or client-side pagination depending on data volume (prefer server-side for large datasets).
+  - Controls for "Items per page" (e.g., 10, 25, 50, 100).
+  - Navigation for Previous, Next, First, Last, and specific page numbers.
+  - Display "Showing X-Y of Z entries".
+
+- **Sorting**
+  - Clickable column headers to toggle sort order (Ascending, Descending, None).
+  - Visual indicators (arrows) to show current sort status.
+  - Support for multi-column sorting is a plus but not strictly required for MVP.
+
+- **Filtering**
+  - **Global Search**: A search bar to filter across all visible text columns.
+  - **Column-specific Filters**:
+    - Text inputs for string fields.
+    - Date range pickers for date fields.
+    - Dropdowns/Multi-select for status or category fields.
+  - Clear visual indication when filters are active, with a "Clear All Filters" option.

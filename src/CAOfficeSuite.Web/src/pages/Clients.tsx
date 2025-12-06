@@ -1,8 +1,7 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faSearch,
   faUser,
   faPhone,
   faEnvelope,
@@ -12,11 +11,11 @@ import {
   faTimesCircle,
   faCalendarAlt,
   faTasks,
-  faIdCard,
 } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../store/useAuth';
 import { clientService, taskService } from '../services/api';
 import type { Client, Task } from '../types';
+import { DataGrid, type Column } from '../components/common';
 import './Clients.css';
 
 export function Clients() {
@@ -36,8 +35,6 @@ export function Clients() {
 
 function ClientList() {
   const [clients, setClients] = useState<Client[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -49,34 +46,92 @@ function ClientList() {
     fetchClients();
   }, []);
 
-  const filteredClients = useMemo(() => {
-    let result = clients;
-
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      result = result.filter(
-        c =>
-          c.name.toLowerCase().includes(query) ||
-          c.pan.toLowerCase().includes(query) ||
-          c.email.toLowerCase().includes(query)
-      );
-    }
-
-    if (statusFilter !== 'all') {
-      result = result.filter(c => c.status === statusFilter);
-    }
-
-    return result;
-  }, [searchQuery, statusFilter, clients]);
-
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-        <p>Loading clients...</p>
-      </div>
-    );
-  }
+  // Define columns for the DataGrid
+  const columns: Column<Client>[] = [
+    {
+      id: 'name',
+      label: 'Client Name',
+      accessor: 'name',
+      sortable: true,
+      filterable: true,
+      render: (value, row) => (
+        <Link to={`/clients/${row.id}`} className="client-name-link">
+          {value}
+        </Link>
+      ),
+    },
+    {
+      id: 'pan',
+      label: 'PAN',
+      accessor: 'pan',
+      sortable: true,
+      filterable: true,
+    },
+    {
+      id: 'gstin',
+      label: 'GSTIN',
+      accessor: 'gstin',
+      sortable: true,
+      filterable: true,
+      visible: true,
+      render: value => value || '-',
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      accessor: 'email',
+      sortable: true,
+      filterable: true,
+    },
+    {
+      id: 'phone',
+      label: 'Phone',
+      accessor: 'phone',
+      sortable: true,
+      filterable: true,
+    },
+    {
+      id: 'status',
+      label: 'Status',
+      accessor: 'status',
+      sortable: true,
+      filterable: true,
+      filterType: 'select',
+      filterOptions: [
+        { label: 'Active', value: 'active' },
+        { label: 'Inactive', value: 'inactive' },
+      ],
+      render: (value, row) => (
+        <span className={`status-badge ${row.status}`}>
+          <FontAwesomeIcon icon={row.status === 'active' ? faCheckCircle : faTimesCircle} />
+          {value}
+        </span>
+      ),
+    },
+    {
+      id: 'nextDueDate',
+      label: 'Next Due Date',
+      accessor: 'nextDueDate',
+      sortable: true,
+      filterable: true,
+      filterType: 'date',
+      render: value =>
+        value ? (
+          <span className="due-date">{new Date(value).toLocaleDateString()}</span>
+        ) : (
+          <span className="no-due">-</span>
+        ),
+    },
+    {
+      id: 'address',
+      label: 'Address',
+      accessor: 'address',
+      sortable: true,
+      filterable: true,
+      visible: false, // Hidden by default
+      render: value => value || '-',
+    },
+  ];
 
   return (
     <div className="clients-page">
@@ -85,122 +140,13 @@ function ClientList() {
         <p>Manage your client portfolio</p>
       </div>
 
-      <div className="filters-bar">
-        <div className="search-box">
-          <FontAwesomeIcon icon={faSearch} className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search clients..."
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-          />
-        </div>
-
-        <select
-          value={statusFilter}
-          onChange={e => setStatusFilter(e.target.value)}
-          className="status-filter"
-          aria-label="Filter by status"
-        >
-          <option value="all">All Status</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
-      </div>
-
-      {filteredClients.length === 0 ? (
-        <div className="empty-state">
-          <p>No clients found</p>
-        </div>
-      ) : (
-        <div className="clients-table-container">
-          <table className="clients-table">
-            <thead>
-              <tr>
-                <th>Client Name</th>
-                <th>PAN / GSTIN</th>
-                <th>Contact</th>
-                <th>Status</th>
-                <th>Next Due</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredClients.map(client => (
-                <tr key={client.id}>
-                  <td>
-                    <Link to={`/clients/${client.id}`} className="client-name-link">
-                      {client.name}
-                    </Link>
-                  </td>
-                  <td>
-                    <div className="pan-gstin">
-                      <span className="pan">{client.pan}</span>
-                      {client.gstin && <span className="gstin">{client.gstin}</span>}
-                    </div>
-                  </td>
-                  <td>
-                    <div className="contact-info">
-                      <span>{client.email}</span>
-                      <span>{client.phone}</span>
-                    </div>
-                  </td>
-                  <td>
-                    <span className={`status-badge ${client.status}`}>
-                      <FontAwesomeIcon
-                        icon={client.status === 'active' ? faCheckCircle : faTimesCircle}
-                      />
-                      {client.status}
-                    </span>
-                  </td>
-                  <td>
-                    {client.nextDueDate ? (
-                      <span className="due-date">
-                        {new Date(client.nextDueDate).toLocaleDateString()}
-                      </span>
-                    ) : (
-                      <span className="no-due">-</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {/* Mobile card view */}
-      <div className="clients-cards">
-        {filteredClients.map(client => (
-          <Link to={`/clients/${client.id}`} key={client.id} className="client-card">
-            <div className="client-card-header">
-              <h3>{client.name}</h3>
-              <span className={`status-badge ${client.status}`}>
-                {client.status}
-              </span>
-            </div>
-            <div className="client-card-body">
-              <div className="card-row">
-                <FontAwesomeIcon icon={faIdCard} />
-                <span>{client.pan}</span>
-              </div>
-              <div className="card-row">
-                <FontAwesomeIcon icon={faEnvelope} />
-                <span>{client.email}</span>
-              </div>
-              <div className="card-row">
-                <FontAwesomeIcon icon={faPhone} />
-                <span>{client.phone}</span>
-              </div>
-              {client.nextDueDate && (
-                <div className="card-row">
-                  <FontAwesomeIcon icon={faCalendarAlt} />
-                  <span>Due: {new Date(client.nextDueDate).toLocaleDateString()}</span>
-                </div>
-              )}
-            </div>
-          </Link>
-        ))}
-      </div>
+      <DataGrid
+        data={clients}
+        columns={columns}
+        loading={loading}
+        emptyMessage="No clients found"
+        storageKey="clients"
+      />
     </div>
   );
 }
