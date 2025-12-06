@@ -10,6 +10,7 @@ import {
 import type { Column } from './DataGrid.types';
 import './ColumnManager.css';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface ColumnManagerProps<T = any> {
   columns: Column<T>[];
   onColumnVisibilityChange: (columnId: string, visible: boolean) => void;

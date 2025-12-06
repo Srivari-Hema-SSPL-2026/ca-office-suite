@@ -1,9 +1,7 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faSearch,
-  faFilter,
   faArrowLeft,
   faCalendarAlt,
   faUser,
@@ -17,6 +15,7 @@ import {
 import { useAuth } from '../store/useAuth';
 import { taskService } from '../services/api';
 import type { Task, TaskStatus } from '../types';
+import { DataGrid, type Column } from '../components/common';
 import './Tasks.css';
 
 export function Tasks() {
@@ -36,10 +35,6 @@ export function Tasks() {
 
 function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [typeFilter, setTypeFilter] = useState<string>('all');
-  const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -50,34 +45,6 @@ function TaskList() {
     };
     fetchTasks();
   }, []);
-
-  const filteredTasks = useMemo(() => {
-    let result = tasks;
-
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      result = result.filter(
-        t =>
-          t.title.toLowerCase().includes(query) ||
-          t.clientName.toLowerCase().includes(query) ||
-          t.assignee.toLowerCase().includes(query)
-      );
-    }
-
-    if (statusFilter !== 'all') {
-      result = result.filter(t => t.status === statusFilter);
-    }
-
-    if (typeFilter !== 'all') {
-      result = result.filter(t => t.type === typeFilter);
-    }
-
-    if (priorityFilter !== 'all') {
-      result = result.filter(t => t.priority === priorityFilter);
-    }
-
-    return result;
-  }, [searchQuery, statusFilter, typeFilter, priorityFilter, tasks]);
 
   const getStatusIcon = (status: TaskStatus) => {
     switch (status) {
@@ -92,14 +59,118 @@ function TaskList() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-        <p>Loading tasks...</p>
-      </div>
-    );
-  }
+  // Define columns for the DataGrid
+  const columns: Column<Task>[] = [
+    {
+      id: 'title',
+      label: 'Task Title',
+      accessor: 'title',
+      sortable: true,
+      filterable: true,
+      render: (value, row) => (
+        <Link to={`/tasks/${row.id}`} className="task-title-link">
+          {value}
+        </Link>
+      ),
+    },
+    {
+      id: 'type',
+      label: 'Type',
+      accessor: 'type',
+      sortable: true,
+      filterable: true,
+      filterType: 'select',
+      filterOptions: [
+        { label: 'GST', value: 'GST' },
+        { label: 'ITR', value: 'ITR' },
+        { label: 'TDS', value: 'TDS' },
+        { label: 'Audit', value: 'Audit' },
+        { label: 'ROC', value: 'ROC' },
+        { label: 'Other', value: 'Other' },
+      ],
+      render: value => <span className={`task-type-badge ${value.toLowerCase()}`}>{value}</span>,
+    },
+    {
+      id: 'clientName',
+      label: 'Client',
+      accessor: 'clientName',
+      sortable: true,
+      filterable: true,
+      render: (value, row) => (
+        <Link to={`/clients/${row.clientId}`} className="client-link">
+          <FontAwesomeIcon icon={faBuilding} /> {value}
+        </Link>
+      ),
+    },
+    {
+      id: 'assignee',
+      label: 'Assignee',
+      accessor: 'assignee',
+      sortable: true,
+      filterable: true,
+      render: value => (
+        <span>
+          <FontAwesomeIcon icon={faUser} /> {value}
+        </span>
+      ),
+    },
+    {
+      id: 'status',
+      label: 'Status',
+      accessor: 'status',
+      sortable: true,
+      filterable: true,
+      filterType: 'select',
+      filterOptions: [
+        { label: 'Pending', value: 'pending' },
+        { label: 'In Progress', value: 'in-progress' },
+        { label: 'Completed', value: 'completed' },
+        { label: 'Overdue', value: 'overdue' },
+      ],
+      render: (value, row) => (
+        <span className={`status-badge ${row.status}`}>
+          <FontAwesomeIcon icon={getStatusIcon(row.status)} />
+          {value.replace('-', ' ')}
+        </span>
+      ),
+    },
+    {
+      id: 'priority',
+      label: 'Priority',
+      accessor: 'priority',
+      sortable: true,
+      filterable: true,
+      filterType: 'select',
+      filterOptions: [
+        { label: 'High', value: 'high' },
+        { label: 'Medium', value: 'medium' },
+        { label: 'Low', value: 'low' },
+      ],
+      render: value => <span className={`priority-badge ${value}`}>{value}</span>,
+    },
+    {
+      id: 'dueDate',
+      label: 'Due Date',
+      accessor: 'dueDate',
+      sortable: true,
+      filterable: true,
+      filterType: 'date',
+      render: value => (
+        <span>
+          <FontAwesomeIcon icon={faCalendarAlt} /> {new Date(value).toLocaleDateString()}
+        </span>
+      ),
+    },
+    {
+      id: 'description',
+      label: 'Description',
+      accessor: 'description',
+      sortable: false,
+      filterable: true,
+      visible: false, // Hidden by default
+      render: value => value || '-',
+    },
+  ];
 
   return (
     <div className="tasks-page">
@@ -108,99 +179,13 @@ function TaskList() {
         <p>Track and manage compliance tasks</p>
       </div>
 
-      <div className="filters-section">
-        <div className="search-box">
-          <FontAwesomeIcon icon={faSearch} className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search tasks..."
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-          />
-        </div>
-
-        <div className="filter-group">
-          <FontAwesomeIcon icon={faFilter} className="filter-icon" />
-
-          <select
-            value={statusFilter}
-            onChange={e => setStatusFilter(e.target.value)}
-            aria-label="Filter by status"
-          >
-            <option value="all">All Status</option>
-            <option value="pending">Pending</option>
-            <option value="in-progress">In Progress</option>
-            <option value="completed">Completed</option>
-            <option value="overdue">Overdue</option>
-          </select>
-
-          <select
-            value={typeFilter}
-            onChange={e => setTypeFilter(e.target.value)}
-            aria-label="Filter by type"
-          >
-            <option value="all">All Types</option>
-            <option value="GST">GST</option>
-            <option value="ITR">ITR</option>
-            <option value="TDS">TDS</option>
-            <option value="Audit">Audit</option>
-            <option value="ROC">ROC</option>
-            <option value="Other">Other</option>
-          </select>
-
-          <select
-            value={priorityFilter}
-            onChange={e => setPriorityFilter(e.target.value)}
-            aria-label="Filter by priority"
-          >
-            <option value="all">All Priority</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
-          </select>
-        </div>
-      </div>
-
-      {filteredTasks.length === 0 ? (
-        <div className="empty-state">
-          <p>No tasks found</p>
-        </div>
-      ) : (
-        <div className="tasks-grid">
-          {filteredTasks.map(task => (
-            <Link to={`/tasks/${task.id}`} key={task.id} className={`task-card ${task.status}`}>
-              <div className="task-card-header">
-                <span className={`task-type-badge ${task.type.toLowerCase()}`}>{task.type}</span>
-                <span className={`priority-badge ${task.priority}`}>{task.priority}</span>
-              </div>
-
-              <h3 className="task-card-title">{task.title}</h3>
-
-              <div className="task-card-meta">
-                <div className="meta-item">
-                  <FontAwesomeIcon icon={faBuilding} />
-                  <span>{task.clientName}</span>
-                </div>
-                <div className="meta-item">
-                  <FontAwesomeIcon icon={faUser} />
-                  <span>{task.assignee}</span>
-                </div>
-                <div className="meta-item">
-                  <FontAwesomeIcon icon={faCalendarAlt} />
-                  <span>{new Date(task.dueDate).toLocaleDateString()}</span>
-                </div>
-              </div>
-
-              <div className="task-card-footer">
-                <span className={`status-badge ${task.status}`}>
-                  <FontAwesomeIcon icon={getStatusIcon(task.status)} />
-                  {task.status.replace('-', ' ')}
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
+      <DataGrid
+        data={tasks}
+        columns={columns}
+        loading={loading}
+        emptyMessage="No tasks found"
+        storageKey="tasks"
+      />
     </div>
   );
 }

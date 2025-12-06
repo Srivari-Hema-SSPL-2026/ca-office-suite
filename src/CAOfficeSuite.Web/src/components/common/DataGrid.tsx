@@ -16,6 +16,7 @@ import { ColumnManager } from './ColumnManager';
 import type { DataGridProps } from './DataGrid.types';
 import './DataGrid.css';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function DataGrid<T extends Record<string, any>>({
   data,
   columns: initialColumns,

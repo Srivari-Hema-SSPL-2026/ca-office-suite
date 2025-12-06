@@ -1,13 +1,14 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Column<T = any> {
   id: string;
   label: string;
-  accessor: keyof T | ((row: T) => any);
+  accessor: keyof T | ((row: T) => any); // eslint-disable-line @typescript-eslint/no-explicit-any
   visible?: boolean;
   sortable?: boolean;
   filterable?: boolean;
   filterType?: 'text' | 'date' | 'select';
   filterOptions?: { label: string; value: string }[];
-  render?: (value: any, row: T) => React.ReactNode;
+  render?: (value: any, row: T) => React.ReactNode; // eslint-disable-line @typescript-eslint/no-explicit-any
   width?: string;
 }
 
@@ -18,7 +19,7 @@ export interface SortConfig {
 
 export interface FilterConfig {
   column: string;
-  value: any;
+  value: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export interface PaginationConfig {
@@ -27,6 +28,7 @@ export interface PaginationConfig {
   totalItems: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface DataGridProps<T = any> {
   data: T[];
   columns: Column<T>[];
@@ -42,6 +44,7 @@ export interface DataGridProps<T = any> {
   storageKey?: string; // For localStorage persistence
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ColumnManagerProps<T = any> {
   columns: Column<T>[];
   onColumnVisibilityChange: (columnId: string, visible: boolean) => void;

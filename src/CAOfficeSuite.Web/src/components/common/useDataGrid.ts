@@ -77,7 +77,7 @@ export function useDataGrid<T>({ data, columns: initialColumns, storageKey }: Us
   }, []);
 
   // Filtering
-  const handleFilter = useCallback((columnId: string, value: any) => {
+  const handleFilter = useCallback((columnId: string, value: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
     setFilters(prev => {
       const existing = prev.find(f => f.column === columnId);
       if (existing) {
