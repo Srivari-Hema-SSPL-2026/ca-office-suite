@@ -6,7 +6,7 @@ Built with React.js, .NET Aspire, Python (FastAPI), PostgreSQL, and secure docum
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Key Features](#key-features)
 - [Technology Stack](#technology-stack)
@@ -25,7 +25,7 @@ Built with React.js, .NET Aspire, Python (FastAPI), PostgreSQL, and secure docum
 
 ---
 
-## ⭐ Key Features
+## Key Features
 
 1. **Client Control & Engagement** - Comprehensive client database with advanced search, filtering, and multi-engagement tracking
 2. **Task & Compliance Management** - Plan, assign, and track compliance work (GST, ITR, TDS, audits, ROC filings)
@@ -39,7 +39,7 @@ For detailed feature requirements and capabilities, see [01_Requirements.md](doc
 
 ---
 
-## 🛠 Technology Stack
+## Technology Stack
 
 **Frontend:** React.js 19, TypeScript 5, Vite 7, React Router 7, Font Awesome 7, Advanced Data Grid, Vitest 4
 
@@ -55,7 +55,7 @@ For detailed technology stack information, see [03_Technology-Stack.md](docs/03_
 
 ---
 
-## 🏗 Architecture Overview
+## Architecture Overview
 
 The application follows a **Backend For Frontend (BFF) pattern** with API Gateway orchestration:
 
@@ -69,13 +69,15 @@ For detailed architecture documentation including diagrams, layers, communicatio
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 **Required:**
+
 - **Node.js** and npm/yarn
 - **Git** for version control
 
 **Optional (for future backend development):**
+
 - **.NET SDK**
 - **Python** and pip
 - **PostgreSQL**
@@ -85,7 +87,7 @@ For detailed version requirements and setup instructions, see [05_Setup-and-Prer
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Quick Start
 
@@ -113,7 +115,7 @@ For detailed setup and execution instructions, see:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 ca-office-suite/
@@ -165,7 +167,7 @@ migrations will be added in future phases.
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 For environment variable configuration, see [05_Setup-and-Prerequisites.md](docs/05_Setup-and-Prerequisites.md#environment-variables).
 
@@ -173,7 +175,7 @@ For environment variable configuration, see [05_Setup-and-Prerequisites.md](docs
 
 ---
 
-## 🤖 Development Tools & AI Assistance
+## Development Tools & AI Assistance
 
 This project includes configuration files for AI-powered development tools to enhance productivity and maintain code quality.
 
@@ -205,7 +207,7 @@ These instructions help Copilot understand the project's context and generate ap
 
 ---
 
-## 📚 API Documentation
+## API Documentation
 
 API documentation will be available when backend services are implemented:
 
@@ -216,7 +218,7 @@ For API documentation tools and details, see [03_Technology-Stack.md](docs/03_Te
 
 ---
 
-## 🚢 Deployment
+## Deployment
 
 ### Production Build
 
@@ -232,7 +234,7 @@ For detailed deployment instructions and production configuration, see [06_How-t
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please follow these steps:
 
@@ -253,13 +255,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 💬 Support & Contact
+## Support & Contact
 
 - **Issues**: [GitHub Issues](https://github.com/your-org/ca-office-suite/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/your-org/ca-office-suite/discussions)
@@ -267,7 +269,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Built with modern web technologies and best practices
 - Designed for the CA and tax professional community
@@ -275,7 +277,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🏢 Developed By
+## Developed By
 
 ### Srivari Software Solutions Private Limited
 
