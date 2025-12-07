@@ -10,6 +10,11 @@ Thank you for your interest in contributing to the CA Office Suite!
 4. Run tests and linting.
 5. Submit a Pull Request.
 
+## Code Quality & Linting
+
+We use `markdownlint-cli2` for documentation and `lychee` for link checking.
+For detailed instructions on how to run these tools, please refer to [Code Quality and Linting](docs/07_Code-Quality.md).
+
 ## Code Style
 
 - Follow the existing code style.

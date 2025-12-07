@@ -252,6 +252,8 @@ Please ensure:
 - Documentation is updated as needed
 - All tests pass before submitting
 
+For detailed information on code quality tools and linting, see [07_Code-Quality.md](docs/07_Code-Quality.md).
+
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ---

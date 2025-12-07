@@ -6,7 +6,7 @@ This project uses various tools to ensure code quality and consistency.
 
 We use `markdownlint-cli2` to ensure our documentation follows standard markdown practices.
 
-### Configuration
+### Markdown Configuration
 
 The configuration is split between two files:
 
@@ -46,7 +46,7 @@ npx markdownlint-cli2 --fix "**/*.md"
 
 We use `lychee` to check for broken links in our documentation.
 
-### Configuration
+### Lychee Configuration
 
 The configuration is stored in `lychee.toml`. It defines:
 
@@ -63,7 +63,7 @@ docker run --init -it --rm -v ${PWD}:/input -w /input lycheeverse/lychee .
 ```
 
 This command:
+
 1. Mounts the current directory to `/input` in the container.
 2. Sets the working directory to `/input`.
 3. Scans all files in the current directory for broken links.
-
