@@ -52,6 +52,7 @@ The development server will start and you should see output similar to:
 #### Step 4: Access the Application
 
 Open your browser and navigate to:
+
 - **Local**: `http://localhost:5173/`
 - The application will automatically reload when you make changes to the code
 
@@ -115,6 +116,7 @@ npm test -- --coverage
 ### Test Files Location
 
 Tests are located in:
+
 - `src/CAOfficeSuite.Web/src/test/` - Test files
 - `src/CAOfficeSuite.Web/src/test/setup.ts` - Test setup configuration
 
@@ -142,6 +144,7 @@ This serves the production build locally for testing.
 ### Step 3: Deploy
 
 The `dist` folder contains all static files ready for deployment to:
+
 - Static hosting services (Netlify, Vercel, GitHub Pages)
 - Web servers (Nginx, Apache)
 - CDN services
@@ -195,6 +198,7 @@ docker-compose down
 ### Typical Development Session
 
 1. **Start Development Server**
+
    ```bash
    cd src/CAOfficeSuite.Web
    npm run dev
@@ -205,16 +209,19 @@ docker-compose down
    - Changes are automatically reflected in the browser (Hot Module Replacement)
 
 3. **Run Tests**
+
    ```bash
    npm test
    ```
 
 4. **Check Code Quality**
+
    ```bash
    npm run lint
    ```
 
 5. **Build for Testing**
+
    ```bash
    npm run build
    npm run preview
@@ -227,11 +234,13 @@ docker-compose down
 ### Issue: Port 5173 already in use
 
 **Solution**: Use a different port
+
 ```bash
 npm run dev -- --port 3000
 ```
 
 Or update `vite.config.ts`:
+
 ```typescript
 export default defineConfig({
   server: {
@@ -243,6 +252,7 @@ export default defineConfig({
 ### Issue: Changes not reflecting in browser
 
 **Solution**:
+
 - Hard refresh the browser (Ctrl + Shift + R or Cmd + Shift + R)
 - Clear browser cache
 - Restart the development server
@@ -250,6 +260,7 @@ export default defineConfig({
 ### Issue: Build fails
 
 **Solution**:
+
 ```bash
 # Clear build artifacts
 rm -rf dist node_modules
@@ -264,6 +275,7 @@ npm run build
 ### Issue: Tests failing
 
 **Solution**:
+
 ```bash
 # Clear test cache
 npm test -- --clearCache
@@ -275,6 +287,7 @@ npm test -- --verbose
 ### Issue: TypeScript errors
 
 **Solution**:
+
 ```bash
 # Check TypeScript configuration
 npx tsc --noEmit
@@ -356,4 +369,3 @@ After successfully running the application:
 - [Architecture](./02_Architecture.md)
 - [Technology Stack](./03_Technology-Stack.md)
 - [Main README](../README.md)
-

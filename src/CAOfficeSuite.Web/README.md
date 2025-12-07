@@ -89,11 +89,11 @@ function MyComponent() {
 
 - **Column Management**: Users can show/hide columns and reorder them using the column manager modal
 - **Sorting**: Click column headers to sort ascending, descending, or remove sort
-- **Filtering**: 
+- **Filtering**:
   - Global search across all visible columns
   - Column-specific filters (text, date, select dropdowns)
   - "Clear All Filters" button
-- **Pagination**: 
+- **Pagination**:
   - Configurable page size (10, 25, 50, 100)
   - First/Previous/Next/Last navigation
   - Page indicator showing "Showing X-Y of Z entries"
@@ -117,7 +117,7 @@ Each column can be configured with the following options:
 
 ## Project Structure
 
-```
+```plaintext
 src/
 ├── components/
 │   ├── common/          # Reusable components (DataGrid, etc.)

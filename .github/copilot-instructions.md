@@ -12,6 +12,7 @@ This file contains instructions for GitHub Copilot to understand the project con
 This is the **Chartered Accountants Office Suite** - a modern, scalable office management platform designed specifically for Chartered Accountants and tax professionals. The suite centralizes all core operations—clients, compliance tasks, filings, documents, billing, workflows, and analytics—into a unified digital workspace.
 
 **Key Documents:**
+
 - Requirements: `docs/01_Requirements.md`
 - Architecture: `docs/02_Architecture.md`
 - Technology Stack: `docs/03_Technology-Stack.md`
@@ -56,6 +57,7 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
 ```
 
 **Key Architecture Decisions:**
+
 - **BFF Pattern**: React.js frontend is hosted inside the .NET Aspire BFF
 - **API Gateway**: Centralized routing and orchestration within Aspire
 - **Python FastAPI**: Primary backend services (preferred technology)
@@ -69,6 +71,7 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
 ### Phase: Frontend Development (In Progress)
 
 **Current Implementation:**
+
 - ✅ React 19 + TypeScript 5 frontend application
 - ✅ Vite 7 build tool
 - ✅ React Router 7 for navigation
@@ -81,11 +84,13 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
 - ✅ Vitest testing setup
 
 **Project Location:**
+
 - Frontend: `src/CAOfficeSuite.Web/`
 
 **Technology Stack (Current):**
 
 **Frontend:**
+
 - React 19.2.0
 - TypeScript 5.9.3
 - Vite 7.2.4
@@ -95,6 +100,7 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
 - ESLint 9.39.1
 
 **Backend Architecture (Planned):**
+
 - **.NET Aspire** - Cloud-native application framework
   - BFF (Backend For Frontend) - Hosts React.js frontend
   - API Gateway - Service orchestration and routing
@@ -262,32 +268,38 @@ export function useAuth() {
 ## Naming Conventions
 
 ### Components
+
 - **Component Files**: PascalCase (e.g., `DataGrid.tsx`, `ClientList.tsx`)
 - **Component Names**: PascalCase matching file name (e.g., `DataGrid`, `ClientList`)
 - **Component Props Interfaces**: PascalCase with `Props` suffix (e.g., `DataGridProps`, `ClientListProps`)
 
 ### Hooks
+
 - **Custom Hooks**: camelCase starting with `use` (e.g., `useAuth`, `useClients`, `useDataGrid`)
 - **Hook Files**: camelCase matching hook name (e.g., `useAuth.ts`, `useClients.ts`)
 
 ### Functions & Variables
+
 - **Functions**: camelCase (e.g., `getClientById`, `handleSubmit`)
 - **Variables**: camelCase (e.g., `clientList`, `isLoading`, `errorMessage`)
 - **Constants**: UPPER_SNAKE_CASE for true constants (e.g., `MAX_RETRY_ATTEMPTS`, `API_BASE_URL`)
 - **Boolean Variables**: Prefix with `is`, `has`, `should`, `can` (e.g., `isLoading`, `hasError`, `shouldShowModal`)
 
 ### Types & Interfaces
+
 - **Interfaces**: PascalCase (e.g., `Client`, `Task`, `User`)
 - **Type Aliases**: PascalCase (e.g., `TaskType`, `TaskStatus`, `TaskPriority`)
 - **Generic Types**: Single uppercase letter (e.g., `T`, `K`, `V`) or descriptive (e.g., `TData`, `TColumn`)
 
 ### Files & Directories
+
 - **Component Files**: PascalCase matching component name (e.g., `DataGrid.tsx`, `Navbar.tsx`)
 - **Utility Files**: camelCase (e.g., `api.ts`, `utils.ts`, `helpers.ts`)
 - **Type Files**: camelCase (e.g., `types.ts`, `index.ts`)
 - **Directories**: camelCase or kebab-case (e.g., `components/`, `common/`, `layout/`)
 
 ### CSS & Styling
+
 - **CSS Files**: Match component name (e.g., `DataGrid.css`, `Navbar.css`)
 - **CSS Classes**: kebab-case (e.g., `data-grid`, `client-list`, `status-active`)
 

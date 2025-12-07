@@ -76,6 +76,7 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
 ## Architecture Layers
 
 ### 1. Presentation Layer
+
 - **React.js Frontend** (Hosted in BFF)
   - User interface components
   - Client-side routing
@@ -83,6 +84,7 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
   - User interactions
 
 ### 2. BFF Layer
+
 - **.NET Aspire BFF**
   - Hosts React.js frontend
   - Frontend-specific API endpoints
@@ -90,6 +92,7 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
   - Response transformation
 
 ### 3. API Gateway Layer
+
 - **API Gateway (Inside Aspire)**
   - Service discovery
   - Request routing
@@ -98,6 +101,7 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
   - Rate limiting
 
 ### 4. Service Layer
+
 - **Python FastAPI Services**
   - Business logic services
   - Analytics services
@@ -105,6 +109,7 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
   - Work process services
 
 ### 5. Data Layer
+
 - **PostgreSQL Database**
   - Primary relational database
   - ACID compliance
@@ -125,21 +130,25 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
 ## Communication Patterns
 
 ### Frontend to BFF
+
 - RESTful API calls
 - WebSocket for real-time updates (future)
 - Server-Sent Events for notifications (future)
 
 ### BFF to API Gateway
+
 - Internal service-to-service communication
 - HTTP/HTTPS protocols
 - Service discovery via Aspire
 
 ### API Gateway to Services
+
 - RESTful API calls
 - Async message queues (for long-running processes)
 - Service mesh communication (future)
 
 ### Services to Data Layer
+
 - Database connections via connection pooling
 - Cache-aside pattern for Redis
 - Document storage via SDK/API
@@ -182,4 +191,3 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
 - [Requirements](./01_Requirements.md)
 - [UI Requirements](./04_Portal-React-UI-Requirements.md)
 - [Main README](../README.md)
-
