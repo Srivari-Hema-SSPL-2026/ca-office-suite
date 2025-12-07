@@ -90,12 +90,14 @@ For detailed version requirements and setup instructions, see [05_Setup-and-Prer
 ### Quick Start
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/your-org/ca-office-suite.git
    cd ca-office-suite
    ```
 
 2. **Install and run frontend:**
+
    ```bash
    cd src/CAOfficeSuite.Web
    npm install
@@ -275,7 +277,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🏢 Developed By
 
-**Srivari Software Solutions Private Limited**
+### Srivari Software Solutions Private Limited
 
 ---
 
