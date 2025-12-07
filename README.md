@@ -110,6 +110,7 @@ For detailed version requirements and setup instructions, see [05_Setup-and-Prer
    - Open `http://localhost:5173/` in your browser
 
 For detailed setup and execution instructions, see:
+
 - [Setup and Prerequisites](docs/05_Setup-and-Prerequisites.md)
 - [How to Execute](docs/06_How-to-Execute.md)
 
