@@ -472,7 +472,7 @@ test('renders client list', () => {
 
 ## Project Structure
 
-```
+```plaintext
 src/CAOfficeSuite.Web/src/
 ├── components/
 │   ├── common/              # Reusable components (DataGrid, ColumnManager)

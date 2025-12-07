@@ -41,7 +41,7 @@ npm run dev
 
 The development server will start and you should see output similar to:
 
-```
+```plaintext
   VITE v7.2.4  ready in 500 ms
 
   ➜  Local:   http://localhost:5173/
@@ -335,13 +335,13 @@ npm run lint -- --fix
 
 ## Security Considerations
 
-### Development
+### Development Security
 
 - Never commit `.env` files with sensitive data
 - Use environment variables for configuration
 - Keep dependencies updated
 
-### Production
+### Production Security
 
 - Use HTTPS for all connections
 - Implement proper authentication

@@ -508,7 +508,7 @@ QUALITY GATES:
 
 Include this template in EVERY coding agent PR for consistent validation:
 
-```markdown
+````markdown
 ## 🎯 MANDATORY SUCCESS CRITERIA (NON-NEGOTIABLE)
 
 ### Build Requirements
@@ -539,7 +539,7 @@ Before marking this PR ready for review:
 
 **CRITICAL**: Do not mark this PR as ready for review until ALL build and test validations pass successfully.
 
-```
+````
 
 ## 🚀 **Modernization Project-Specific S.M.A.R.T. Example**
 
