@@ -9,3 +9,4 @@ coverage
 *.log
 .lycheeignore
 lychee.toml
+**/node_modules
