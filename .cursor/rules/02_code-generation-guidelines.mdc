@@ -1,397 +1,339 @@
 # Code Generation Guidelines
 
 **Version**: 1.0  
-**Last Updated**: November 13, 2025
+**Last Updated**: December 7, 2025
 
 ---
 
-## Two-Phase Development Approach
+## React Component Patterns
 
-This project follows a two-phase modernization approach:
-1. **Phase 1 (Days 2-4)**: Build Node.js API with Express + TypeScript + Prisma
-2. **Phase 2 (Days 5-7)**: Migrate to .NET 10 + EF Core + Aspire
+### Functional Components with TypeScript
 
-All code generation should align with the current phase and `docs/01_Requirements.md`.
-
----
-
-## Phase 1: Node.js API Endpoints (Express + TypeScript)
-
-### Express Router Pattern
+Always use functional components with TypeScript:
 
 ```typescript
-import express, { Request, Response } from 'express';
-import { ProductService } from '../services/product.service';
+import { useState, useEffect } from 'react';
+import type { Client } from '../types';
 
-const router = express.Router();
-
-// GET /api/products
-router.get('/', async (req: Request, res: Response) => {
-  try {
-    const { page = 1, pageSize = 20 } = req.query;
-    const products = await productService.getProducts(Number(page), Number(pageSize));
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// GET /api/products/:id
-router.get('/:id', async (req: Request, res: Response) => {
-  try {
-    const product = await productService.getProductById(req.params.id);
-    if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
-    }
-    res.json(product);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// POST /api/products
-router.post('/', async (req: Request, res: Response) => {
-  try {
-    const product = await productService.createProduct(req.body);
-    res.status(201).json(product);
-  } catch (error) {
-    res.status(400).json({ error: 'Bad request' });
-  }
-});
-
-export default router;
-```
-
-### TypeScript DTOs
-
-```typescript
-export interface CreateProductRequest {
-  name: string;
-  price: number;
-  description?: string;
+interface ClientsProps {
+  initialClients?: Client[];
+  onClientSelect?: (client: Client) => void;
 }
 
-export interface ProductResponse {
+export function Clients({ initialClients, onClientSelect }: ClientsProps) {
+  const [clients, setClients] = useState<Client[]>(initialClients || []);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Component logic
+  }, []);
+
+  return (
+    <div className="clients-container">
+      {/* Component JSX */}
+    </div>
+  );
+}
+```
+
+### Custom Hooks Pattern
+
+Extract reusable logic into custom hooks:
+
+```typescript
+// useClients.ts
+import { useState, useEffect } from 'react';
+import { clientService } from '../services/api';
+import type { Client } from '../types';
+
+export function useClients() {
+  const [clients, setClients] = useState<Client[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchClients() {
+      try {
+        setLoading(true);
+        const data = await clientService.getClients();
+        setClients(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch clients');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchClients();
+  }, []);
+
+  return { clients, loading, error, refetch: () => fetchClients() };
+}
+```
+
+---
+
+## Service Layer Pattern
+
+### API Service Structure
+
+```typescript
+// services/api.ts
+import type { Client, Task, User } from '../types';
+
+// Simulated API delay for development
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+export const clientService = {
+  async getClients(): Promise<Client[]> {
+    await delay(300);
+    // TODO: Replace with actual API call
+    // const response = await fetch('/api/clients');
+    // return response.json();
+    return mockClients;
+  },
+
+  async getClientById(id: string): Promise<Client | undefined> {
+    await delay(200);
+    // TODO: Replace with actual API call
+    return mockClients.find(c => c.id === id);
+  },
+
+  async createClient(client: Omit<Client, 'id' | 'createdAt'>): Promise<Client> {
+    await delay(300);
+    // TODO: Replace with actual API call
+    const newClient: Client = {
+      ...client,
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+    };
+    return newClient;
+  },
+};
+```
+
+---
+
+## Context API Pattern
+
+### Auth Context Example
+
+```typescript
+// store/AuthContext.tsx
+import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { authService } from '../services/api';
+import type { User, AuthState } from '../types';
+
+const AuthContext = createContext<AuthState | undefined>(undefined);
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
+
+  const login = useCallback(async (email: string, password: string): Promise<boolean> => {
+    try {
+      const userData = await authService.login(email, password);
+      if (userData) {
+        setUser(userData);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Login failed:', error);
+      return false;
+    }
+  }, []);
+
+  const logout = useCallback(() => {
+    setUser(null);
+    authService.logout();
+  }, []);
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
+        login,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+}
+```
+
+---
+
+## DataGrid Component Usage
+
+### DataGrid Configuration
+
+```typescript
+import { DataGrid, type Column } from '../components/common';
+import type { Client } from '../types';
+
+function Clients() {
+  const [clients, setClients] = useState<Client[]>([]);
+
+  const columns: Column<Client>[] = [
+    {
+      id: 'name',
+      label: 'Client Name',
+      accessor: 'name',
+      sortable: true,
+      filterable: true,
+    },
+    {
+      id: 'pan',
+      label: 'PAN',
+      accessor: 'pan',
+      sortable: true,
+      filterable: true,
+    },
+    {
+      id: 'status',
+      label: 'Status',
+      accessor: 'status',
+      sortable: true,
+      filterable: true,
+      filterType: 'select',
+      filterOptions: [
+        { label: 'Active', value: 'active' },
+        { label: 'Inactive', value: 'inactive' },
+      ],
+      render: (value) => (
+        <span className={`status-badge status-${value}`}>{value}</span>
+      ),
+    },
+    {
+      id: 'nextDueDate',
+      label: 'Next Due Date',
+      accessor: 'nextDueDate',
+      sortable: true,
+      filterable: true,
+      filterType: 'date',
+    },
+  ];
+
+  return (
+    <DataGrid
+      data={clients}
+      columns={columns}
+      loading={loading}
+      emptyMessage="No clients found"
+      storageKey="clients-grid"
+    />
+  );
+}
+```
+
+---
+
+## TypeScript Type Definitions
+
+### Type Organization
+
+```typescript
+// types/index.ts
+
+// User types
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: 'admin' | 'staff' | 'user';
+}
+
+// Client types
+export interface Client {
   id: string;
   name: string;
-  price: number;
-  description?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  pan: string;
+  gstin?: string;
+  email: string;
+  phone: string;
+  status: 'active' | 'inactive';
+  nextDueDate?: string;
+  address?: string;
+  createdAt: string;
+}
+
+// Task types
+export type TaskType = 'GST' | 'ITR' | 'TDS' | 'Audit' | 'ROC' | 'Other';
+export type TaskStatus = 'pending' | 'in-progress' | 'completed' | 'overdue';
+export type TaskPriority = 'low' | 'medium' | 'high';
+
+export interface Task {
+  id: string;
+  title: string;
+  description: string;
+  clientId: string;
+  clientName: string;
+  type: TaskType;
+  status: TaskStatus;
+  priority: TaskPriority;
+  dueDate: string;
+  assignee: string;
+  createdAt: string;
 }
 ```
 
 ---
 
-## Phase 2: .NET API Endpoints
+## File Organization
 
-### Minimal APIs for Simple Endpoints
-
-Use minimal APIs for straightforward endpoints:
-
-```csharp
-app.MapPost("/api/auth/login", async (LoginRequest request, IAuthService authService) =>
-{
-    var result = await authService.LoginAsync(request);
-    return result.IsSuccess ? Results.Ok(result.Value) : Results.Unauthorized();
-})
-.WithName("Login")
-.WithOpenApi()
-.Produces<LoginResponse>(StatusCodes.Status200OK)
-.Produces(StatusCodes.Status401Unauthorized);
 ```
-
-### Controllers for Complex Logic
-
-Use controllers when you need complex routing, multiple actions, or advanced features:
-
-```csharp
-[ApiController]
-[Route("api/[controller]")]
-public class ProductsController : ControllerBase
-{
-    private readonly IProductService _productService;
-    private readonly ILogger<ProductsController> _logger;
-
-    public ProductsController(IProductService productService, ILogger<ProductsController> logger)
-    {
-        _productService = productService;
-        _logger = logger;
-    }
-
-    [HttpGet]
-    public async Task<ActionResult<ProductListResponse>> GetProducts([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
-    {
-        var result = await _productService.GetProductsAsync(page, pageSize);
-        return Ok(result);
-    }
-}
+src/CAOfficeSuite.Web/src/
+├── components/
+│   ├── common/              # Reusable components
+│   │   ├── DataGrid.tsx
+│   │   ├── DataGrid.types.ts
+│   │   ├── ColumnManager.tsx
+│   │   └── index.ts         # Barrel exports
+│   └── layout/              # Layout components
+│       ├── Layout.tsx
+│       ├── Navbar.tsx
+│       ├── Footer.tsx
+│       └── index.ts
+├── pages/                   # Page components
+│   ├── Home.tsx
+│   ├── Login.tsx
+│   ├── Clients.tsx
+│   ├── Tasks.tsx
+│   ├── Help.tsx
+│   └── index.ts
+├── services/                # API services
+│   ├── api.ts
+│   └── mockData.ts
+├── store/                   # State management
+│   ├── AuthContext.tsx
+│   └── useAuth.ts
+└── types/                   # TypeScript types
+    └── index.ts
 ```
 
 ---
 
-## Phase 1: Prisma ORM (Node.js)
+## Code Generation Checklist
 
-### Prisma Schema Pattern
+When generating React/TypeScript code, always:
 
-```prisma
-// schema.prisma
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model Product {
-  id        String   @id @default(uuid())
-  name      String
-  price     Decimal  @db.Decimal(10, 2)
-  description String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("products")
-  @@index([name])
-}
-```
-
-### Prisma Repository Pattern
-
-```typescript
-import { PrismaClient, Product } from '@prisma/client';
-
-export class ProductRepository {
-  private prisma: PrismaClient;
-
-  constructor(prisma: PrismaClient) {
-    this.prisma = prisma;
-  }
-
-  async findAll(page: number = 1, pageSize: number = 20): Promise<Product[]> {
-    return this.prisma.product.findMany({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-      orderBy: { createdAt: 'desc' },
-    });
-  }
-
-  async findById(id: string): Promise<Product | null> {
-    return this.prisma.product.findUnique({
-      where: { id },
-    });
-  }
-
-  async create(data: { name: string; price: number; description?: string }): Promise<Product> {
-    return this.prisma.product.create({
-      data,
-    });
-  }
-
-  async update(id: string, data: Partial<Product>): Promise<Product> {
-    return this.prisma.product.update({
-      where: { id },
-      data,
-    });
-  }
-
-  async delete(id: string): Promise<void> {
-    await this.prisma.product.delete({
-      where: { id },
-    });
-  }
-}
-```
-
-### Prisma Service Setup
-
-```typescript
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient({
-  log: ['query', 'info', 'warn', 'error'],
-});
-
-export default prisma;
-```
-
----
-
-## Phase 2: EF Core Database Context Pattern
-
-```csharp
-public class ApplicationDbContext : DbContext
-{
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options) { }
-
-    public DbSet<User> Users => Set<User>();
-    public DbSet<Product> Products => Set<Product>();
-    
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-        
-        // Configure indexes
-        modelBuilder.Entity<Product>()
-            .HasIndex(p => p.Sku)
-            .IsUnique();
-    }
-}
-```
-
----
-
-## Repository Pattern
-
-```csharp
-public interface IRepository<T> where T : class
-{
-    Task<T?> GetByIdAsync(Guid id);
-    Task<IEnumerable<T>> GetAllAsync();
-    Task<T> AddAsync(T entity);
-    Task UpdateAsync(T entity);
-    Task DeleteAsync(Guid id);
-}
-
-public class Repository<T> : IRepository<T> where T : class
-{
-    protected readonly ApplicationDbContext _context;
-    protected readonly DbSet<T> _dbSet;
-
-    public Repository(ApplicationDbContext context)
-    {
-        _context = context;
-        _dbSet = context.Set<T>();
-    }
-
-    public virtual async Task<T?> GetByIdAsync(Guid id)
-    {
-        return await _dbSet.FindAsync(id);
-    }
-
-    public virtual async Task<T> AddAsync(T entity)
-    {
-        await _dbSet.AddAsync(entity);
-        await _context.SaveChangesAsync();
-        return entity;
-    }
-}
-```
-
----
-
-## Redis Caching Pattern (Cache-Aside)
-
-```csharp
-public async Task<Product?> GetProductByIdAsync(Guid id)
-{
-    var cacheKey = $"product:{id}";
-    var cachedProduct = await _cache.GetStringAsync(cacheKey);
-
-    if (!string.IsNullOrEmpty(cachedProduct))
-    {
-        _logger.LogInformation("Cache hit for product {ProductId}", id);
-        return JsonSerializer.Deserialize<Product>(cachedProduct);
-    }
-
-    _logger.LogInformation("Cache miss for product {ProductId}", id);
-    var product = await _productService.GetProductByIdAsync(id);
-
-    if (product != null)
-    {
-        var serialized = JsonSerializer.Serialize(product);
-        await _cache.SetStringAsync(cacheKey, serialized, new DistributedCacheEntryOptions
-        {
-            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15)
-        });
-    }
-
-    return product;
-}
-```
-
----
-
-## Aspire Configuration
-
-### App Host Setup
-
-```csharp
-var builder = DistributedApplication.CreateBuilder(args);
-
-// Add PostgreSQL database
-var postgres = builder.AddPostgres("postgres")
-    .WithPgAdmin()
-    .WithDataVolume();
-
-var authDb = postgres.AddDatabase("authdb");
-var userDb = postgres.AddDatabase("userdb");
-var productDb = postgres.AddDatabase("productdb");
-var orderDb = postgres.AddDatabase("orderdb");
-
-// Add Redis cache
-var cache = builder.AddRedis("cache")
-    .WithRedisCommander()
-    .WithDataVolume();
-
-// Add services
-var authApi = builder.AddProject<Projects.AuthenticationApi>("authapi")
-    .WithReference(authDb)
-    .WithReference(cache);
-
-var userApi = builder.AddProject<Projects.UserManagementApi>("userapi")
-    .WithReference(userDb)
-    .WithReference(cache)
-    .WithReference(authApi);
-
-builder.Build().Run();
-```
-
-### Service Configuration (Program.cs)
-
-```csharp
-var builder = WebApplication.CreateBuilder(args);
-
-// Add service defaults & Aspire components
-builder.AddServiceDefaults();
-
-// Configure PostgreSQL with Aspire
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString));
-
-// Add Redis caching with Aspire
-builder.AddRedisClient("cache");
-
-// Configure services
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
-// Configure Swagger/OpenAPI
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure middleware pipeline
-app.MapDefaultEndpoints(); // Health checks
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-app.UseAuthentication();
-app.UseAuthorization();
-
-// Map endpoints
-app.MapProductEndpoints();
-
-app.Run();
-```
+1. **Use TypeScript**: Define proper types and interfaces
+2. **Functional Components**: Use function components, not class components
+3. **Hooks**: Use React hooks (useState, useEffect, useContext, etc.)
+4. **Error Handling**: Handle errors gracefully with try/catch
+5. **Loading States**: Show loading indicators during async operations
+6. **Accessibility**: Include proper ARIA attributes where needed
+7. **Responsive Design**: Ensure components work on mobile and desktop
+8. **Barrel Exports**: Use index.ts files for clean imports
+9. **Component Props**: Define clear prop interfaces
+10. **Comments**: Add JSDoc comments for complex logic

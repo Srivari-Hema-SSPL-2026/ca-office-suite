@@ -1,121 +1,233 @@
 # Project Context & Architecture
 
 **Version**: 1.0  
-**Last Updated**: November 13, 2025
+**Last Updated**: December 7, 2025
 
 ---
 
 ## Project Overview
 
-This is an AI-assisted modernization project demonstrating the migration of a Node.js-based e-commerce application to a cloud-native .NET 10 Aspire architecture. The project uses GitHub Copilot and AI tools throughout development.
+This is the **Chartered Accountants Office Suite** - a modern, scalable office management platform designed specifically for Chartered Accountants and tax professionals. The suite centralizes all core operations—clients, compliance tasks, filings, documents, billing, workflows, and analytics—into a unified digital workspace.
 
 **Key Documents:**
-- Requirements: `docs/01_Requirements.md` (Single source of truth)
-- Rapid 8-Day Plan: `docs/02_RAPID_8DAY_PLAN.md`
-- Architecture: `docs/03_ARCHITECTURE.md`
-- Database Design: `docs/04_DATABASE_DESIGN.md`
-- API Contract: `docs/05_API_CONTRACT.yaml`
-- Implementation Guide: `docs/06_IMPLEMENTATION_GUIDE.md`
-- Sequence Diagrams: `docs/07_SEQUENCE_DIAGRAMS.md`
-- Modernization Plan: `docs/08_MODERNIZATION_PLAN.md`
-- Copilot Instructions: `.github/copilot-instructions.md`
+- Requirements: `docs/Requirements.md`
+- UI Requirements: `docs/Portal-React-UI-Requirements.md`
+- Main README: `README.md`
 
 ---
 
 ## Architecture Overview
 
-### Two-Phase Modernization Approach
+The application follows a **Backend For Frontend (BFF) pattern** with API Gateway orchestration:
 
-**Phase 1: Node.js API Development (Days 2-4)**
-- Build Node.js Web API with Express + TypeScript
-- Products domain with CRUD operations
-- PostgreSQL integration using **Prisma ORM**
-- External API client with retry/circuit breaker patterns
-- Jest testing framework
-- Docker containerization
+```text
+┌─────────────────────────────────────────────────────────┐
+│         Backend For Frontend (BFF) - .NET Aspire         │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │  React.js Frontend (Hosted in BFF)               │  │
+│  │  src/CAOfficeSuite.Web/                          │  │
+│  │  User Interface & Client Logic                     │  │
+│  └──────────────────┬───────────────────────────────┘  │
+│                      │                                    │
+│  ┌──────────────────┴───────────────────────────────┐  │
+│  │  API Gateway (Inside Aspire)                       │  │
+│  │  Service Orchestration & Routing                   │  │
+│  └──────┬──────────────┬──────────────┬──────────────┘  │
+│         │              │              │                  │
+└─────────┼──────────────┼──────────────┼──────────────────┘
+          │              │              │
+┌─────────▼──────┐ ┌─────▼──────┐ ┌─────▼────────┐
+│  Python        │ │  Python    │ │  Work       │
+│  FastAPI       │ │  FastAPI    │ │  Processes  │
+│  Services      │ │  Services  │ │  (Workflows)│
+│  (Primary)       │ │  (Analytics)│ │             │
+└─────────┬──────┘ └─────┬──────┘ └─────┬────────┘
+          │                │              │
+┌─────────┴────────────────┴──────────────┴──────┐
+│         PostgreSQL Database                     │
+│      + Document Storage System                  │
+│      + Redis Cache                               │
+└──────────────────────────────────────────────────┘
+```
 
-**Phase 2: .NET 10 Migration & Aspire (Days 5-7)**
-- Migrate Node.js API to .NET 10
-- Same API contract and endpoints (feature parity)
-- PostgreSQL integration using **Entity Framework Core**
-- .NET Aspire orchestration
-- xUnit testing framework
-- OpenTelemetry and Aspire Dashboard
-
-### Technology Stack
-
-**Phase 1 - Node.js Stack:**
-- Node.js 18+
-- Express.js with TypeScript
-- Prisma ORM (for PostgreSQL)
-- Jest (testing)
-- Axios (HTTP client)
-- Swagger/OpenAPI documentation
-
-**Phase 2 - .NET Stack:**
-- .NET 10
-- ASP.NET Core 10 (Minimal APIs or Controllers)
-- Entity Framework Core 10 (for PostgreSQL)
-- .NET Aspire 13.0.0
-- xUnit (testing)
-- OpenTelemetry
-
-**Shared Infrastructure:**
-- PostgreSQL 16+ (same database for both phases)
-- Docker & docker-compose
-- OpenAPI/Swagger documentation
-
-**Observability (Phase 2):**
-- OpenTelemetry
-- Aspire Dashboard
-- Structured logging
+**Key Architecture Decisions:**
+- **BFF Pattern**: React.js frontend is hosted inside the .NET Aspire BFF
+- **API Gateway**: Centralized routing and orchestration within Aspire
+- **Python FastAPI**: Primary backend services (preferred technology)
+- **Work Processes**: Workflow engine for business process automation
+- **Heavy Dashboards**: Advanced analytics and visualization services
 
 ---
 
-## Project Status
+## Current Project Status
 
-### Current Phase
-- **Phase**: Foundation & Setup (Day 1 ✅ COMPLETED)
-- **Remaining**: 7 days (Days 2-8)
-- **Current Focus**: Node.js API development (Days 2-4)
-- **Solution**: NodeToDotnetModernization.sln (for .NET phase)
-- **AppHost**: NodeToAspire.AppHost (minimal setup, used in Phase 2)
+### Phase: Frontend Development (In Progress)
 
-### 8-Day Sprint Plan (7 Days Remaining)
+**Current Implementation:**
+- ✅ React 19 + TypeScript 5 frontend application
+- ✅ Vite 7 build tool
+- ✅ React Router 7 for navigation
+- ✅ Font Awesome icons
+- ✅ Advanced DataGrid component with column management
+- ✅ Layout components (Navbar, Footer, Layout)
+- ✅ Core pages (Home, Login, Clients, Tasks, Help)
+- ✅ Authentication context (mock implementation)
+- ✅ Mock data services
+- ✅ Vitest testing setup
 
-**Phase 1: Node.js API (Days 2-4)**
-1. Day 1: Foundation & Setup ✅ **COMPLETED**
-2. Day 2: Build Node.js Web API with AI-Assisted Scaffolding
-3. Day 3: Integrate PostgreSQL Using Prisma ORM
-4. Day 4: Implement External API Communication
+**Project Location:**
+- Frontend: `src/CAOfficeSuite.Web/`
 
-**Phase 2: .NET Migration & Aspire (Days 5-7)**
-5. Day 5: Generate Modernization Recommendations & Refactors
-6. Day 6: Migrate Node.js API to .NET 10
-7. Day 7: Modernize Architecture to .NET Aspire
+**Technology Stack (Current):**
 
-**Finalization**
-8. Day 8: Final Touches & AI-Assisted Demo Preparation
+**Frontend:**
+- React 19.2.0
+- TypeScript 5.9.3
+- Vite 7.2.4
+- React Router 7.9.6
+- Font Awesome 7.1.0
+- Vitest 4.0.13 (testing)
+- ESLint 9.39.1
 
-### Migration Strategy
-- **Single API Focus**: Products domain with CRUD operations
-- **Two-Phase Approach**: Build Node.js first, then migrate to .NET
-- **Same Database**: PostgreSQL used by both Node.js (Prisma) and .NET (EF Core)
-- **API Contract Consistency**: Same OpenAPI spec for both implementations
-- **Feature Parity**: .NET API must match Node.js API exactly
-- **Aspire Integration**: Cloud-native patterns in Phase 2
-- **AI-Assisted**: GitHub Copilot throughout both phases
+**Backend Architecture (Planned):**
+- **.NET Aspire** - Cloud-native application framework
+  - BFF (Backend For Frontend) - Hosts React.js frontend
+  - API Gateway - Service orchestration and routing
+- **Python FastAPI** - Primary backend services (preferred)
+  - Business logic services
+  - Analytics and dashboard services
+  - Data processing services
+- **Work Processes** - Workflow engine for business process automation
+- **PostgreSQL** - Primary relational database
+- **Redis** - Caching, session management, and real-time data
+- **Document Storage** - Secure file storage system (Azure Blob / AWS S3 / Local)
+- **Heavy Dashboards** - Advanced analytics, visualization, and reporting services
 
 ---
 
-## Project Principles
+## Project Structure
 
-- This is a **demonstration project** showcasing modernization best practices
-- Focus on **clarity and maintainability** over clever code
-- Always consider the **learning value** of the code being generated
-- Prioritize **cloud-native patterns** and observability
-- Make the code **production-ready** with proper error handling and logging
-- Reference existing documentation before creating new patterns
-- Follow the established architecture and patterns
-- Use Aspire components for infrastructure (PostgreSQL, Redis, etc.)
-- Enable observability from the start (OpenTelemetry, health checks, logging)
+```
+ca-office-suite/
+├── src/
+│   └── CAOfficeSuite.Web/          # React frontend application
+│       ├── src/
+│       │   ├── components/
+│       │   │   ├── common/          # Reusable components (DataGrid, ColumnManager)
+│       │   │   └── layout/         # Layout components (Navbar, Footer, Layout)
+│       │   ├── pages/              # Page components (Home, Login, Clients, Tasks, Help)
+│       │   ├── services/           # API service layer (currently mock data)
+│       │   ├── store/              # State management (AuthContext)
+│       │   ├── types/              # TypeScript type definitions
+│       │   └── test/               # Test files
+│       ├── public/
+│       ├── package.json
+│       ├── vite.config.ts
+│       └── tsconfig.json
+│
+├── docs/                            # Documentation
+│   ├── Requirements.md
+│   ├── Portal-React-UI-Requirements.md
+│   └── images/
+│
+├── .cursor/                         # Cursor IDE rules and guidelines
+│   └── rules/                       # Cursor AI coding rules
+│
+├── tools/                           # Development tools
+├── tests/                           # Integration tests (future)
+├── LICENSE
+└── README.md                        # Main project documentation
+```
+
+---
+
+## Key Features (Current & Planned)
+
+### 1. Client Control & Engagement ✅ (Frontend Ready)
+- Client list with DataGrid (sorting, filtering, pagination, column management)
+- Client search and filtering
+- Client detail view (planned)
+
+### 2. Task & Compliance Management ✅ (Frontend Ready)
+- Task list with DataGrid
+- Task filtering by status, type, priority
+- Task assignment and tracking (planned)
+
+### 3. Authentication ✅ (Mock Implementation)
+- Login page
+- Auth context for state management
+- Protected routes (planned)
+
+### 4. DataGrid Component ✅
+- Advanced column management (show/hide, reorder)
+- Sorting, filtering, pagination
+- LocalStorage persistence
+- Responsive design
+
+### 5. Layout & Navigation ✅
+- Sticky navbar with navigation
+- Sticky footer
+- Responsive layout
+
+---
+
+## Development Principles
+
+- **React Best Practices**: Use functional components, hooks, and modern React patterns
+- **TypeScript First**: Strong typing throughout the codebase
+- **Component Reusability**: Build reusable, composable components
+- **Accessibility**: Follow WCAG guidelines where possible
+- **Responsive Design**: Mobile-first approach
+- **Testing**: Write tests for critical components and functionality
+- **Code Quality**: Use ESLint, follow consistent code style
+- **Documentation**: Keep code and documentation in sync
+
+---
+
+## Current Development Focus
+
+1. **Frontend Completion**: Finish remaining UI components and pages
+2. **BFF Development**: Implement .NET Aspire BFF to host React frontend
+3. **API Gateway**: Set up API Gateway within Aspire for service orchestration
+4. **Python FastAPI Services**: Develop primary backend services using FastAPI
+5. **Work Processes**: Implement workflow engine for business process automation
+6. **Heavy Dashboards**: Build advanced analytics and visualization dashboards
+7. **Backend Integration**: Connect frontend to BFF and API Gateway
+8. **State Management**: Enhance state management as needed
+9. **Testing**: Expand test coverage across all layers
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18.x or higher
+- npm or yarn
+
+### Development Setup
+
+```bash
+# Navigate to frontend directory
+cd src/CAOfficeSuite.Web
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Run tests
+npm test
+
+# Build for production
+npm run build
+```
+
+---
+
+## Notes
+
+- Currently using **mock data** for development
+- Backend services are **planned** but not yet implemented
+- The project structure may evolve as backend services are added
+- All frontend code is in `src/CAOfficeSuite.Web/`

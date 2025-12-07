@@ -99,17 +99,21 @@ Standardize office processes using reusable workflows. Automate reminders for du
 - Escalation management
 - Process standardization
 
-### 7. Analytics, Dashboards & Reporting
+### 7. Analytics, Dashboards & Reporting (Heavy Dashboards)
 
-Gain instant visibility into workload, compliance deadlines, pending filings, team productivity, billing reports, revenue insights, client distribution, and operational KPIs. Custom dashboards allow powerful, actionable insights.
+Gain instant visibility into workload, compliance deadlines, pending filings, team productivity, billing reports, revenue insights, client distribution, and operational KPIs. **Heavy dashboards** with advanced analytics, real-time data visualization, and interactive charts provide powerful, actionable insights.
 
 **Capabilities:**
 
-- Real-time dashboard with key metrics
+- **Heavy Dashboards** - Advanced analytics and visualization services
+- Real-time dashboard with key metrics and live data updates
 - Customizable reports and visualizations
+- Interactive charts and graphs
 - Team productivity analytics
 - Revenue and billing insights
 - Compliance status overview
+- Data aggregation and complex queries
+- Export capabilities (PDF, Excel, CSV)
 
 ---
 
@@ -117,17 +121,24 @@ Gain instant visibility into workload, compliance deadlines, pending filings, te
 
 ### Frontend
 
-- **React.js** - Modern UI framework for building responsive interfaces
-- **TypeScript** - Type-safe JavaScript for better code quality
-- **State Management** - Redux/Zustand (TBD)
-- **UI Framework** - Material-UI / Ant Design (TBD)
-- **Build Tool** - Vite / Webpack
+- **React.js 19** - Modern UI framework for building responsive interfaces
+- **TypeScript 5** - Type-safe JavaScript for better code quality
+- **State Management** - React Context API (AuthContext), may expand to Redux/Zustand
+- **Build Tool** - Vite 7
+- **Routing** - React Router 7
+- **Icons** - Font Awesome 7
+- **Testing** - Vitest 4
 
 ### Backend
 
-- **.NET Aspire** - Cloud-native application framework for microservices orchestration
-- **C# / .NET 8+** - Primary backend services
-- **Python FastAPI** - High-performance API services for specialized operations
+- **.NET Aspire** - Cloud-native application framework
+  - **BFF (Backend For Frontend)** - Hosts React.js frontend
+  - **API Gateway** - Service orchestration and routing
+- **Python FastAPI** - Primary backend services (preferred)
+  - Business logic services
+  - Analytics and dashboard services
+  - Data processing services
+- **Work Processes** - Workflow engine for business process automation
 - **RESTful APIs** - Standardized API architecture
 
 ### Database & Storage
@@ -154,29 +165,44 @@ Gain instant visibility into workload, compliance deadlines, pending filings, te
 
 ## 🏗 Architecture Overview
 
-The application follows a **microservices architecture** with clear separation of concerns:
+The application follows a **Backend For Frontend (BFF) pattern** with API Gateway orchestration:
 
 ```text
 ┌─────────────────────────────────────────────────────────┐
-│                    Frontend (React.js)                   │
-│              User Interface & Client Logic               │
-└──────────────────────┬──────────────────────────────────┘
-                       │
-┌──────────────────────┴──────────────────────────────────┐
-│              API Gateway / .NET Aspire                   │
-│         Service Orchestration & Routing                  │
-└──────┬──────────────┬──────────────┬────────────────────┘
-       │              │              │
-┌──────▼──────┐ ┌────▼──────┐ ┌─────▼────────┐
-│  .NET APIs  │ │ FastAPI   │ │  Other       │
-│  Services   │ │ Services  │ │  Services    │
-└──────┬──────┘ └────┬──────┘ └─────┬────────┘
-       │             │              │
-┌──────┴─────────────┴──────────────┴──────┐
-│         PostgreSQL Database               │
-│      + Document Storage System            │
-└───────────────────────────────────────────┘
+│         Backend For Frontend (BFF) - .NET Aspire         │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │  React.js Frontend (Hosted in BFF)               │  │
+│  │  src/CAOfficeSuite.Web/                          │  │
+│  │  User Interface & Client Logic                     │  │
+│  └──────────────────┬───────────────────────────────┘  │
+│                      │                                    │
+│  ┌──────────────────┴───────────────────────────────┐  │
+│  │  API Gateway (Inside Aspire)                       │  │
+│  │  Service Orchestration & Routing                   │  │
+│  └──────┬──────────────┬──────────────┬──────────────┘  │
+│         │              │              │                  │
+└─────────┼──────────────┼──────────────┼──────────────────┘
+          │              │              │
+┌─────────▼──────┐ ┌─────▼──────┐ ┌─────▼────────┐
+│  Python        │ │  Python    │ │  Work        │
+│  FastAPI       │ │  FastAPI    │ │  Processes  │
+│  Services      │ │  (Analytics)│ │  (Workflows)│
+│  (Primary)      │ │  (Dashboards)│ │             │
+└─────────┬──────┘ └─────┬──────┘ └─────┬────────┘
+          │                │              │
+┌─────────┴────────────────┴──────────────┴──────┐
+│         PostgreSQL Database                     │
+│      + Document Storage System                  │
+│      + Redis Cache                               │
+└──────────────────────────────────────────────────┘
 ```
+
+**Key Architecture Decisions:**
+- **BFF Pattern**: React.js frontend is hosted inside the .NET Aspire BFF
+- **API Gateway**: Centralized routing and orchestration within Aspire
+- **Python FastAPI**: Primary backend services (preferred technology)
+- **Work Processes**: Workflow engine for business process automation
+- **Heavy Dashboards**: Advanced analytics and visualization services
 
 ---
 
@@ -223,16 +249,16 @@ cd ca-office-suite
 
    ```bash
    # Frontend
-   cd frontend
+   cd src/CAOfficeSuite.Web
    npm install
    
-   # Backend (.NET)
-   cd ../backend
-   dotnet restore
+   # Backend (.NET) - Future
+   # cd ../backend
+   # dotnet restore
    
-   # Python services
-   cd ../services
-   pip install -r requirements.txt
+   # Python services - Future
+   # cd ../services
+   # pip install -r requirements.txt
    ```
 
 4. **Run database migrations:**
@@ -245,11 +271,14 @@ cd ca-office-suite
 5. **Start the application:**
 
    ```bash
-   # Using Docker Compose (recommended)
-   docker-compose up
+   # Frontend (current)
+   cd src/CAOfficeSuite.Web
+   npm run dev
    
+   # Backend services - Future
+   # Using Docker Compose (when available)
+   # docker-compose up
    # Or run services individually
-   # Frontend: npm run dev
    # Backend: dotnet run
    # Python API: uvicorn main:app --reload
    ```
@@ -260,42 +289,26 @@ cd ca-office-suite
 
 ```text
 ca-office-suite/
-├── frontend/                 # React.js frontend application
-│   ├── src/
-│   │   ├── components/      # Reusable UI components
-│   │   ├── pages/           # Page components
-│   │   ├── services/        # API service layer
-│   │   ├── store/           # State management
-│   │   └── utils/           # Utility functions
-│   ├── public/
-│   └── package.json
-│
-├── backend/                  # .NET Aspire backend services
-│   ├── src/
-│   │   ├── Api/             # API projects
-│   │   ├── Services/        # Business logic services
-│   │   ├── Infrastructure/  # Data access, external services
-│   │   └── Shared/          # Shared libraries
-│   └── tests/               # Unit and integration tests
-│
-├── services/                 # Python FastAPI services
-│   ├── api/                 # API endpoints
-│   ├── models/              # Data models
-│   ├── services/            # Business logic
-│   └── requirements.txt
-│
-├── database/                 # Database scripts and migrations
-│   ├── migrations/
-│   └── seeds/
+├── src/
+│   └── CAOfficeSuite.Web/   # React.js frontend application
+│       ├── src/
+│       │   ├── components/  # Reusable UI components
+│       │   │   ├── common/  # DataGrid, ColumnManager
+│       │   │   └── layout/  # Navbar, Footer, Layout
+│       │   ├── pages/       # Page components (Home, Login, Clients, Tasks, Help)
+│       │   ├── services/    # API service layer (currently mock data)
+│       │   ├── store/       # State management (AuthContext)
+│       │   ├── types/       # TypeScript type definitions
+│       │   └── test/        # Test files
+│       ├── public/
+│       ├── package.json
+│       ├── vite.config.ts
+│       └── tsconfig.json
 │
 ├── docs/                     # Documentation
-│   ├── api/                 # API documentation
-│   ├── architecture/        # Architecture diagrams
-│   └── guides/              # User and developer guides
-│
-├── .github/                  # GitHub workflows and templates
-│   ├── copilot-instructions.md  # GitHub Copilot instructions
-│   └── prompts/             # AI prompt templates
+│   ├── Requirements.md
+│   ├── Portal-React-UI-Requirements.md
+│   └── images/
 │
 ├── .cursor/                  # Cursor IDE rules and guidelines
 │   └── rules/               # Cursor AI coding rules
@@ -308,10 +321,13 @@ ca-office-suite/
 │       ├── 07_ai-reasoning-framework.mdc
 │       └── README.md
 │
-├── docker/                   # Docker configuration files
-├── .env.example             # Example environment variables
-├── docker-compose.yml       # Docker Compose configuration
-└── README.md                # This file
+├── tools/                    # Development tools (future)
+├── tests/                    # Integration tests (future)
+├── LICENSE
+└── README.md                 # This file
+
+Note: Backend services (.NET Aspire, Python FastAPI) and database 
+migrations will be added in future phases.
 ```
 
 ---

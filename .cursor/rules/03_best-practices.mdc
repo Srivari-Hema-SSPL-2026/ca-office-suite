@@ -1,9 +1,149 @@
 # Best Practices
 
 **Version**: 1.0  
-**Last Updated**: November 13, 2025
+**Last Updated**: December 7, 2025
 
 ---
+
+## React/TypeScript Best Practices (Current)
+
+### Error Handling
+
+- Always handle errors in async operations with try/catch
+- Provide user-friendly error messages
+- Use error boundaries for component-level error handling
+- Log errors appropriately (console.error in development, proper logging service in production)
+
+```typescript
+// Component error handling
+export function Clients() {
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchClients() {
+      try {
+        setLoading(true);
+        setError(null);
+        const clients = await clientService.getClients();
+        setClients(clients);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Failed to load clients';
+        setError(message);
+        console.error('Error fetching clients:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchClients();
+  }, []);
+
+  if (error) {
+    return <div className="error-message">Error: {error}</div>;
+  }
+  // ...
+}
+```
+
+### Performance
+
+- Use `React.memo` for expensive components
+- Use `useMemo` and `useCallback` appropriately to prevent unnecessary re-renders
+- Lazy load routes and heavy components
+- Optimize images and assets
+- Avoid creating objects/functions in render
+
+```typescript
+// Memoize expensive computations
+const filteredClients = useMemo(() => {
+  return clients.filter(client => 
+    client.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+}, [clients, searchTerm]);
+
+// Memoize callbacks
+const handleClientSelect = useCallback((client: Client) => {
+  onClientSelect?.(client);
+}, [onClientSelect]);
+```
+
+### State Management
+
+- Use local state (`useState`) for component-specific state
+- Use Context API for shared state (auth, theme, etc.)
+- Consider state management libraries (Redux/Zustand) only when needed
+- Keep state as close to where it's used as possible
+
+### TypeScript
+
+- Always define types for props, state, and function parameters
+- Use interfaces for object shapes, types for unions/intersections
+- Avoid `any` type - use `unknown` if type is truly unknown
+- Use type guards for runtime type checking
+
+```typescript
+// Good: Proper typing
+interface ClientListProps {
+  clients: Client[];
+  onSelect?: (client: Client) => void;
+  loading?: boolean;
+}
+
+// Avoid: any type
+function processData(data: any) { }  // ❌
+function processData(data: unknown) { }  // ✅
+```
+
+### Testing
+
+- Write unit tests for components and utilities
+- Test user interactions, not implementation details
+- Use React Testing Library
+- Mock external dependencies (API calls, etc.)
+
+```typescript
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Clients } from './Clients';
+
+test('renders client list', () => {
+  const mockClients = [
+    { id: '1', name: 'Test Client', pan: 'ABCDE1234F', /* ... */ }
+  ];
+  render(<Clients clients={mockClients} />);
+  expect(screen.getByText('Test Client')).toBeInTheDocument();
+});
+```
+
+### Accessibility
+
+- Use semantic HTML elements
+- Add ARIA labels where needed
+- Ensure keyboard navigation works
+- Maintain proper heading hierarchy
+- Ensure sufficient color contrast
+
+```typescript
+// Good: Accessible button
+<button 
+  onClick={handleClick}
+  aria-label="Add new client"
+  type="button"
+>
+  <FontAwesomeIcon icon={faPlus} />
+  Add Client
+</button>
+```
+
+### Code Organization
+
+- Keep components small and focused
+- Extract reusable logic into custom hooks
+- Use barrel exports (index.ts) for clean imports
+- Separate concerns (components, services, types, utils)
+
+---
+
+## Backend Best Practices (Future Implementation)
 
 ## Error Handling
 

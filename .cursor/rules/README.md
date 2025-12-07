@@ -1,9 +1,12 @@
 # Cursor AI Project Rules
 
 **Version**: 1.0  
-**Last Updated**: November 13, 2025
+**Last Updated**: December 7, 2025
 
 This directory contains modular rule files for Cursor AI, following the recommended Project Rules structure.
+
+**Project**: Chartered Accountants Office Suite  
+**Current Phase**: Frontend Development (React + TypeScript)
 
 ---
 
@@ -11,22 +14,22 @@ This directory contains modular rule files for Cursor AI, following the recommen
 
 ### `01_project-context.mdc`
 **Priority**: MANDATORY  
-**Content**: Project overview, architecture, technology stack, microservices structure, project status, and principles
+**Content**: Project overview, architecture, technology stack, current project status, project structure, and development principles for CA Office Suite
 
 ### `02_code-generation-guidelines.mdc`
-**Content**: API endpoint patterns (Minimal APIs vs Controllers), database context patterns, repository pattern, Redis caching, Aspire configuration
+**Content**: React component patterns, custom hooks, service layer patterns, Context API patterns, DataGrid usage, TypeScript type definitions, file organization
 
 ### `03_best-practices.mdc`
-**Content**: Error handling, security, performance, testing patterns, observability, code generation checklist
+**Content**: Error handling, security, performance, testing patterns, observability, code generation checklist (includes both frontend and future backend patterns)
 
 ### `04_common-patterns.mdc`
-**Content**: Circuit breaker, retry policies, service-to-service communication, entity configuration patterns
+**Content**: Common patterns for future backend services (circuit breaker, retry policies, service-to-service communication, entity configuration patterns)
 
 ### `05_naming-conventions.mdc`
-**Content**: Code naming conventions, database naming conventions, API naming conventions, file organization structure
+**Content**: React/TypeScript naming conventions, component naming, hooks naming, API naming, database naming (for future), file organization
 
 ### `06_database-design.mdc`
-**Content**: Database design principles, entity configuration patterns, API contract standards, package management
+**Content**: Database design principles for future backend implementation, entity configuration patterns, API contract standards
 
 ### `07_ai-reasoning-framework.mdc`
 **Content**: Chain-of-Thought (CoT), ReAct methodology, System 2 reasoning, application guidelines
