@@ -8,20 +8,20 @@ Built with React.js, .NET Aspire, Python (FastAPI), PostgreSQL, and secure docum
 
 ## 📋 Table of Contents
 
-- [Key Features](#-key-features)
-- [Technology Stack](#-technology-stack)
-- [Architecture Overview](#-architecture-overview)
-- [Prerequisites](#-prerequisites)
-- [Getting Started](#-getting-started)
-- [Project Structure](#-project-structure)
+- [Key Features](#key-features)
+- [Technology Stack](#technology-stack)
+- [Architecture Overview](#architecture-overview)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
 - [Configuration](#configuration)
-- [Development Tools & AI Assistance](#-development-tools--ai-assistance)
-- [API Documentation](#-api-documentation)
-- [Deployment](#-deployment)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Support & Contact](#-support--contact)
-- [Developed By](#-developed-by)
+- [Development Tools & AI Assistance](#development-tools--ai-assistance)
+- [API Documentation](#api-documentation)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
+- [Support & Contact](#support--contact)
+- [Developed By](#developed-by)
 
 ---
 
