@@ -310,8 +310,12 @@ ca-office-suite/
 │       └── tsconfig.json
 │
 ├── docs/                     # Documentation
-│   ├── Requirements.md
-│   ├── Portal-React-UI-Requirements.md
+│   ├── 01_Requirements.md
+│   ├── 02_Architecture.md
+│   ├── 03_Technology-Stack.md
+│   ├── 04_Portal-React-UI-Requirements.md
+│   ├── 05_Setup-and-Prerequisites.md
+│   ├── 06_How-to-Execute.md
 │   └── images/
 │
 ├── .cursor/                  # Cursor IDE rules and guidelines

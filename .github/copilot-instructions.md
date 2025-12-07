@@ -12,8 +12,10 @@ This file contains instructions for GitHub Copilot to understand the project con
 This is the **Chartered Accountants Office Suite** - a modern, scalable office management platform designed specifically for Chartered Accountants and tax professionals. The suite centralizes all core operations—clients, compliance tasks, filings, documents, billing, workflows, and analytics—into a unified digital workspace.
 
 **Key Documents:**
-- Requirements: `docs/Requirements.md`
-- UI Requirements: `docs/Portal-React-UI-Requirements.md`
+- Requirements: `docs/01_Requirements.md`
+- Architecture: `docs/02_Architecture.md`
+- Technology Stack: `docs/03_Technology-Stack.md`
+- UI Requirements: `docs/04_Portal-React-UI-Requirements.md`
 - Main README: `README.md`
 - Cursor Rules: `.cursor/rules/` (for Cursor IDE)
 
@@ -550,6 +552,8 @@ When generating React/TypeScript code, always:
 ## Related Files
 
 - Cursor IDE Rules: `.cursor/rules/`
-- Project Requirements: `docs/Requirements.md`
-- UI Requirements: `docs/Portal-React-UI-Requirements.md`
+- Project Requirements: `docs/01_Requirements.md`
+- Architecture: `docs/02_Architecture.md`
+- Technology Stack: `docs/03_Technology-Stack.md`
+- UI Requirements: `docs/04_Portal-React-UI-Requirements.md`
 - Main README: `README.md`

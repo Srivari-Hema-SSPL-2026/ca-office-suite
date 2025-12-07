@@ -1,4 +1,4 @@
-# CA Office Suite - Requirements Document
+# Requirements Document
 
 **Version**: 1.0  
 **Last Updated**: December 7, 2025
@@ -11,14 +11,13 @@ The **Chartered Accountants Office Suite** is a modern, scalable office manageme
 
 ---
 
-## Key Features
+## Key Features & Requirements
 
 ### 1. Client Control & Engagement
 
-Maintain detailed client profiles including identifiers, registrations, PAN, file numbers, contact details, documentation, engagement type, assigned staff, compliance history, billing information, and more. Quickly filter, search, and manage clients across practice areas.
+**Requirement**: Maintain detailed client profiles including identifiers, registrations, PAN, file numbers, contact details, documentation, engagement type, assigned staff, compliance history, billing information, and more. Quickly filter, search, and manage clients across practice areas.
 
 **Capabilities:**
-
 - Comprehensive client database with advanced search and filtering
 - Multi-engagement tracking per client
 - Staff assignment and workload management
@@ -27,12 +26,13 @@ Maintain detailed client profiles including identifiers, registrations, PAN, fil
 
 **Status**: ✅ Frontend UI implemented with DataGrid component
 
+---
+
 ### 2. Task & Compliance Management
 
-Plan, assign, and track compliance work such as GST, ITR, TDS, audits, ROC filings, and other statutory tasks. Includes due dates, target dates, escalations, reminders, workload distribution, and real-time progress tracking.
+**Requirement**: Plan, assign, and track compliance work such as GST, ITR, TDS, audits, ROC filings, and other statutory tasks. Includes due dates, target dates, escalations, reminders, workload distribution, and real-time progress tracking.
 
 **Capabilities:**
-
 - Task creation, assignment, and prioritization
 - Compliance calendar with deadline tracking
 - Automated reminders and notifications
@@ -41,12 +41,13 @@ Plan, assign, and track compliance work such as GST, ITR, TDS, audits, ROC filin
 
 **Status**: ✅ Frontend UI implemented with DataGrid component
 
+---
+
 ### 3. Returns & Filings Management
 
-Streamline the preparation and filing of GST returns, income tax returns, audit reports, TDS returns, and statutory forms. Track filing status, e-verification, acknowledgements, deadlines, and post-filing tasks with structured workflows.
+**Requirement**: Streamline the preparation and filing of GST returns, income tax returns, audit reports, TDS returns, and statutory forms. Track filing status, e-verification, acknowledgements, deadlines, and post-filing tasks with structured workflows.
 
 **Capabilities:**
-
 - Filing status tracking (Draft, Submitted, Verified, Acknowledged)
 - E-verification workflow management
 - Acknowledgement receipt storage
@@ -55,12 +56,13 @@ Streamline the preparation and filing of GST returns, income tax returns, audit 
 
 **Status**: ⏳ Planned for future implementation
 
+---
+
 ### 4. Billing, Invoicing & Payments
 
-Generate professional invoices, manage fees and receivables, record payments, reconcile client accounts, and maintain audit-friendly financial records. Supports multiple payment modes and full billing history per client.
+**Requirement**: Generate professional invoices, manage fees and receivables, record payments, reconcile client accounts, and maintain audit-friendly financial records. Supports multiple payment modes and full billing history per client.
 
 **Capabilities:**
-
 - Professional invoice generation
 - Multiple payment mode support
 - Receivables tracking and aging reports
@@ -69,12 +71,13 @@ Generate professional invoices, manage fees and receivables, record payments, re
 
 **Status**: ⏳ Planned for future implementation
 
+---
+
 ### 5. Document Management System (DMS)
 
-Securely store, categorize, and retrieve client documents, working papers, invoices, acknowledgements, and statutory reports. Supports versioning, metadata tagging, folder organization, search, and document previews.
+**Requirement**: Securely store, categorize, and retrieve client documents, working papers, invoices, acknowledgements, and statutory reports. Supports versioning, metadata tagging, folder organization, search, and document previews.
 
 **Capabilities:**
-
 - Secure document storage with encryption
 - Version control and document history
 - Advanced search with metadata filtering
@@ -83,12 +86,13 @@ Securely store, categorize, and retrieve client documents, working papers, invoi
 
 **Status**: ⏳ Planned for future implementation
 
+---
+
 ### 6. Workflow Automation & Notifications (Work Processes)
 
-Standardize office processes using reusable **work processes** (workflows). Automate reminders for due dates, missing documents, pending approvals, e-verification follow-ups, and compliance cycles. Work process engine enables complex business process automation, reduces manual tracking, and improves consistency.
+**Requirement**: Standardize office processes using reusable work processes (workflows). Automate reminders for due dates, missing documents, pending approvals, e-verification follow-ups, and compliance cycles. Work process engine enables complex business process automation, reduces manual tracking, and improves consistency.
 
 **Capabilities:**
-
 - **Work Processes** - Workflow engine for business process automation
 - Customizable workflow templates
 - Automated notification system
@@ -100,12 +104,13 @@ Standardize office processes using reusable **work processes** (workflows). Auto
 
 **Status**: ⏳ Planned for future implementation
 
+---
+
 ### 7. Analytics, Dashboards & Reporting (Heavy Dashboards)
 
-Gain instant visibility into workload, compliance deadlines, pending filings, team productivity, billing reports, revenue insights, client distribution, and operational KPIs. **Heavy dashboards** with advanced analytics, real-time data visualization, and interactive charts provide powerful, actionable insights.
+**Requirement**: Gain instant visibility into workload, compliance deadlines, pending filings, team productivity, billing reports, revenue insights, client distribution, and operational KPIs. Heavy dashboards with advanced analytics, real-time data visualization, and interactive charts provide powerful, actionable insights.
 
 **Capabilities:**
-
 - **Heavy Dashboards** - Advanced analytics and visualization services
 - Real-time dashboard with key metrics and live data updates
 - Customizable reports and visualizations
@@ -120,45 +125,9 @@ Gain instant visibility into workload, compliance deadlines, pending filings, te
 
 ---
 
-## Technology Stack
-
-### Frontend (Current Implementation)
-
-- **React.js 19** - Modern UI framework
-- **TypeScript 5** - Type-safe JavaScript
-- **Vite 7** - Build tool
-- **React Router 7** - Client-side routing
-- **Font Awesome 7** - Icon library
-- **UI Components** - Advanced Data Grid with column management, pagination, sorting, and filtering
-- **Vitest 4** - Testing framework
-
-### Backend Architecture (Planned)
-
-- **.NET Aspire** - Cloud-native application framework
-  - **BFF (Backend For Frontend)** - Hosts React.js frontend
-  - **API Gateway** - Service orchestration and routing within Aspire
-- **Python FastAPI** - Primary backend services (preferred)
-  - Business logic services
-  - Analytics and dashboard services
-  - Data processing services
-- **Work Processes** - Workflow engine for business process automation
-- **PostgreSQL** - Primary relational database
-- **Redis** - Caching, session management, and real-time data
-- **Document Storage** - Secure file storage system (Azure Blob / AWS S3 / Local)
-
-### Architecture Pattern
-
-- **BFF Pattern**: React.js frontend is hosted inside the .NET Aspire BFF
-- **API Gateway**: Centralized routing and orchestration within Aspire
-- **Python FastAPI**: Primary backend services (preferred technology)
-- **Work Processes**: Workflow engine for business process automation
-- **Heavy Dashboards**: Advanced analytics and visualization services
-
----
-
 ## UI Requirements
 
-See [Portal-React-UI-Requirements.md](./Portal-React-UI-Requirements.md) for detailed UI/UX requirements including:
+See [04_Portal-React-UI-Requirements.md](./04_Portal-React-UI-Requirements.md) for detailed UI/UX requirements including:
 
 - Layout & Structure
 - Typography & Icons
@@ -207,38 +176,6 @@ See [Portal-React-UI-Requirements.md](./Portal-React-UI-Requirements.md) for det
 
 ---
 
-## Project Structure
-
-The project is organized as follows:
-
-```text
-ca-office-suite/
-├── src/
-│   └── CAOfficeSuite.Web/    # React frontend application
-├── docs/                      # Documentation
-├── .cursor/                   # Cursor IDE rules
-└── README.md                  # Main documentation
-```
-
-See [README.md](../README.md) for detailed project structure.
-
----
-
-## Development Guidelines
-
-- Follow React best practices and modern patterns
-- Use TypeScript for type safety
-- Write reusable, composable components
-- Implement proper error handling
-- Ensure accessibility (WCAG guidelines)
-- Maintain responsive design
-- Write tests for critical functionality
-- Keep documentation up to date
-
-See `.cursor/rules/` for detailed coding guidelines and best practices.
-
----
-
 ## Current Development Focus
 
 1. **Frontend Completion**: Finish remaining UI components and pages
@@ -253,8 +190,44 @@ See `.cursor/rules/` for detailed coding guidelines and best practices.
 
 ---
 
-## References
+## Non-Functional Requirements
 
+### Performance
+- Page load time: < 2 seconds
+- API response time: < 500ms (p95)
+- Support for 1000+ concurrent users
+- Database query optimization
+
+### Security
+- Authentication and authorization required
+- Data encryption at rest and in transit
+- Secure document storage
+- Audit logging for all operations
+- Compliance with data protection regulations
+
+### Scalability
+- Horizontal scaling capability
+- Support for multiple tenants (future)
+- Efficient caching strategies
+- Database read replicas for read-heavy operations
+
+### Availability
+- 99.9% uptime target
+- Health check endpoints
+- Graceful error handling
+- Automated failover mechanisms
+
+### Usability
+- Responsive design (mobile, tablet, desktop)
+- Accessibility (WCAG AA compliance)
+- Intuitive user interface
+- Comprehensive help and documentation
+
+---
+
+## Related Documents
+
+- [Architecture](./02_Architecture.md)
+- [Technology Stack](./03_Technology-Stack.md)
+- [UI Requirements](./04_Portal-React-UI-Requirements.md)
 - [Main README](../README.md)
-- [UI Requirements](./Portal-React-UI-Requirements.md)
-- [Cursor Rules](../.cursor/rules/README.md)
