@@ -129,6 +129,7 @@ Gain instant visibility into workload, compliance deadlines, pending filings, te
 - **Vite 7** - Build tool
 - **React Router 7** - Client-side routing
 - **Font Awesome 7** - Icon library
+- **UI Components** - Advanced Data Grid with column management, pagination, sorting, and filtering
 - **Vitest 4** - Testing framework
 
 ### Backend Architecture (Planned)
@@ -147,9 +148,10 @@ Gain instant visibility into workload, compliance deadlines, pending filings, te
 
 ### Architecture Pattern
 
-- **BFF Pattern**: React.js frontend hosted inside .NET Aspire BFF
+- **BFF Pattern**: React.js frontend is hosted inside the .NET Aspire BFF
 - **API Gateway**: Centralized routing and orchestration within Aspire
-- **Microservices**: Python FastAPI services for business logic
+- **Python FastAPI**: Primary backend services (preferred technology)
+- **Work Processes**: Workflow engine for business process automation
 - **Heavy Dashboards**: Advanced analytics and visualization services
 
 ---
