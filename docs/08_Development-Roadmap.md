@@ -1,3 +1,10 @@
+---
+document_type: "Planning"
+version: "1.0"
+status: "Active"
+audience: ["Stakeholders", "Developers"]
+---
+
 # Development Roadmap
 
 **Version**: 1.0  

@@ -1,3 +1,10 @@
+---
+document_type: "Standard"
+version: "1.0"
+status: "Active"
+audience: ["Developers"]
+---
+
 # Code Quality and Linting
 
 This project uses various tools to ensure code quality and consistency.

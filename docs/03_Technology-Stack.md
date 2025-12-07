@@ -1,3 +1,10 @@
+---
+document_type: "Technical Specification"
+version: "1.0"
+status: "Active"
+audience: ["Developers", "DevOps"]
+---
+
 # Technology Stack
 
 **Version**: 1.0  

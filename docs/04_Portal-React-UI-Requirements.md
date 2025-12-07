@@ -1,3 +1,10 @@
+---
+document_type: "UI/UX Requirements"
+version: "1.0"
+status: "Active"
+audience: ["Frontend Developers", "UI Designers"]
+---
+
 # Portal React.js UI Requirements
 
 ## 1. Layout & Structure

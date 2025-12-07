@@ -1,3 +1,10 @@
+---
+document_type: "Requirements"
+version: "1.0"
+status: "Active"
+audience: ["Stakeholders", "Developers", "QA"]
+---
+
 # Requirements Document
 
 **Version**: 1.0  

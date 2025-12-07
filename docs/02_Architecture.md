@@ -1,3 +1,10 @@
+---
+document_type: "Architecture"
+version: "1.0"
+status: "Active"
+audience: ["Architects", "Developers"]
+---
+
 # Architecture Document
 
 **Version**: 1.0  

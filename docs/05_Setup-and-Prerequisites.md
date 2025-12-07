@@ -1,3 +1,10 @@
+---
+document_type: "Guide"
+version: "1.0"
+status: "Active"
+audience: ["Developers"]
+---
+
 # Setup and Prerequisites
 
 **Version**: 1.0  
