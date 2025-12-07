@@ -16,34 +16,43 @@ audience: ["Architects", "Developers"]
 
 The application follows a **Backend For Frontend (BFF) pattern** with API Gateway orchestration:
 
-```text
-┌─────────────────────────────────────────────────────────┐
-│         Backend For Frontend (BFF) - .NET Aspire         │
-│  ┌──────────────────────────────────────────────────┐  │
-│  │  React.js Frontend (Hosted in BFF)               │  │
-│  │  src/CAOfficeSuite.Web/                          │  │
-│  │  User Interface & Client Logic                     │  │
-│  └──────────────────┬───────────────────────────────┘  │
-│                      │                                    │
-│  ┌──────────────────┴───────────────────────────────┐  │
-│  │  API Gateway (Inside Aspire)                       │  │
-│  │  Service Orchestration & Routing                   │  │
-│  └──────┬──────────────┬──────────────┬──────────────┘  │
-│         │              │              │                  │
-└─────────┼──────────────┼──────────────┼──────────────────┘
-          │              │              │
-┌─────────▼──────┐ ┌─────▼──────┐ ┌─────▼────────┐
-│  Python        │ │  Python    │ │  Work       │
-│  FastAPI       │ │  FastAPI    │ │  Processes  │
-│  Services      │ │  Services  │ │  (Workflows)│
-│  (Primary)       │ │  (Analytics)│ │             │
-└─────────┬──────┘ └─────┬──────┘ └─────┬────────┘
-          │                │              │
-┌─────────┴────────────────┴──────────────┴──────┐
-│         PostgreSQL Database                     │
-│      + Document Storage System                  │
-│      + Redis Cache                               │
-└──────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph DotNetAspire [Backend For Frontend - .NET Aspire]
+        style DotNetAspire fill:#f9f9f9,stroke:#333,stroke-width:2px
+        Frontend[React.js Frontend<br/>src/CAOfficeSuite.Web/]
+        APIGateway[API Gateway<br/>Service Orchestration & Routing]
+        
+        Frontend --> APIGateway
+    end
+
+    subgraph BackendServices [Backend Services]
+        style BackendServices fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+        FastAPI[Python FastAPI Services<br/>Primary]
+        Analytics[Python FastAPI Services<br/>Analytics]
+        Workflows[Work Processes<br/>Workflows]
+    end
+
+    subgraph DataLayer [Data Layer]
+        style DataLayer fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+        Postgres[(PostgreSQL Database)]
+        DocStore[Document Storage System]
+        Redis[Redis Cache]
+    end
+
+    APIGateway --> FastAPI
+    APIGateway --> Analytics
+    APIGateway --> Workflows
+
+    FastAPI --> Postgres
+    FastAPI --> DocStore
+    FastAPI --> Redis
+
+    Analytics --> Postgres
+    Analytics --> Redis
+
+    Workflows --> Postgres
+    Workflows --> DocStore
 ```
 
 ---
