@@ -117,11 +117,13 @@ Gain instant visibility into workload, compliance deadlines, pending filings, te
 
 ### Frontend
 
-- **React.js** - Modern UI framework for building responsive interfaces
-- **TypeScript** - Type-safe JavaScript for better code quality
-- **State Management** - Redux/Zustand (TBD)
-- **UI Framework** - Material-UI / Ant Design (TBD)
-- **Build Tool** - Vite / Webpack
+- **React.js 19** - Modern UI framework for building responsive interfaces
+- **TypeScript 5** - Type-safe JavaScript for better code quality
+- **State Management** - React Context API (AuthContext), may expand to Redux/Zustand
+- **Build Tool** - Vite 7
+- **Routing** - React Router 7
+- **Icons** - Font Awesome 7
+- **Testing** - Vitest 4
 
 ### Backend
 
@@ -223,16 +225,16 @@ cd ca-office-suite
 
    ```bash
    # Frontend
-   cd frontend
+   cd src/CAOfficeSuite.Web
    npm install
    
-   # Backend (.NET)
-   cd ../backend
-   dotnet restore
+   # Backend (.NET) - Future
+   # cd ../backend
+   # dotnet restore
    
-   # Python services
-   cd ../services
-   pip install -r requirements.txt
+   # Python services - Future
+   # cd ../services
+   # pip install -r requirements.txt
    ```
 
 4. **Run database migrations:**
@@ -245,11 +247,14 @@ cd ca-office-suite
 5. **Start the application:**
 
    ```bash
-   # Using Docker Compose (recommended)
-   docker-compose up
+   # Frontend (current)
+   cd src/CAOfficeSuite.Web
+   npm run dev
    
+   # Backend services - Future
+   # Using Docker Compose (when available)
+   # docker-compose up
    # Or run services individually
-   # Frontend: npm run dev
    # Backend: dotnet run
    # Python API: uvicorn main:app --reload
    ```
@@ -260,42 +265,26 @@ cd ca-office-suite
 
 ```text
 ca-office-suite/
-├── frontend/                 # React.js frontend application
-│   ├── src/
-│   │   ├── components/      # Reusable UI components
-│   │   ├── pages/           # Page components
-│   │   ├── services/        # API service layer
-│   │   ├── store/           # State management
-│   │   └── utils/           # Utility functions
-│   ├── public/
-│   └── package.json
-│
-├── backend/                  # .NET Aspire backend services
-│   ├── src/
-│   │   ├── Api/             # API projects
-│   │   ├── Services/        # Business logic services
-│   │   ├── Infrastructure/  # Data access, external services
-│   │   └── Shared/          # Shared libraries
-│   └── tests/               # Unit and integration tests
-│
-├── services/                 # Python FastAPI services
-│   ├── api/                 # API endpoints
-│   ├── models/              # Data models
-│   ├── services/            # Business logic
-│   └── requirements.txt
-│
-├── database/                 # Database scripts and migrations
-│   ├── migrations/
-│   └── seeds/
+├── src/
+│   └── CAOfficeSuite.Web/   # React.js frontend application
+│       ├── src/
+│       │   ├── components/  # Reusable UI components
+│       │   │   ├── common/  # DataGrid, ColumnManager
+│       │   │   └── layout/  # Navbar, Footer, Layout
+│       │   ├── pages/       # Page components (Home, Login, Clients, Tasks, Help)
+│       │   ├── services/    # API service layer (currently mock data)
+│       │   ├── store/       # State management (AuthContext)
+│       │   ├── types/       # TypeScript type definitions
+│       │   └── test/        # Test files
+│       ├── public/
+│       ├── package.json
+│       ├── vite.config.ts
+│       └── tsconfig.json
 │
 ├── docs/                     # Documentation
-│   ├── api/                 # API documentation
-│   ├── architecture/        # Architecture diagrams
-│   └── guides/              # User and developer guides
-│
-├── .github/                  # GitHub workflows and templates
-│   ├── copilot-instructions.md  # GitHub Copilot instructions
-│   └── prompts/             # AI prompt templates
+│   ├── Requirements.md
+│   ├── Portal-React-UI-Requirements.md
+│   └── images/
 │
 ├── .cursor/                  # Cursor IDE rules and guidelines
 │   └── rules/               # Cursor AI coding rules
@@ -308,10 +297,13 @@ ca-office-suite/
 │       ├── 07_ai-reasoning-framework.mdc
 │       └── README.md
 │
-├── docker/                   # Docker configuration files
-├── .env.example             # Example environment variables
-├── docker-compose.yml       # Docker Compose configuration
-└── README.md                # This file
+├── tools/                    # Development tools (future)
+├── tests/                    # Integration tests (future)
+├── LICENSE
+└── README.md                 # This file
+
+Note: Backend services (.NET Aspire, Python FastAPI) and database 
+migrations will be added in future phases.
 ```
 
 ---

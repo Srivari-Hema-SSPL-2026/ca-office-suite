@@ -1,33 +1,55 @@
 # Naming Conventions
 
 **Version**: 1.0  
-**Last Updated**: November 13, 2025
+**Last Updated**: January 2026
 
 ---
 
-## Code Naming Conventions
+## React/TypeScript Naming Conventions
 
-- **Projects**: PascalCase (e.g., `AuthenticationApi`, `ProductCatalogApi`)
-- **Namespaces**: PascalCase matching folder structure
-- **Classes/Interfaces**: PascalCase (e.g., `IProductService`, `ProductService`)
-- **Methods**: PascalCase (e.g., `GetProductByIdAsync`)
-- **Variables**: camelCase (e.g., `userId`, `productId`)
-- **Constants**: PascalCase (e.g., `MaxRetryAttempts`, `DefaultCacheExpiration`)
+### Components
+- **Component Files**: PascalCase (e.g., `DataGrid.tsx`, `ClientList.tsx`)
+- **Component Names**: PascalCase matching file name (e.g., `DataGrid`, `ClientList`)
+- **Component Props Interfaces**: PascalCase with `Props` suffix (e.g., `DataGridProps`, `ClientListProps`)
+
+### Hooks
+- **Custom Hooks**: camelCase starting with `use` (e.g., `useAuth`, `useClients`, `useDataGrid`)
+- **Hook Files**: camelCase matching hook name (e.g., `useAuth.ts`, `useClients.ts`)
+
+### Functions & Variables
+- **Functions**: camelCase (e.g., `getClientById`, `handleSubmit`)
+- **Variables**: camelCase (e.g., `clientList`, `isLoading`, `errorMessage`)
+- **Constants**: UPPER_SNAKE_CASE for true constants (e.g., `MAX_RETRY_ATTEMPTS`, `API_BASE_URL`)
+- **Boolean Variables**: Prefix with `is`, `has`, `should`, `can` (e.g., `isLoading`, `hasError`, `shouldShowModal`)
+
+### Types & Interfaces
+- **Interfaces**: PascalCase (e.g., `Client`, `Task`, `User`)
+- **Type Aliases**: PascalCase (e.g., `TaskType`, `TaskStatus`, `TaskPriority`)
+- **Generic Types**: Single uppercase letter (e.g., `T`, `K`, `V`) or descriptive (e.g., `TData`, `TColumn`)
+
+### Files & Directories
+- **Component Files**: PascalCase matching component name (e.g., `DataGrid.tsx`, `Navbar.tsx`)
+- **Utility Files**: camelCase (e.g., `api.ts`, `utils.ts`, `helpers.ts`)
+- **Type Files**: camelCase (e.g., `types.ts`, `index.ts`)
+- **Directories**: camelCase or kebab-case (e.g., `components/`, `common/`, `layout/`)
+
+### CSS & Styling
+- **CSS Files**: Match component name (e.g., `DataGrid.css`, `Navbar.css`)
+- **CSS Classes**: kebab-case (e.g., `data-grid`, `client-list`, `status-active`)
+- **CSS Variables**: kebab-case with `--` prefix (e.g., `--primary-color`, `--spacing-large`)
 
 ---
 
-## Database Naming Conventions
+## API & Service Naming
 
-- **Database Tables**: snake_case (e.g., `user_addresses`, `order_items`)
-- **Database Columns**: snake_case (e.g., `user_id`, `created_at`)
-- **Primary Keys**: Use `{table_name}_id` pattern (e.g., `user_id`, `product_id`)
+### Service Functions
+- **Service Objects**: camelCase with `Service` suffix (e.g., `clientService`, `taskService`, `authService`)
+- **Service Methods**: camelCase with verb prefix (e.g., `getClients`, `createClient`, `updateTask`, `deleteClient`)
+- **Async Functions**: Use `async/await`, no special naming needed
 
----
-
-## API Naming Conventions
-
-- **API Routes**: kebab-case (e.g., `/api/auth/login`, `/api/products/search`)
-- **API Endpoints**: Use RESTful conventions
+### API Endpoints (Future Backend)
+- **Routes**: kebab-case (e.g., `/api/clients`, `/api/tasks`, `/api/auth/login`)
+- **RESTful Conventions**:
   - GET for retrieval
   - POST for creation
   - PUT for full updates
@@ -36,42 +58,121 @@
 
 ---
 
-## File Organization
+## Database Naming (Future Backend)
+
+### Tables & Columns
+- **Database Tables**: snake_case (e.g., `clients`, `tasks`, `users`, `client_engagements`)
+- **Database Columns**: snake_case (e.g., `client_id`, `created_at`, `next_due_date`)
+- **Primary Keys**: Use `id` or `{table_name}_id` pattern (e.g., `id`, `client_id`)
+
+---
+
+## Project-Specific Conventions
+
+### CA Office Suite Domain Terms
+- **Clients**: Use `Client` (singular), `clients` (plural)
+- **Tasks**: Use `Task` (singular), `tasks` (plural)
+- **Engagements**: Use `Engagement` (singular), `engagements` (plural)
+- **Compliance Types**: Use abbreviations (e.g., `GST`, `ITR`, `TDS`, `ROC`)
+
+### File Organization Structure
 
 ```
-src/
-├── NodeToAspire.AppHost/          # Aspire orchestration
-├── NodeToAspire.ServiceDefaults/  # Aspire service defaults
-├── Services/
-│   ├── AuthenticationApi/
-│   │   ├── Controllers/
-│   │   ├── Models/
-│   │   ├── Services/
-│   │   ├── Data/
-│   │   ├── Program.cs
-│   │   └── AuthenticationApi.csproj
-│   ├── UserManagementApi/
-│   ├── ProductCatalogApi/
-│   ├── OrderProcessingApi/
-│   └── NotificationService/
-└── Shared/
-    ├── Common/                    # Shared models and utilities
-    └── ServiceDefaults/           # Aspire service defaults
+src/CAOfficeSuite.Web/src/
+├── components/
+│   ├── common/              # Reusable components
+│   │   ├── DataGrid.tsx
+│   │   ├── DataGrid.css
+│   │   ├── DataGrid.types.ts
+│   │   └── index.ts
+│   └── layout/
+│       ├── Layout.tsx
+│       ├── Layout.css
+│       └── index.ts
+├── pages/
+│   ├── Clients.tsx
+│   ├── Clients.css
+│   └── index.ts
+├── services/
+│   ├── api.ts
+│   └── mockData.ts
+├── store/
+│   ├── AuthContext.tsx
+│   └── useAuth.ts
+└── types/
+    └── index.ts
+```
 
-tests/
-├── AuthenticationApi.Tests/
-├── UserManagementApi.Tests/
-├── ProductCatalogApi.Tests/
-├── OrderProcessingApi.Tests/
-└── IntegrationTests/
+---
 
-docs/
-├── 01_Requirements.md
-├── 02_RAPID_8DAY_PLAN.md
-├── 03_ARCHITECTURE.md
-├── 04_DATABASE_DESIGN.md
-├── 05_API_CONTRACT.yaml
-├── 06_IMPLEMENTATION_GUIDE.md
-├── 07_SEQUENCE_DIAGRAMS.md
-└── 08_MODERNIZATION_PLAN.md
+## Import Organization
+
+Order imports as follows:
+
+```typescript
+// 1. React and React-related imports
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// 2. Third-party libraries
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+// 3. Internal components
+import { DataGrid } from '../components/common';
+import { Layout } from '../components/layout';
+
+// 4. Internal services/utilities
+import { clientService } from '../services/api';
+
+// 5. Types
+import type { Client, Task } from '../types';
+
+// 6. Styles (if CSS Modules or similar)
+import './Clients.css';
+```
+
+---
+
+## Examples
+
+### Good Naming Examples
+
+```typescript
+// Component
+export function ClientList({ clients, onSelect }: ClientListProps) { }
+
+// Hook
+export function useClients() { }
+
+// Service
+export const clientService = {
+  async getClients(): Promise<Client[]> { },
+  async getClientById(id: string): Promise<Client | undefined> { },
+};
+
+// Types
+export interface Client {
+  id: string;
+  name: string;
+  pan: string;
+}
+
+export type TaskStatus = 'pending' | 'in-progress' | 'completed';
+```
+
+### Avoid These Patterns
+
+```typescript
+// ❌ Don't use class components
+class ClientList extends React.Component { }
+
+// ❌ Don't use inconsistent naming
+const ClientList = () => { };  // Should be function ClientList
+const get_clients = () => { }; // Should be getClients
+const CLIENT_LIST = [];        // Should be clientList (unless true constant)
+
+// ❌ Don't use generic names
+const data = [];               // Should be clients or tasks
+const item = {};               // Should be client or task
 ```
