@@ -177,10 +177,10 @@
 - ESLint: 9.39.1
 
 ### Planned Versions
-- .NET: 8.0 or higher
+- .NET: See [Setup Prerequisites](./05_Setup-and-Prerequisites.md)
 - Python: 3.10 or higher
 - PostgreSQL: 14.x or higher
-- Node.js: 22.x (Recommended) or 18.x higher
+- Node.js: See [Setup Prerequisites](./05_Setup-and-Prerequisites.md)
 
 ---
 

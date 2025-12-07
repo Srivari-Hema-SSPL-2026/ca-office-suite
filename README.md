@@ -72,16 +72,16 @@ For detailed architecture documentation including diagrams, layers, communicatio
 ## 📦 Prerequisites
 
 **Required:**
-- **Node.js** (v22.x recommended, v18.x minimum) and npm/yarn
+- **Node.js** and npm/yarn
 - **Git** for version control
 
 **Optional (for future backend development):**
-- **.NET SDK** (8.0 or higher)
-- **Python** (3.10 or higher) and pip
-- **PostgreSQL** (14.x or higher)
+- **.NET SDK**
+- **Python** and pip
+- **PostgreSQL**
 - **Docker** and Docker Compose
 
-For detailed prerequisites and setup instructions, see [05_Setup-and-Prerequisites.md](docs/05_Setup-and-Prerequisites.md).
+For detailed version requirements and setup instructions, see [05_Setup-and-Prerequisites.md](docs/05_Setup-and-Prerequisites.md).
 
 ---
 

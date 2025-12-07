@@ -46,7 +46,7 @@ This document outlines the prerequisites and setup instructions for the CA Offic
 
 #### 4. .NET SDK
 
-- **Version**: .NET 8.0 or higher
+- **Version**: .NET 10.0 (Recommended) or 8.0 higher
 - **Download**: [https://dotnet.microsoft.com/download](https://dotnet.microsoft.com/download)
 - **Verification**:
 
