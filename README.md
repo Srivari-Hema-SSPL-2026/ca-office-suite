@@ -130,6 +130,7 @@ Gain instant visibility into workload, compliance deadlines, pending filings, te
 - **Build Tool** - Vite 7
 - **Routing** - React Router 7
 - **Icons** - Font Awesome 7
+- **UI Components** - Advanced Data Grid with column management, pagination, sorting, and filtering
 - **Testing** - Vitest 4
 
 ### Backend
