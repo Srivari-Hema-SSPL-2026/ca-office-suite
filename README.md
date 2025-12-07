@@ -87,17 +87,20 @@ Securely store, categorize, and retrieve client documents, working papers, invoi
 - Folder-based organization
 - Document preview and download
 
-### 6. Workflow Automation & Notifications
+### 6. Workflow Automation & Notifications (Work Processes)
 
-Standardize office processes using reusable workflows. Automate reminders for due dates, missing documents, pending approvals, e-verification follow-ups, and compliance cycles. Reduces manual tracking and improves consistency.
+Standardize office processes using reusable **work processes** (workflows). Automate reminders for due dates, missing documents, pending approvals, e-verification follow-ups, and compliance cycles. Work process engine enables complex business process automation, reduces manual tracking, and improves consistency.
 
 **Capabilities:**
 
+- **Work Processes** - Workflow engine for business process automation
 - Customizable workflow templates
 - Automated notification system
 - Rule-based task assignment
 - Escalation management
 - Process standardization
+- Workflow orchestration
+- State machine management
 
 ### 7. Analytics, Dashboards & Reporting (Heavy Dashboards)
 
@@ -145,7 +148,7 @@ Gain instant visibility into workload, compliance deadlines, pending filings, te
 
 - **PostgreSQL** - Primary relational database
 - **Document Storage** - Secure file storage system (Azure Blob / AWS S3 / Local)
-- **Caching** - Redis (for session management and performance)
+- **Caching** - Redis (for caching, session management, and real-time data)
 
 ### Infrastructure & DevOps
 
@@ -422,10 +425,10 @@ docker-compose -f docker-compose.prod.yml up -d
 
    ```bash
    # Frontend
-   cd frontend && npm run build
+   cd src/CAOfficeSuite.Web && npm run build
    
-   # Backend
-   cd backend && dotnet publish -c Release
+   # Backend (when available)
+   # cd backend && dotnet publish -c Release
    ```
 
 2. **Set up production environment variables**

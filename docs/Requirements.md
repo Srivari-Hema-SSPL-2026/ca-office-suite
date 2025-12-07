@@ -237,17 +237,17 @@ See `.cursor/rules/` for detailed coding guidelines and best practices.
 
 ---
 
-## Next Steps
+## Current Development Focus
 
-1. Complete frontend UI components and pages
-2. Implement backend services (.NET Aspire)
-3. Set up database (PostgreSQL)
-4. Integrate frontend with backend APIs
-5. Implement authentication and authorization
-6. Add document management features
-7. Implement billing and invoicing
-8. Add workflow automation
-9. Build analytics and reporting features
+1. **Frontend Completion**: Finish remaining UI components and pages
+2. **BFF Development**: Implement .NET Aspire BFF to host React frontend
+3. **API Gateway**: Set up API Gateway within Aspire for service orchestration
+4. **Python FastAPI Services**: Develop primary backend services using FastAPI
+5. **Work Processes**: Implement workflow engine for business process automation
+6. **Heavy Dashboards**: Build advanced analytics and visualization dashboards
+7. **Backend Integration**: Connect frontend to BFF and API Gateway
+8. **State Management**: Enhance state management as needed
+9. **Testing**: Expand test coverage across all layers
 
 ---
 
