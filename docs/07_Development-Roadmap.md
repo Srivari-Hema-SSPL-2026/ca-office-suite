@@ -24,6 +24,7 @@ This document outlines a phased development approach, breaking down the CA Offic
 ### Task Structure
 
 Each task should include:
+
 - Clear objective
 - Estimated time (2-3 hours)
 - Dependencies (if any)
@@ -48,6 +49,7 @@ Each task should include:
 ## Phase 2: Enhanced Components (2-3 Hour Tasks)
 
 ### Task 2.1: Enhanced DataGrid - Column Persistence
+
 **Time**: 2 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Existing DataGrid component
@@ -55,12 +57,14 @@ Each task should include:
 **Objective**: Save column preferences to localStorage per user/grid
 
 **Tasks**:
+
 - Add localStorage persistence for column visibility
 - Add localStorage persistence for column order
 - Add localStorage persistence for column width
 - Create utility functions for localStorage management
 
 **Acceptance Criteria**:
+
 - Column preferences persist across page refreshes
 - Each grid instance has separate preferences
 - Preferences can be reset to defaults
@@ -70,6 +74,7 @@ Each task should include:
 ---
 
 ### Task 2.2: Enhanced DataGrid - Advanced Filtering
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Existing DataGrid component
@@ -77,12 +82,14 @@ Each task should include:
 **Objective**: Add advanced filtering options (date ranges, multi-select, etc.)
 
 **Tasks**:
+
 - Implement date range picker for date columns
 - Add multi-select dropdown for status/category columns
 - Add filter combination logic (AND/OR)
 - Add filter state management
 
 **Acceptance Criteria**:
+
 - Date range filtering works correctly
 - Multi-select filtering works for status columns
 - Filters can be combined
@@ -93,6 +100,7 @@ Each task should include:
 ---
 
 ### Task 2.3: Loading States & Skeletons
+
 **Time**: 2 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: None
@@ -100,12 +108,14 @@ Each task should include:
 **Objective**: Add loading skeletons for better UX
 
 **Tasks**:
+
 - Create Skeleton component
 - Add skeleton states to DataGrid
 - Add skeleton states to page components
 - Add loading indicators for async operations
 
 **Acceptance Criteria**:
+
 - Skeleton shows while data is loading
 - Smooth transition from skeleton to content
 - Loading indicators for buttons/actions
@@ -115,6 +125,7 @@ Each task should include:
 ---
 
 ### Task 2.4: Error Handling & Toast Notifications
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: None
@@ -122,12 +133,14 @@ Each task should include:
 **Objective**: Implement comprehensive error handling and user feedback
 
 **Tasks**:
+
 - Create Toast notification component
 - Add error boundary component
 - Implement error handling in API services
 - Add success/error/warning toast messages
 
 **Acceptance Criteria**:
+
 - Errors are caught and displayed to users
 - Success messages shown for successful operations
 - Toast notifications auto-dismiss
@@ -138,6 +151,7 @@ Each task should include:
 ---
 
 ### Task 2.5: Form Validation Utilities
+
 **Time**: 2 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: None
@@ -145,12 +159,14 @@ Each task should include:
 **Objective**: Create reusable form validation utilities
 
 **Tasks**:
+
 - Create validation utility functions
 - Add validation for email, PAN, GSTIN, phone
 - Create validation error display component
 - Add form validation hooks
 
 **Acceptance Criteria**:
+
 - Validation functions work for common fields
 - Validation errors display inline
 - Validation works on blur and submit
@@ -162,6 +178,7 @@ Each task should include:
 ## Phase 3: Client Management Features (2-3 Hour Tasks)
 
 ### Task 3.1: Client Form Component
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Task 2.5 (Form Validation)
@@ -169,12 +186,14 @@ Each task should include:
 **Objective**: Create reusable client form component
 
 **Tasks**:
+
 - Create ClientForm component
 - Add all client fields (name, PAN, GSTIN, email, phone, address)
 - Integrate form validation
 - Add form state management
 
 **Acceptance Criteria**:
+
 - Form validates all fields
 - Form can be used for create and edit
 - Form resets after submission
@@ -185,6 +204,7 @@ Each task should include:
 ---
 
 ### Task 3.2: Client Create Modal
+
 **Time**: 2 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Task 3.1 (Client Form)
@@ -192,12 +212,14 @@ Each task should include:
 **Objective**: Create modal for adding new clients
 
 **Tasks**:
+
 - Create Modal component
 - Integrate ClientForm in modal
 - Add open/close modal logic
 - Add form submission handling
 
 **Acceptance Criteria**:
+
 - Modal opens from "Add Client" button
 - Form works inside modal
 - Modal closes on cancel/success
@@ -208,6 +230,7 @@ Each task should include:
 ---
 
 ### Task 3.3: Client Edit Functionality
+
 **Time**: 2 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Task 3.1 (Client Form)
@@ -215,12 +238,14 @@ Each task should include:
 **Objective**: Add edit functionality for clients
 
 **Tasks**:
+
 - Add edit button/action to client row
 - Pre-populate form with client data
 - Handle form submission for updates
 - Update client list after edit
 
 **Acceptance Criteria**:
+
 - Edit button opens form with existing data
 - Form updates client successfully
 - List refreshes after update
@@ -231,6 +256,7 @@ Each task should include:
 ---
 
 ### Task 3.4: Client Detail View
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: None
@@ -238,12 +264,14 @@ Each task should include:
 **Objective**: Create detailed view for a single client
 
 **Tasks**:
+
 - Create ClientDetail component
 - Add client information display
 - Add related tasks section
 - Add related documents section (placeholder)
 
 **Acceptance Criteria**:
+
 - Detail view shows all client information
 - Can navigate to detail from list
 - Related information displays correctly
@@ -254,6 +282,7 @@ Each task should include:
 ---
 
 ### Task 3.5: Client Search Enhancement
+
 **Time**: 2 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Existing DataGrid
@@ -261,12 +290,14 @@ Each task should include:
 **Objective**: Enhance client search with debouncing and better UX
 
 **Tasks**:
+
 - Add debouncing to search input
 - Add search highlighting
 - Add search history (localStorage)
 - Improve search performance
 
 **Acceptance Criteria**:
+
 - Search debounced (300ms delay)
 - Search highlights matching text
 - Search history available
@@ -279,6 +310,7 @@ Each task should include:
 ## Phase 4: Task Management Features (2-3 Hour Tasks)
 
 ### Task 4.1: Task Form Component
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Task 2.5 (Form Validation)
@@ -286,12 +318,14 @@ Each task should include:
 **Objective**: Create reusable task form component
 
 **Tasks**:
+
 - Create TaskForm component
 - Add task fields (title, description, type, priority, due date, assignee, client)
 - Add client selection dropdown
 - Integrate form validation
 
 **Acceptance Criteria**:
+
 - Form validates all fields
 - Client dropdown populated correctly
 - Date picker works for due date
@@ -302,6 +336,7 @@ Each task should include:
 ---
 
 ### Task 4.2: Task Create Modal
+
 **Time**: 2 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Task 4.1 (Task Form)
@@ -309,12 +344,14 @@ Each task should include:
 **Objective**: Create modal for adding new tasks
 
 **Tasks**:
+
 - Create TaskModal component
 - Integrate TaskForm in modal
 - Add form submission handling
 - Add success/error handling
 
 **Acceptance Criteria**:
+
 - Modal opens from "Add Task" button
 - Form works inside modal
 - Task created successfully
@@ -325,6 +362,7 @@ Each task should include:
 ---
 
 ### Task 4.3: Task Status Management
+
 **Time**: 2 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: None
@@ -332,12 +370,14 @@ Each task should include:
 **Objective**: Add quick status update functionality
 
 **Tasks**:
+
 - Add status dropdown to task row
 - Add status update API call (mock)
 - Add status change animation
 - Update task list after status change
 
 **Acceptance Criteria**:
+
 - Status can be changed from dropdown
 - Status updates immediately
 - Visual feedback on status change
@@ -348,6 +388,7 @@ Each task should include:
 ---
 
 ### Task 4.4: Task Filtering Enhancement
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Task 2.2 (Advanced Filtering)
@@ -355,6 +396,7 @@ Each task should include:
 **Objective**: Add advanced filtering for tasks
 
 **Tasks**:
+
 - Add filter by status (multi-select)
 - Add filter by type (multi-select)
 - Add filter by priority
@@ -362,6 +404,7 @@ Each task should include:
 - Add filter by assignee
 
 **Acceptance Criteria**:
+
 - All filters work independently
 - Filters can be combined
 - Filter state persists
@@ -372,6 +415,7 @@ Each task should include:
 ---
 
 ### Task 4.5: Task Detail View
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: None
@@ -379,6 +423,7 @@ Each task should include:
 **Objective**: Create detailed view for a single task
 
 **Tasks**:
+
 - Create TaskDetail component
 - Add task information display
 - Add client link
@@ -386,6 +431,7 @@ Each task should include:
 - Add action buttons (edit, delete, etc.)
 
 **Acceptance Criteria**:
+
 - Detail view shows all task information
 - Can navigate to detail from list
 - Client link works
@@ -398,6 +444,7 @@ Each task should include:
 ## Phase 5: UI/UX Enhancements (2-3 Hour Tasks)
 
 ### Task 5.1: Responsive Navigation
+
 **Time**: 2 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Existing Navbar
@@ -405,12 +452,14 @@ Each task should include:
 **Objective**: Make navigation responsive for mobile/tablet
 
 **Tasks**:
+
 - Add hamburger menu for mobile
 - Add drawer/sidebar for mobile navigation
 - Add responsive breakpoints
 - Test on different screen sizes
 
 **Acceptance Criteria**:
+
 - Navigation works on mobile
 - Hamburger menu opens/closes
 - Navigation accessible on all devices
@@ -421,6 +470,7 @@ Each task should include:
 ---
 
 ### Task 5.2: Theme Configuration
+
 **Time**: 2 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: None
@@ -428,6 +478,7 @@ Each task should include:
 **Objective**: Create theme configuration system
 
 **Tasks**:
+
 - Create theme configuration file
 - Define color palette
 - Define typography scale
@@ -435,6 +486,7 @@ Each task should include:
 - Add CSS variables
 
 **Acceptance Criteria**:
+
 - Theme variables defined
 - Consistent colors across app
 - Easy to modify theme
@@ -445,6 +497,7 @@ Each task should include:
 ---
 
 ### Task 5.3: Dark Mode Support (Optional)
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Task 5.2 (Theme Configuration)
@@ -452,12 +505,14 @@ Each task should include:
 **Objective**: Add dark mode support
 
 **Tasks**:
+
 - Add dark mode theme
 - Add theme toggle component
 - Add theme persistence (localStorage)
 - Update all components for dark mode
 
 **Acceptance Criteria**:
+
 - Dark mode toggle works
 - Theme persists across sessions
 - All components support dark mode
@@ -468,6 +523,7 @@ Each task should include:
 ---
 
 ### Task 5.4: Accessibility Improvements
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: None
@@ -475,6 +531,7 @@ Each task should include:
 **Objective**: Improve accessibility (WCAG AA compliance)
 
 **Tasks**:
+
 - Add ARIA labels to interactive elements
 - Improve keyboard navigation
 - Add focus indicators
@@ -482,6 +539,7 @@ Each task should include:
 - Fix color contrast issues
 
 **Acceptance Criteria**:
+
 - All interactive elements have ARIA labels
 - Keyboard navigation works
 - Focus indicators visible
@@ -494,6 +552,7 @@ Each task should include:
 ## Phase 6: Integration & Testing (2-3 Hour Tasks)
 
 ### Task 6.1: API Service Integration Layer
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Backend API ready
@@ -501,6 +560,7 @@ Each task should include:
 **Objective**: Create API service layer to replace mock data
 
 **Tasks**:
+
 - Create API client utility
 - Replace mock client service with real API calls
 - Replace mock task service with real API calls
@@ -508,6 +568,7 @@ Each task should include:
 - Add request/response interceptors
 
 **Acceptance Criteria**:
+
 - API calls work correctly
 - Error handling works
 - Loading states work
@@ -518,6 +579,7 @@ Each task should include:
 ---
 
 ### Task 6.2: Authentication Integration
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Backend authentication ready
@@ -525,6 +587,7 @@ Each task should include:
 **Objective**: Integrate real authentication
 
 **Tasks**:
+
 - Replace mock auth with real API
 - Add JWT token management
 - Add token refresh logic
@@ -532,6 +595,7 @@ Each task should include:
 - Add logout functionality
 
 **Acceptance Criteria**:
+
 - Login works with real API
 - Tokens stored securely
 - Protected routes work
@@ -542,6 +606,7 @@ Each task should include:
 ---
 
 ### Task 6.3: Form Submission Integration
+
 **Time**: 2 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: Task 6.1 (API Service Layer)
@@ -549,6 +614,7 @@ Each task should include:
 **Objective**: Connect forms to backend APIs
 
 **Tasks**:
+
 - Connect ClientForm to API
 - Connect TaskForm to API
 - Add form submission loading states
@@ -556,6 +622,7 @@ Each task should include:
 - Update lists after submission
 
 **Acceptance Criteria**:
+
 - Forms submit to real API
 - Loading states show during submission
 - Errors handled gracefully
@@ -568,6 +635,7 @@ Each task should include:
 ## Phase 7: Advanced Features (2-3 Hour Tasks)
 
 ### Task 7.1: Export Functionality
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: None
@@ -575,6 +643,7 @@ Each task should include:
 **Objective**: Add export to CSV/Excel functionality
 
 **Tasks**:
+
 - Create export utility functions
 - Add export button to DataGrid
 - Implement CSV export
@@ -582,6 +651,7 @@ Each task should include:
 - Add export options (selected rows, all, filtered)
 
 **Acceptance Criteria**:
+
 - Export works for clients
 - Export works for tasks
 - CSV format correct
@@ -592,6 +662,7 @@ Each task should include:
 ---
 
 ### Task 7.2: Bulk Actions
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: None
@@ -599,6 +670,7 @@ Each task should include:
 **Objective**: Add bulk actions (delete, status change, etc.)
 
 **Tasks**:
+
 - Add row selection to DataGrid
 - Add bulk action toolbar
 - Implement bulk delete
@@ -606,6 +678,7 @@ Each task should include:
 - Add confirmation dialogs
 
 **Acceptance Criteria**:
+
 - Multiple rows can be selected
 - Bulk actions work correctly
 - Confirmation before destructive actions
@@ -616,6 +689,7 @@ Each task should include:
 ---
 
 ### Task 7.3: Advanced Search
+
 **Time**: 2-3 hours  
 **Status**: ⏳ Pending  
 **Dependencies**: None
@@ -623,6 +697,7 @@ Each task should include:
 **Objective**: Add advanced search with multiple criteria
 
 **Tasks**:
+
 - Create advanced search modal
 - Add multiple search criteria
 - Add search operators (AND/OR)
@@ -630,6 +705,7 @@ Each task should include:
 - Add search history
 
 **Acceptance Criteria**:
+
 - Advanced search works
 - Multiple criteria can be combined
 - Search presets save/load
@@ -651,6 +727,7 @@ Each task should include:
 ### Integration Checklist
 
 Before integrating a new piece:
+
 - [ ] Component/feature is tested independently
 - [ ] No breaking changes to existing code
 - [ ] Integration points identified
@@ -670,6 +747,7 @@ Before integrating a new piece:
 ## Task Prioritization
 
 ### High Priority (Do First)
+
 1. Error Handling & Toast Notifications (Task 2.4)
 2. Loading States & Skeletons (Task 2.3)
 3. Form Validation Utilities (Task 2.5)
@@ -677,12 +755,14 @@ Before integrating a new piece:
 5. Task Form Component (Task 4.1)
 
 ### Medium Priority (Do Next)
+
 1. Client Create/Edit (Tasks 3.2, 3.3)
 2. Task Create/Edit (Tasks 4.2, 4.3)
 3. Enhanced DataGrid features (Tasks 2.1, 2.2)
 4. Detail Views (Tasks 3.4, 4.5)
 
 ### Low Priority (Do Later)
+
 1. Advanced features (Phase 7)
 2. Dark mode (Task 5.3)
 3. Export functionality (Task 7.1)
@@ -724,6 +804,7 @@ Before integrating a new piece:
 ## Progress Tracking
 
 ### Task Status
+
 - ⏳ **Pending**: Not started
 - 🔄 **In Progress**: Currently working on
 - ✅ **Completed**: Done and integrated
@@ -731,6 +812,7 @@ Before integrating a new piece:
 - 🔍 **Review**: Needs review
 
 ### Weekly Review
+
 - Review completed tasks
 - Identify blockers
 - Adjust priorities
@@ -745,4 +827,3 @@ Before integrating a new piece:
 - [Technology Stack](./03_Technology-Stack.md)
 - [Setup and Prerequisites](./05_Setup-and-Prerequisites.md)
 - [How to Execute](./06_How-to-Execute.md)
-
