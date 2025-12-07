@@ -143,7 +143,8 @@ ca-office-suite/
 │   ├── 04_Portal-React-UI-Requirements.md
 │   ├── 05_Setup-and-Prerequisites.md
 │   ├── 06_How-to-Execute.md
-│   ├── 07_Development-Roadmap.md
+│   ├── 07_Code-Quality.md
+│   ├── 08_Development-Roadmap.md
 │   └── images/
 │
 ├── .cursor/                  # Cursor IDE rules and guidelines
