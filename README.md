@@ -72,7 +72,7 @@ For detailed architecture documentation including diagrams, layers, communicatio
 ## 📦 Prerequisites
 
 **Required:**
-- **Node.js** (v18.x or higher) and npm/yarn
+- **Node.js** (v22.x recommended, v18.x minimum) and npm/yarn
 - **Git** for version control
 
 **Optional (for future backend development):**

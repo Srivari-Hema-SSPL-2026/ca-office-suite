@@ -16,23 +16,28 @@ This document outlines the prerequisites and setup instructions for the CA Offic
 ### Required Software
 
 #### 1. Node.js and npm
-- **Version**: Node.js 18.x or higher
+
+- **Version**: Node.js 22.x (Recommended) or 18.x higher
 - **Download**: [https://nodejs.org/](https://nodejs.org/)
 - **Verification**:
+
   ```bash
   node --version
   npm --version
   ```
 
 #### 2. Git
+
 - **Version**: Latest stable version
 - **Download**: [https://git-scm.com/](https://git-scm.com/)
 - **Verification**:
+
   ```bash
   git --version
   ```
 
 #### 3. Code Editor (Recommended)
+
 - **Visual Studio Code** - [https://code.visualstudio.com/](https://code.visualstudio.com/)
 - **Cursor IDE** - [https://cursor.sh/](https://cursor.sh/)
 - Or any editor with TypeScript and React support
@@ -40,17 +45,21 @@ This document outlines the prerequisites and setup instructions for the CA Offic
 ### Optional Software (For Future Backend Development)
 
 #### 4. .NET SDK
+
 - **Version**: .NET 8.0 or higher
 - **Download**: [https://dotnet.microsoft.com/download](https://dotnet.microsoft.com/download)
 - **Verification**:
+
   ```bash
   dotnet --version
   ```
 
 #### 5. Python
+
 - **Version**: Python 3.10 or higher
 - **Download**: [https://www.python.org/downloads/](https://www.python.org/downloads/)
 - **Verification**:
+
   ```bash
   python --version
   # or
@@ -58,14 +67,17 @@ This document outlines the prerequisites and setup instructions for the CA Offic
   ```
 
 #### 6. PostgreSQL
+
 - **Version**: PostgreSQL 14.x or higher
 - **Download**: [https://www.postgresql.org/download/](https://www.postgresql.org/download/)
 - **Alternative**: Use Docker for PostgreSQL (see Docker section below)
 
 #### 7. Docker (Optional)
+
 - **Download**: [https://www.docker.com/get-started](https://www.docker.com/get-started)
 - Useful for running PostgreSQL, Redis, and other services in containers
 - **Verification**:
+
   ```bash
   docker --version
   docker-compose --version
@@ -197,23 +209,31 @@ The project includes Cursor IDE rules in `.cursor/rules/` directory. Cursor will
 ### Common Issues
 
 #### Issue: npm install fails
+
 **Solution**:
+
 - Clear npm cache: `npm cache clean --force`
 - Delete `node_modules` and `package-lock.json`
 - Run `npm install` again
 
 #### Issue: Port already in use
+
 **Solution**:
+
 - Change the port in `vite.config.ts` or use `npm run dev -- --port 3001`
 
 #### Issue: TypeScript errors
+
 **Solution**:
+
 - Run `npm run build` to check for type errors
 - Ensure all dependencies are installed: `npm install`
 - Check `tsconfig.json` configuration
 
 #### Issue: Git authentication errors
+
 **Solution**:
+
 - Configure Git credentials
 - Use SSH keys for authentication
 - Check repository access permissions
@@ -238,4 +258,3 @@ After completing the setup:
 - [Architecture](./02_Architecture.md)
 - [Technology Stack](./03_Technology-Stack.md)
 - [Main README](../README.md)
-

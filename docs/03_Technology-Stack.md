@@ -180,7 +180,7 @@
 - .NET: 8.0 or higher
 - Python: 3.10 or higher
 - PostgreSQL: 14.x or higher
-- Node.js: 18.x or higher
+- Node.js: 22.x (Recommended) or 18.x higher
 
 ---
 
