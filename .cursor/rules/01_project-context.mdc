@@ -18,31 +18,44 @@ This is the **Chartered Accountants Office Suite** - a modern, scalable office m
 
 ## Architecture Overview
 
-The application follows a **modern web application architecture** with clear separation of concerns:
+The application follows a **Backend For Frontend (BFF) pattern** with API Gateway orchestration:
 
 ```text
 ┌─────────────────────────────────────────────────────────┐
-│              Frontend (React.js + TypeScript)           │
-│         src/CAOfficeSuite.Web/                          │
-│              User Interface & Client Logic               │
-└──────────────────────┬──────────────────────────────────┘
-                       │
-┌──────────────────────┴──────────────────────────────────┐
-│              Future: Backend Services                    │
-│         .NET Aspire / Python FastAPI                    │
-│         Service Orchestration & Routing                 │
-└──────┬──────────────┬──────────────┬────────────────────┘
-       │              │              │
-┌──────▼──────┐ ┌────▼──────┐ ┌─────▼────────┐
-│  .NET APIs  │ │ FastAPI   │ │  Other       │
-│  Services   │ │ Services  │ │  Services    │
-└──────┬──────┘ └────┬──────┘ └─────┬────────┘
-       │             │              │
-┌──────┴─────────────┴──────────────┴──────┐
-│         PostgreSQL Database               │
-│      + Document Storage System            │
-└───────────────────────────────────────────┘
+│         Backend For Frontend (BFF) - .NET Aspire         │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │  React.js Frontend (Hosted in BFF)               │  │
+│  │  src/CAOfficeSuite.Web/                          │  │
+│  │  User Interface & Client Logic                     │  │
+│  └──────────────────┬───────────────────────────────┘  │
+│                      │                                    │
+│  ┌──────────────────┴───────────────────────────────┐  │
+│  │  API Gateway (Inside Aspire)                       │  │
+│  │  Service Orchestration & Routing                   │  │
+│  └──────┬──────────────┬──────────────┬──────────────┘  │
+│         │              │              │                  │
+└─────────┼──────────────┼──────────────┼──────────────────┘
+          │              │              │
+┌─────────▼──────┐ ┌─────▼──────┐ ┌─────▼────────┐
+│  Python        │ │  Python    │ │  Work       │
+│  FastAPI       │ │  FastAPI    │ │  Processes  │
+│  Services      │ │  Services  │ │  (Workflows)│
+│  (Primary)       │ │  (Analytics)│ │             │
+└─────────┬──────┘ └─────┬──────┘ └─────┬────────┘
+          │                │              │
+┌─────────┴────────────────┴──────────────┴──────┐
+│         PostgreSQL Database                     │
+│      + Document Storage System                  │
+│      + Redis Cache                               │
+└──────────────────────────────────────────────────┘
 ```
+
+**Key Architecture Decisions:**
+- **BFF Pattern**: React.js frontend is hosted inside the .NET Aspire BFF
+- **API Gateway**: Centralized routing and orchestration within Aspire
+- **Python FastAPI**: Primary backend services (preferred technology)
+- **Work Processes**: Workflow engine for business process automation
+- **Heavy Dashboards**: Advanced analytics and visualization services
 
 ---
 
@@ -76,13 +89,19 @@ The application follows a **modern web application architecture** with clear sep
 - Vitest 4.0.13 (testing)
 - ESLint 9.39.1
 
-**Future Backend (Planned):**
-- .NET Aspire - Cloud-native application framework
-- C# / .NET 8+ - Primary backend services
-- Python FastAPI - High-performance API services
-- PostgreSQL - Primary relational database
-- Redis - Caching and session management
-- Document Storage - Secure file storage system
+**Backend Architecture (Planned):**
+- **.NET Aspire** - Cloud-native application framework
+  - BFF (Backend For Frontend) - Hosts React.js frontend
+  - API Gateway - Service orchestration and routing
+- **Python FastAPI** - Primary backend services (preferred)
+  - Business logic services
+  - Analytics and dashboard services
+  - Data processing services
+- **Work Processes** - Workflow engine for business process automation
+- **PostgreSQL** - Primary relational database
+- **Redis** - Caching, session management, and real-time data
+- **Document Storage** - Secure file storage system (Azure Blob / AWS S3 / Local)
+- **Heavy Dashboards** - Advanced analytics, visualization, and reporting services
 
 ---
 
@@ -168,10 +187,14 @@ ca-office-suite/
 ## Current Development Focus
 
 1. **Frontend Completion**: Finish remaining UI components and pages
-2. **Backend Integration**: Connect to real API services (when backend is ready)
-3. **State Management**: Enhance state management as needed
-4. **Testing**: Expand test coverage
-5. **Backend Development**: Begin .NET Aspire backend services (future)
+2. **BFF Development**: Implement .NET Aspire BFF to host React frontend
+3. **API Gateway**: Set up API Gateway within Aspire for service orchestration
+4. **Python FastAPI Services**: Develop primary backend services using FastAPI
+5. **Work Processes**: Implement workflow engine for business process automation
+6. **Heavy Dashboards**: Build advanced analytics and visualization dashboards
+7. **Backend Integration**: Connect frontend to BFF and API Gateway
+8. **State Management**: Enhance state management as needed
+9. **Testing**: Expand test coverage across all layers
 
 ---
 

@@ -99,17 +99,21 @@ Standardize office processes using reusable workflows. Automate reminders for du
 - Escalation management
 - Process standardization
 
-### 7. Analytics, Dashboards & Reporting
+### 7. Analytics, Dashboards & Reporting (Heavy Dashboards)
 
-Gain instant visibility into workload, compliance deadlines, pending filings, team productivity, billing reports, revenue insights, client distribution, and operational KPIs. Custom dashboards allow powerful, actionable insights.
+Gain instant visibility into workload, compliance deadlines, pending filings, team productivity, billing reports, revenue insights, client distribution, and operational KPIs. **Heavy dashboards** with advanced analytics, real-time data visualization, and interactive charts provide powerful, actionable insights.
 
 **Capabilities:**
 
-- Real-time dashboard with key metrics
+- **Heavy Dashboards** - Advanced analytics and visualization services
+- Real-time dashboard with key metrics and live data updates
 - Customizable reports and visualizations
+- Interactive charts and graphs
 - Team productivity analytics
 - Revenue and billing insights
 - Compliance status overview
+- Data aggregation and complex queries
+- Export capabilities (PDF, Excel, CSV)
 
 ---
 
@@ -127,9 +131,14 @@ Gain instant visibility into workload, compliance deadlines, pending filings, te
 
 ### Backend
 
-- **.NET Aspire** - Cloud-native application framework for microservices orchestration
-- **C# / .NET 8+** - Primary backend services
-- **Python FastAPI** - High-performance API services for specialized operations
+- **.NET Aspire** - Cloud-native application framework
+  - **BFF (Backend For Frontend)** - Hosts React.js frontend
+  - **API Gateway** - Service orchestration and routing
+- **Python FastAPI** - Primary backend services (preferred)
+  - Business logic services
+  - Analytics and dashboard services
+  - Data processing services
+- **Work Processes** - Workflow engine for business process automation
 - **RESTful APIs** - Standardized API architecture
 
 ### Database & Storage
@@ -156,29 +165,44 @@ Gain instant visibility into workload, compliance deadlines, pending filings, te
 
 ## 🏗 Architecture Overview
 
-The application follows a **microservices architecture** with clear separation of concerns:
+The application follows a **Backend For Frontend (BFF) pattern** with API Gateway orchestration:
 
 ```text
 ┌─────────────────────────────────────────────────────────┐
-│                    Frontend (React.js)                   │
-│              User Interface & Client Logic               │
-└──────────────────────┬──────────────────────────────────┘
-                       │
-┌──────────────────────┴──────────────────────────────────┐
-│              API Gateway / .NET Aspire                   │
-│         Service Orchestration & Routing                  │
-└──────┬──────────────┬──────────────┬────────────────────┘
-       │              │              │
-┌──────▼──────┐ ┌────▼──────┐ ┌─────▼────────┐
-│  .NET APIs  │ │ FastAPI   │ │  Other       │
-│  Services   │ │ Services  │ │  Services    │
-└──────┬──────┘ └────┬──────┘ └─────┬────────┘
-       │             │              │
-┌──────┴─────────────┴──────────────┴──────┐
-│         PostgreSQL Database               │
-│      + Document Storage System            │
-└───────────────────────────────────────────┘
+│         Backend For Frontend (BFF) - .NET Aspire         │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │  React.js Frontend (Hosted in BFF)               │  │
+│  │  src/CAOfficeSuite.Web/                          │  │
+│  │  User Interface & Client Logic                     │  │
+│  └──────────────────┬───────────────────────────────┘  │
+│                      │                                    │
+│  ┌──────────────────┴───────────────────────────────┐  │
+│  │  API Gateway (Inside Aspire)                       │  │
+│  │  Service Orchestration & Routing                   │  │
+│  └──────┬──────────────┬──────────────┬──────────────┘  │
+│         │              │              │                  │
+└─────────┼──────────────┼──────────────┼──────────────────┘
+          │              │              │
+┌─────────▼──────┐ ┌─────▼──────┐ ┌─────▼────────┐
+│  Python        │ │  Python    │ │  Work        │
+│  FastAPI       │ │  FastAPI    │ │  Processes  │
+│  Services      │ │  (Analytics)│ │  (Workflows)│
+│  (Primary)      │ │  (Dashboards)│ │             │
+└─────────┬──────┘ └─────┬──────┘ └─────┬────────┘
+          │                │              │
+┌─────────┴────────────────┴──────────────┴──────┐
+│         PostgreSQL Database                     │
+│      + Document Storage System                  │
+│      + Redis Cache                               │
+└──────────────────────────────────────────────────┘
 ```
+
+**Key Architecture Decisions:**
+- **BFF Pattern**: React.js frontend is hosted inside the .NET Aspire BFF
+- **API Gateway**: Centralized routing and orchestration within Aspire
+- **Python FastAPI**: Primary backend services (preferred technology)
+- **Work Processes**: Workflow engine for business process automation
+- **Heavy Dashboards**: Advanced analytics and visualization services
 
 ---
 
