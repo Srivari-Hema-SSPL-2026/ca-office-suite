@@ -178,7 +178,7 @@
 
 ### Planned Versions
 - .NET: See [Setup Prerequisites](./05_Setup-and-Prerequisites.md)
-- Python: 3.10 or higher
+- Python: See [Setup Prerequisites](./05_Setup-and-Prerequisites.md)
 - PostgreSQL: 14.x or higher
 - Node.js: See [Setup Prerequisites](./05_Setup-and-Prerequisites.md)
 

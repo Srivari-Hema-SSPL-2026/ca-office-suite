@@ -56,7 +56,7 @@ This document outlines the prerequisites and setup instructions for the CA Offic
 
 #### 5. Python
 
-- **Version**: Python 3.10 or higher
+- **Version**: Python 3.12 (Recommended)
 - **Download**: [https://www.python.org/downloads/](https://www.python.org/downloads/)
 - **Verification**:
 
