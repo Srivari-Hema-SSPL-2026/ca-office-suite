@@ -94,7 +94,7 @@ For detailed version requirements and setup instructions, see [05_Setup-and-Prer
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-org/ca-office-suite.git
+   git clone https://github.com/Srivari-Hema-SSPL-2026/ca-office-suite.git
    cd ca-office-suite
    ```
 
@@ -264,8 +264,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support & Contact
 
-- **Issues**: [GitHub Issues](https://github.com/your-org/ca-office-suite/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-org/ca-office-suite/discussions)
+- **Issues**: [GitHub Issues](https://github.com/Srivari-Hema-SSPL-2026/ca-office-suite/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Srivari-Hema-SSPL-2026/ca-office-suite/discussions)
 - **Email**: [support@example.com](mailto:support@example.com)
 
 ---
