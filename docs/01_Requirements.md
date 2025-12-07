@@ -18,6 +18,7 @@ The **Chartered Accountants Office Suite** is a modern, scalable office manageme
 **Requirement**: Maintain detailed client profiles including identifiers, registrations, PAN, file numbers, contact details, documentation, engagement type, assigned staff, compliance history, billing information, and more. Quickly filter, search, and manage clients across practice areas.
 
 **Capabilities:**
+
 - Comprehensive client database with advanced search and filtering
 - Multi-engagement tracking per client
 - Staff assignment and workload management
@@ -33,6 +34,7 @@ The **Chartered Accountants Office Suite** is a modern, scalable office manageme
 **Requirement**: Plan, assign, and track compliance work such as GST, ITR, TDS, audits, ROC filings, and other statutory tasks. Includes due dates, target dates, escalations, reminders, workload distribution, and real-time progress tracking.
 
 **Capabilities:**
+
 - Task creation, assignment, and prioritization
 - Compliance calendar with deadline tracking
 - Automated reminders and notifications
@@ -48,6 +50,7 @@ The **Chartered Accountants Office Suite** is a modern, scalable office manageme
 **Requirement**: Streamline the preparation and filing of GST returns, income tax returns, audit reports, TDS returns, and statutory forms. Track filing status, e-verification, acknowledgements, deadlines, and post-filing tasks with structured workflows.
 
 **Capabilities:**
+
 - Filing status tracking (Draft, Submitted, Verified, Acknowledged)
 - E-verification workflow management
 - Acknowledgement receipt storage
@@ -63,6 +66,7 @@ The **Chartered Accountants Office Suite** is a modern, scalable office manageme
 **Requirement**: Generate professional invoices, manage fees and receivables, record payments, reconcile client accounts, and maintain audit-friendly financial records. Supports multiple payment modes and full billing history per client.
 
 **Capabilities:**
+
 - Professional invoice generation
 - Multiple payment mode support
 - Receivables tracking and aging reports
@@ -78,6 +82,7 @@ The **Chartered Accountants Office Suite** is a modern, scalable office manageme
 **Requirement**: Securely store, categorize, and retrieve client documents, working papers, invoices, acknowledgements, and statutory reports. Supports versioning, metadata tagging, folder organization, search, and document previews.
 
 **Capabilities:**
+
 - Secure document storage with encryption
 - Version control and document history
 - Advanced search with metadata filtering
@@ -93,6 +98,7 @@ The **Chartered Accountants Office Suite** is a modern, scalable office manageme
 **Requirement**: Standardize office processes using reusable work processes (workflows). Automate reminders for due dates, missing documents, pending approvals, e-verification follow-ups, and compliance cycles. Work process engine enables complex business process automation, reduces manual tracking, and improves consistency.
 
 **Capabilities:**
+
 - **Work Processes** - Workflow engine for business process automation
 - Customizable workflow templates
 - Automated notification system
@@ -111,6 +117,7 @@ The **Chartered Accountants Office Suite** is a modern, scalable office manageme
 **Requirement**: Gain instant visibility into workload, compliance deadlines, pending filings, team productivity, billing reports, revenue insights, client distribution, and operational KPIs. Heavy dashboards with advanced analytics, real-time data visualization, and interactive charts provide powerful, actionable insights.
 
 **Capabilities:**
+
 - **Heavy Dashboards** - Advanced analytics and visualization services
 - Real-time dashboard with key metrics and live data updates
 - Customizable reports and visualizations
@@ -193,12 +200,14 @@ See [04_Portal-React-UI-Requirements.md](./04_Portal-React-UI-Requirements.md) f
 ## Non-Functional Requirements
 
 ### Performance
+
 - Page load time: < 2 seconds
 - API response time: < 500ms (p95)
 - Support for 1000+ concurrent users
 - Database query optimization
 
 ### Security
+
 - Authentication and authorization required
 - Data encryption at rest and in transit
 - Secure document storage
@@ -206,18 +215,21 @@ See [04_Portal-React-UI-Requirements.md](./04_Portal-React-UI-Requirements.md) f
 - Compliance with data protection regulations
 
 ### Scalability
+
 - Horizontal scaling capability
 - Support for multiple tenants (future)
 - Efficient caching strategies
 - Database read replicas for read-heavy operations
 
 ### Availability
+
 - 99.9% uptime target
 - Health check endpoints
 - Graceful error handling
 - Automated failover mechanisms
 
 ### Usability
+
 - Responsive design (mobile, tablet, desktop)
 - Accessibility (WCAG AA compliance)
 - Intuitive user interface
