@@ -83,31 +83,38 @@ Securely store, categorize, and retrieve client documents, working papers, invoi
 
 **Status**: ⏳ Planned for future implementation
 
-### 6. Workflow Automation & Notifications
+### 6. Workflow Automation & Notifications (Work Processes)
 
-Standardize office processes using reusable workflows. Automate reminders for due dates, missing documents, pending approvals, e-verification follow-ups, and compliance cycles. Reduces manual tracking and improves consistency.
+Standardize office processes using reusable **work processes** (workflows). Automate reminders for due dates, missing documents, pending approvals, e-verification follow-ups, and compliance cycles. Work process engine enables complex business process automation, reduces manual tracking, and improves consistency.
 
 **Capabilities:**
 
+- **Work Processes** - Workflow engine for business process automation
 - Customizable workflow templates
 - Automated notification system
 - Rule-based task assignment
 - Escalation management
 - Process standardization
+- Workflow orchestration
+- State machine management
 
 **Status**: ⏳ Planned for future implementation
 
-### 7. Analytics, Dashboards & Reporting
+### 7. Analytics, Dashboards & Reporting (Heavy Dashboards)
 
-Gain instant visibility into workload, compliance deadlines, pending filings, team productivity, billing reports, revenue insights, client distribution, and operational KPIs. Custom dashboards allow powerful, actionable insights.
+Gain instant visibility into workload, compliance deadlines, pending filings, team productivity, billing reports, revenue insights, client distribution, and operational KPIs. **Heavy dashboards** with advanced analytics, real-time data visualization, and interactive charts provide powerful, actionable insights.
 
 **Capabilities:**
 
-- Real-time dashboard with key metrics
+- **Heavy Dashboards** - Advanced analytics and visualization services
+- Real-time dashboard with key metrics and live data updates
 - Customizable reports and visualizations
+- Interactive charts and graphs
 - Team productivity analytics
 - Revenue and billing insights
 - Compliance status overview
+- Data aggregation and complex queries
+- Export capabilities (PDF, Excel, CSV)
 
 **Status**: ⏳ Planned for future implementation
 
@@ -124,14 +131,26 @@ Gain instant visibility into workload, compliance deadlines, pending filings, te
 - **Font Awesome 7** - Icon library
 - **Vitest 4** - Testing framework
 
-### Backend (Planned)
+### Backend Architecture (Planned)
 
 - **.NET Aspire** - Cloud-native application framework
-- **C# / .NET 8+** - Primary backend services
-- **Python FastAPI** - High-performance API services
+  - **BFF (Backend For Frontend)** - Hosts React.js frontend
+  - **API Gateway** - Service orchestration and routing within Aspire
+- **Python FastAPI** - Primary backend services (preferred)
+  - Business logic services
+  - Analytics and dashboard services
+  - Data processing services
+- **Work Processes** - Workflow engine for business process automation
 - **PostgreSQL** - Primary relational database
-- **Redis** - Caching and session management
+- **Redis** - Caching, session management, and real-time data
 - **Document Storage** - Secure file storage system (Azure Blob / AWS S3 / Local)
+
+### Architecture Pattern
+
+- **BFF Pattern**: React.js frontend hosted inside .NET Aspire BFF
+- **API Gateway**: Centralized routing and orchestration within Aspire
+- **Microservices**: Python FastAPI services for business logic
+- **Heavy Dashboards**: Advanced analytics and visualization services
 
 ---
 
@@ -190,7 +209,7 @@ See [Portal-React-UI-Requirements.md](./Portal-React-UI-Requirements.md) for det
 
 The project is organized as follows:
 
-```
+```text
 ca-office-suite/
 ├── src/
 │   └── CAOfficeSuite.Web/    # React frontend application
