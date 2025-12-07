@@ -16,6 +16,7 @@ This is the **Chartered Accountants Office Suite** - a modern, scalable office m
 - UI Requirements: `docs/04_Portal-React-UI-Requirements.md`
 - Setup and Prerequisites: `docs/05_Setup-and-Prerequisites.md`
 - How to Execute: `docs/06_How-to-Execute.md`
+- Development Roadmap: `docs/07_Development-Roadmap.md`
 - Main README: `README.md`
 
 ---
@@ -137,6 +138,7 @@ ca-office-suite/
 │   ├── 04_Portal-React-UI-Requirements.md
 │   ├── 05_Setup-and-Prerequisites.md
 │   ├── 06_How-to-Execute.md
+│   ├── 07_Development-Roadmap.md
 │   └── images/
 │
 ├── .cursor/                         # Cursor IDE rules and guidelines
