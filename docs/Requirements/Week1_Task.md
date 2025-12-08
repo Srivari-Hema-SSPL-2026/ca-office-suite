@@ -13,6 +13,20 @@ Implement a complete CRUD (Create, Read, Update, Delete) system for managing cli
 
 ---
 
+## 🏗️ Architecture Note
+
+**Week 1 Implementation**: This task implements a simplified architecture for rapid development:
+- React Frontend → FastAPI → PostgreSQL (direct connection)
+
+**Future Integration (Week 2+)**: This will be integrated into the full architecture as specified in `docs/02_Architecture.md`:
+- React Frontend → .NET Aspire BFF → API Gateway → FastAPI → PostgreSQL
+
+The Week 1 implementation is designed to be easily integrated into the full architecture later. The FastAPI service will be wrapped by the API Gateway, and the React frontend will be hosted in the .NET Aspire BFF.
+
+**Note**: Authentication/Authorization, Redis caching, and other advanced features will be implemented in Week 2+ as per the full architecture requirements.
+
+---
+
 ## 🎯 Objectives
 
 1. **Migrate CSV data** to PostgreSQL database
@@ -689,7 +703,8 @@ src/
 - ✅ Pagination works correctly
 - ✅ Sorting works correctly
 - ✅ Data integrity maintained
-- ✅ Performance acceptable (< 500ms for list queries)
+- ✅ **Performance**: API response time < 500ms (p95) - aligns with `docs/01_Requirements.md`
+- ✅ **Performance**: Page load time < 2 seconds - aligns with `docs/01_Requirements.md`
 - ✅ Error handling comprehensive
 - ✅ User experience smooth
 
@@ -697,14 +712,30 @@ src/
 
 ## 🔄 Next Steps (Week 2+)
 
-After Week 1 completion:
+After Week 1 completion, the following will be added to align with full architecture (`docs/02_Architecture.md`):
+
+### Architecture Integration
+- **.NET Aspire BFF Integration**: Host React frontend in BFF
+- **API Gateway**: Add API Gateway layer for service orchestration
+- **Service Discovery**: Implement service discovery via Aspire
+
+### Security & Authentication
+- **Authentication/Authorization**: JWT tokens, OAuth 2.0, RBAC (as per `docs/01_Requirements.md`)
+- **Enhanced Security**: Data encryption at rest and in transit
+- **Audit Logging**: Comprehensive audit trails for all operations
+
+### Performance & Scalability
+- **Redis Caching**: Implement caching layer for performance (cache-aside pattern)
+- **Performance Optimization**: Query optimization, connection pooling
+- **Horizontal Scaling**: Prepare for stateless service scaling
+
+### Additional Features
 - Advanced search functionality
 - Bulk operations
 - Export to Excel/CSV
-- Audit logging
-- User authentication/authorization
 - Dashboard with statistics
 - Advanced reporting
+- Document management integration
 
 ---
 
