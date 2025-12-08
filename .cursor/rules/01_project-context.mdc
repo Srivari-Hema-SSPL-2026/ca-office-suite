@@ -10,8 +10,14 @@
 This is the **Chartered Accountants Office Suite** - a modern, scalable office management platform designed specifically for Chartered Accountants and tax professionals. The suite centralizes all core operations—clients, compliance tasks, filings, documents, billing, workflows, and analytics—into a unified digital workspace.
 
 **Key Documents:**
-- Requirements: `docs/Requirements.md`
-- UI Requirements: `docs/Portal-React-UI-Requirements.md`
+- Requirements: `docs/01_Requirements.md`
+- Architecture: `docs/02_Architecture.md`
+- Technology Stack: `docs/03_Technology-Stack.md`
+- UI Requirements: `docs/04_Portal-React-UI-Requirements.md`
+- Setup and Prerequisites: `docs/05_Setup-and-Prerequisites.md`
+- How to Execute: `docs/06_How-to-Execute.md`
+- Code Quality: `docs/07_Code-Quality.md`
+- Development Roadmap: `docs/08_Development-Roadmap.md`
 - Main README: `README.md`
 
 ---
@@ -86,6 +92,7 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
 - Vite 7.2.4
 - React Router 7.9.6
 - Font Awesome 7.1.0
+- **UI Components** - Advanced Data Grid with column management, pagination, sorting, and filtering
 - Vitest 4.0.13 (testing)
 - ESLint 9.39.1
 
@@ -126,8 +133,14 @@ ca-office-suite/
 │       └── tsconfig.json
 │
 ├── docs/                            # Documentation
-│   ├── Requirements.md
-│   ├── Portal-React-UI-Requirements.md
+│   ├── 01_Requirements.md
+│   ├── 02_Architecture.md
+│   ├── 03_Technology-Stack.md
+│   ├── 04_Portal-React-UI-Requirements.md
+│   ├── 05_Setup-and-Prerequisites.md
+│   ├── 06_How-to-Execute.md
+│   ├── 07_Code-Quality.md
+│   ├── 08_Development-Roadmap.md
 │   └── images/
 │
 ├── .cursor/                         # Cursor IDE rules and guidelines
