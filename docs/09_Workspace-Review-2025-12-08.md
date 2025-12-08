@@ -80,7 +80,7 @@ ca-office-suite/
 │   ├── 01_Requirements.md
 │   ├── 02_Architecture.md
 │   ├── 03_Technology-Stack.md
-│   ├── 04_Portal-React-UI-Requirements.md
+│   ├── 04_Frontend-UI-Requirements.md
 │   ├── 05_Setup-and-Prerequisites.md
 │   ├── 06_How-to-Execute.md
 │   ├── 07_Code-Quality.md
@@ -394,7 +394,7 @@ The CA Office Suite workspace is well-structured with:
 - `docs/01_Requirements.md` - Requirements
 - `docs/02_Architecture.md` - Architecture
 - `docs/03_Technology-Stack.md` - Technology stack
-- `docs/04_Portal-React-UI-Requirements.md` - UI requirements
+- `docs/04_Frontend-UI-Requirements.md` - UI requirements
 - `docs/05_Setup-and-Prerequisites.md` - Setup guide
 - `docs/06_How-to-Execute.md` - Execution guide
 - `docs/07_Code-Quality.md` - Code quality standards

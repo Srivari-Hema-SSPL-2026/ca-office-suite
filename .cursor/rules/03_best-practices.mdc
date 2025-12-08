@@ -1,7 +1,7 @@
 # Best Practices
 
-**Version**: 1.0  
-**Last Updated**: December 7, 2025
+**Version**: 2.0  
+**Last Updated**: December 8, 2025
 
 ---
 
@@ -294,13 +294,124 @@ _logger.LogInformation(
 
 ---
 
+## ✅ Quality Gate Questions (Before Publishing Code)
+
+**CRITICAL**: Before finalizing any code, answer these quality gate questions:
+
+### Code Quality Gates
+
+1. ✅ **Does this follow project conventions?**
+   - Naming conventions (PascalCase for components, camelCase for functions)
+   - File organization (components, pages, services, types)
+   - Import organization (React → third-party → internal → types → styles)
+   - Code structure and patterns
+
+2. ✅ **Are tests included?**
+   - Unit tests for new components/functions
+   - Test user interactions, not implementation details
+   - Mock external dependencies (API calls, etc.)
+   - Test edge cases and error scenarios
+
+3. ✅ **Is documentation updated?**
+   - JSDoc comments for complex logic
+   - README updated if structure changed
+   - Code comments for non-obvious decisions
+   - Type definitions are clear and documented
+
+4. ✅ **Does this handle errors properly?**
+   - Try/catch blocks for async operations
+   - User-friendly error messages
+   - Error boundaries for component-level errors
+   - Proper error logging (not console.log in production)
+
+5. ✅ **Is this performant?**
+   - No unnecessary re-renders (use React.memo, useMemo, useCallback)
+   - Lazy loading for heavy components
+   - Optimized images and assets
+   - No creating objects/functions in render
+
+6. ✅ **Is this secure?**
+   - No sensitive data exposure
+   - Input validation present
+   - Proper authentication/authorization checks
+   - No XSS vulnerabilities (sanitize user input)
+
+7. ✅ **Does this follow TypeScript best practices?**
+   - No `any` type (use `unknown` if type is truly unknown)
+   - Proper types for props, state, and function parameters
+   - Type guards for runtime type checking
+   - Interfaces for object shapes, types for unions
+
+8. ✅ **Is this accessible?**
+   - Semantic HTML elements
+   - ARIA labels where needed
+   - Keyboard navigation works
+   - Proper heading hierarchy
+   - Sufficient color contrast
+
+9. ✅ **Does this follow React best practices?**
+   - Functional components with hooks
+   - No class components
+   - Proper hook dependencies
+   - No side effects in render
+   - State management appropriate (local vs. context vs. global)
+
+10. ✅ **Have I run quality checks?**
+    - Linting passes (`npm run lint`)
+    - Type checking passes (`tsc --noEmit`)
+    - Tests pass (`npm test`)
+    - Build succeeds (`npm run build`)
+    - No console errors/warnings
+
+### Backend Quality Gates (Future Implementation)
+
+11. ✅ **Does this follow backend best practices?**
+    - Dependency injection used
+    - Structured error responses with proper HTTP status codes
+    - Input validation (FluentValidation)
+    - Logging at appropriate levels
+    - SOLID principles followed
+
+12. ✅ **Is this testable?**
+    - Unit tests with 80%+ coverage target
+    - Integration tests for API endpoints
+    - Mock external dependencies
+    - Test edge cases and error scenarios
+
+13. ✅ **Is observability included?**
+    - Health checks implemented
+    - Structured logging with context
+    - Metrics for business operations
+    - Distributed tracing (if applicable)
+
+### Self-Check Workflow
+
+**Before committing code, run through this checklist:**
+
+```text
+□ Code follows project conventions
+□ Tests are included and passing
+□ Documentation is updated
+□ Error handling is proper
+□ Performance is optimized
+□ Security is considered
+□ TypeScript best practices followed
+□ Accessibility requirements met
+□ React best practices followed
+□ Quality checks pass (lint, type, test, build)
+```
+
+**If any item is unchecked, address it before committing.**
+
+---
+
 ## Code Generation Checklist
 
 When generating code, always:
 
 1. **Include proper error handling**
-2. **Add XML documentation comments for public APIs**
-3. **Use dependency injection for all services**
+2. **Add TypeScript types and interfaces** (frontend) or **XML documentation comments** (backend)
+3. **Use dependency injection for all services** (backend)
 4. **Implement logging at appropriate levels**
 5. **Include input validation**
 6. **Follow SOLID principles**
@@ -308,3 +419,5 @@ When generating code, always:
 8. **Consider performance implications**
 9. **Think about security from the start**
 10. **Make code maintainable and readable**
+11. **Run quality gate questions** (see above)
+12. **Verify with linting, type checking, and tests**

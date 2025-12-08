@@ -140,7 +140,7 @@ ca-office-suite/
 │   ├── 01_Requirements.md
 │   ├── 02_Architecture.md
 │   ├── 03_Technology-Stack.md
-│   ├── 04_Portal-React-UI-Requirements.md
+│   ├── 04_Frontend-UI-Requirements.md
 │   ├── 05_Setup-and-Prerequisites.md
 │   ├── 06_How-to-Execute.md
 │   ├── 07_Code-Quality.md
