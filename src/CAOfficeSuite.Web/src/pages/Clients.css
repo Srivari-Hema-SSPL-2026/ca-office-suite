@@ -516,3 +516,150 @@
     font-size: 1.5rem;
   }
 }
+
+/* Engagement Items */
+.engagements-section {
+  margin-top: 2rem;
+}
+
+.engagements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.engagement-item {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.engagement-item:hover {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.engagement-info {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.engagement-file-number {
+  font-weight: 600;
+  color: var(--gray-900);
+  font-size: 0.95rem;
+}
+
+.engagement-type {
+  background: var(--blue-100);
+  color: var(--blue-700);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.engagement-type2 {
+  background: var(--gray-100);
+  color: var(--gray-700);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
+.engagement-meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: var(--gray-600);
+}
+
+.engagement-senior,
+.engagement-assistant {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.engagement-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}
+
+.engagement-status.filed {
+  background: var(--green-100);
+  color: var(--green-700);
+}
+
+.engagement-status.completed {
+  background: var(--green-100);
+  color: var(--green-700);
+}
+
+.engagement-status.work-in-progress,
+.engagement-status.finalisation {
+  background: var(--yellow-100);
+  color: var(--yellow-700);
+}
+
+.engagement-status.pending-for-details,
+.engagement-status.pending-for-tax-payment,
+.engagement-status.pending-for-tax-filing {
+  background: var(--orange-100);
+  color: var(--orange-700);
+}
+
+.engagement-status.not-turned-up {
+  background: var(--red-100);
+  color: var(--red-700);
+}
+
+.engagement-status.details-received,
+.engagement-status.to-do-later {
+  background: var(--blue-100);
+  color: var(--blue-700);
+}
+
+.no-engagements {
+  text-align: center;
+  padding: 2rem;
+  color: var(--gray-500);
+  background: var(--gray-50);
+  border-radius: 8px;
+}
+
+/* Error and Retry */
+.error-message {
+  background: var(--red-50);
+  border: 1px solid var(--red-200);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--red-700);
+}
+
+.retry-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  background: var(--blue-600);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.retry-btn:hover {
+  background: var(--blue-700);
+}
