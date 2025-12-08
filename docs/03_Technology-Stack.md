@@ -79,12 +79,23 @@ audience: ["Developers", "DevOps"]
 
 ## Database & Storage
 
-### Primary Database
+### Primary Database (OLTP)
 
-- **PostgreSQL 14+** - Primary relational database
+- **PostgreSQL 14+** - Primary relational database for transactions
   - ACID compliance
-  - Complex queries and transactions
+  - CRUD operations and business logic
+  - Real-time data operations
   - JSON support for flexible schemas
+
+### Analytics Database (OLAP)
+
+- **TimescaleDB** (Recommended) or **PostgreSQL Read Replica**
+  - Optimized for analytics and reporting
+  - Time-series analytics support
+  - Materialized views / Continuous aggregates
+  - Complex aggregations and heavy queries
+  - ETL/ELT pipeline from PostgreSQL
+  - See [Data Store Analysis](./12_Data-Store-Analysis-for-Heavy-Reporting.md) for details
 
 ### Caching & Session Management
 
