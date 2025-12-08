@@ -33,7 +33,7 @@ import logging
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple, Optional, Any
 from uuid import UUID
 
 try:
@@ -95,7 +95,7 @@ def validate_pan(value: str) -> Tuple[bool, Optional[str]]:
     return False, f"Invalid PAN format: {value} (expected: XXXXX9999X)"
 
 
-def validate_file_number(value: any) -> Tuple[bool, Optional[str], Optional[int]]:
+def validate_file_number(value: Any) -> Tuple[bool, Optional[str], Optional[int]]:
     """Validate file number as integer."""
     try:
         file_num = int(value)

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -13,8 +13,8 @@ import {
   faTasks,
 } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../store/useAuth';
-import { clientApiService } from '../services/apiClient';
-import type { Client, Engagement, ClientQueryParams } from '../types';
+import { clientService, taskService } from '../services/api';
+import type { Client, Task } from '../types';
 import { DataGrid, type Column } from '../components/common';
 import './Clients.css';
 
@@ -36,37 +36,15 @@ export function Clients() {
 function ClientList() {
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [totalClients, setTotalClients] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(50);
-
-  // Fetch clients from API
-  const fetchClients = useCallback(async (params: ClientQueryParams = {}) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      const result = await clientApiService.getClients({
-        page: currentPage,
-        page_size: pageSize,
-        ...params,
-      });
-      
-      setClients(result.items);
-      setTotalClients(result.total);
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch clients';
-      setError(errorMessage);
-      console.error('Error fetching clients:', err);
-    } finally {
-      setLoading(false);
-    }
-  }, [currentPage, pageSize]);
 
   useEffect(() => {
+    const fetchClients = async () => {
+      const data = await clientService.getClients();
+      setClients(data);
+      setLoading(false);
+    };
     fetchClients();
-  }, [fetchClients]);
+  }, []);
 
   // Define columns for the DataGrid
   const columns: Column<Client>[] = [
@@ -90,12 +68,20 @@ function ClientList() {
       filterable: true,
     },
     {
+      id: 'gstin',
+      label: 'GSTIN',
+      accessor: 'gstin',
+      sortable: true,
+      filterable: true,
+      visible: true,
+      render: value => value || '-',
+    },
+    {
       id: 'email',
       label: 'Email',
       accessor: 'email',
       sortable: true,
       filterable: true,
-      render: value => value || '-',
     },
     {
       id: 'phone',
@@ -103,7 +89,6 @@ function ClientList() {
       accessor: 'phone',
       sortable: true,
       filterable: true,
-      render: value => value || '-',
     },
     {
       id: 'status',
@@ -124,6 +109,20 @@ function ClientList() {
       ),
     },
     {
+      id: 'nextDueDate',
+      label: 'Next Due Date',
+      accessor: 'nextDueDate',
+      sortable: true,
+      filterable: true,
+      filterType: 'date',
+      render: value =>
+        value ? (
+          <span className="due-date">{new Date(value).toLocaleDateString()}</span>
+        ) : (
+          <span className="no-due">-</span>
+        ),
+    },
+    {
       id: 'address',
       label: 'Address',
       accessor: 'address',
@@ -134,28 +133,11 @@ function ClientList() {
     },
   ];
 
-  if (error) {
-    return (
-      <div className="clients-page">
-        <div className="page-header">
-          <h1>Client Control</h1>
-          <p>Manage your client portfolio</p>
-        </div>
-        <div className="error-message">
-          <p>Error: {error}</p>
-          <button onClick={() => fetchClients()} className="retry-btn">
-            Retry
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="clients-page">
       <div className="page-header">
         <h1>Client Control</h1>
-        <p>Manage your client portfolio ({totalClients} total)</p>
+        <p>Manage your client portfolio</p>
       </div>
 
       <DataGrid
@@ -172,32 +154,19 @@ function ClientList() {
 function ClientDetail({ clientId }: { clientId: string }) {
   const navigate = useNavigate();
   const [client, setClient] = useState<Client | null>(null);
-  const [engagements, setEngagements] = useState<Engagement[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-      
-      try {
-        const [clientData, engagementsData] = await Promise.all([
-          clientApiService.getClientById(clientId),
-          clientApiService.getClientEngagements(clientId, { page_size: 100 }),
-        ]);
-        
-        setClient(clientData);
-        setEngagements(engagementsData.items);
-      } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Failed to fetch client details';
-        setError(errorMessage);
-        console.error('Error fetching client details:', err);
-      } finally {
-        setLoading(false);
-      }
+      const [clientData, taskData] = await Promise.all([
+        clientService.getClientById(clientId),
+        taskService.getTasksByClient(clientId),
+      ]);
+      setClient(clientData ?? null);
+      setTasks(taskData);
+      setLoading(false);
     };
-    
     fetchData();
   }, [clientId]);
 
@@ -206,19 +175,6 @@ function ClientDetail({ clientId }: { clientId: string }) {
       <div className="loading-container">
         <div className="loading-spinner"></div>
         <p>Loading client details...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="not-found">
-        <h2>Error Loading Client</h2>
-        <p>{error}</p>
-        <button onClick={() => navigate('/clients')} className="back-btn">
-          <FontAwesomeIcon icon={faArrowLeft} />
-          Back to Clients
-        </button>
       </div>
     );
   }
@@ -262,26 +218,19 @@ function ClientDetail({ clientId }: { clientId: string }) {
         <div className="detail-section">
           <h2>Contact Information</h2>
           <div className="info-list">
-            {client.email && (
-              <div className="info-item">
-                <FontAwesomeIcon icon={faEnvelope} />
-                <span>{client.email}</span>
-              </div>
-            )}
-            {client.phone && (
-              <div className="info-item">
-                <FontAwesomeIcon icon={faPhone} />
-                <span>{client.phone}</span>
-              </div>
-            )}
+            <div className="info-item">
+              <FontAwesomeIcon icon={faEnvelope} />
+              <span>{client.email}</span>
+            </div>
+            <div className="info-item">
+              <FontAwesomeIcon icon={faPhone} />
+              <span>{client.phone}</span>
+            </div>
             {client.address && (
               <div className="info-item">
                 <FontAwesomeIcon icon={faMapMarkerAlt} />
                 <span>{client.address}</span>
               </div>
-            )}
-            {!client.email && !client.phone && !client.address && (
-              <p className="no-info">No contact information available</p>
             )}
           </div>
         </div>
@@ -293,49 +242,46 @@ function ClientDetail({ clientId }: { clientId: string }) {
               <strong>PAN:</strong>
               <span>{client.pan}</span>
             </div>
-            <div className="info-item">
-              <FontAwesomeIcon icon={faCalendarAlt} />
-              <span>Created: {new Date(client.created_at).toLocaleDateString()}</span>
-            </div>
+            {client.gstin && (
+              <div className="info-item">
+                <strong>GSTIN:</strong>
+                <span>{client.gstin}</span>
+              </div>
+            )}
+            {client.nextDueDate && (
+              <div className="info-item">
+                <FontAwesomeIcon icon={faCalendarAlt} />
+                <span>Next Due: {new Date(client.nextDueDate).toLocaleDateString()}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="detail-section engagements-section">
+      <div className="detail-section tasks-section">
         <h2>
           <FontAwesomeIcon icon={faTasks} />
-          Engagements ({engagements.length})
+          Related Tasks ({tasks.length})
         </h2>
-        {engagements.length > 0 ? (
-          <div className="engagements-list">
-            {engagements.map(engagement => (
-              <div key={engagement.id} className="engagement-item">
-                <div className="engagement-info">
-                  <span className="engagement-file-number">
-                    File #{engagement.file_number}
-                    {engagement.file_number_as_per && ` (${engagement.file_number_as_per})`}
-                  </span>
-                  <span className={`engagement-type`}>{engagement.type}</span>
-                  {engagement.type2 && (
-                    <span className="engagement-type2">{engagement.type2}</span>
-                  )}
+        {tasks.length > 0 ? (
+          <div className="tasks-list">
+            {tasks.map(task => (
+              <Link to={`/tasks/${task.id}`} key={task.id} className="task-item">
+                <div className="task-info">
+                  <span className="task-title">{task.title}</span>
+                  <span className={`task-type ${task.type.toLowerCase()}`}>{task.type}</span>
                 </div>
-                <div className="engagement-meta">
-                  {engagement.senior && (
-                    <span className="engagement-senior">Senior: {engagement.senior}</span>
-                  )}
-                  {engagement.assistant && (
-                    <span className="engagement-assistant">Assistant: {engagement.assistant}</span>
-                  )}
-                  <span className={`engagement-status ${engagement.status.toLowerCase().replace(/\s+/g, '-')}`}>
-                    {engagement.status}
+                <div className="task-meta">
+                  <span className={`task-status ${task.status}`}>{task.status}</span>
+                  <span className="task-due">
+                    {new Date(task.dueDate).toLocaleDateString()}
                   </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         ) : (
-          <p className="no-engagements">No engagements found for this client</p>
+          <p className="no-tasks">No tasks associated with this client</p>
         )}
       </div>
     </div>
