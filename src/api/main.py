@@ -3,6 +3,7 @@ CA Office Suite FastAPI Application
 Main entry point for the API server
 """
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -12,13 +13,26 @@ from .routers import clients_router, engagements_router
 
 settings = get_settings()
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application lifespan events."""
+    # Startup
+    print(f"Starting {settings.app_name} v{settings.app_version}")
+    print(f"API Documentation: http://localhost:8000/docs")
+    yield
+    # Shutdown
+    print(f"Shutting down {settings.app_name}")
+
+
 # Create FastAPI app
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
     description="API for CA Office Suite - Client Control & Engagement Management",
     docs_url="/docs",
-    redoc_url="/redoc"
+    redoc_url="/redoc",
+    lifespan=lifespan
 )
 
 # Configure CORS
@@ -81,23 +95,6 @@ async def server_error_handler(request, exc):
         status_code=500,
         content={"detail": "Internal server error"}
     )
-
-
-# ============================================================================
-# Startup/Shutdown Events
-# ============================================================================
-
-@app.on_event("startup")
-async def startup_event():
-    """Actions to perform on application startup."""
-    print(f"Starting {settings.app_name} v{settings.app_version}")
-    print(f"API Documentation: http://localhost:8000/docs")
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    """Actions to perform on application shutdown."""
-    print(f"Shutting down {settings.app_name}")
 
 
 if __name__ == "__main__":
