@@ -1,121 +1,286 @@
 # AI Agent Reasoning Framework
 
-**Version**: 1.0  
-**Last Updated**: November 13, 2025
+**Version**: 2.0  
+**Last Updated**: December 8, 2025
 
 ---
 
-## Chain-of-Thought (CoT) - Problem Decomposition
+## 🎯 Primary Directive: Chain-of-Thought + ReAct + Reasoning
 
-When approaching tasks, break them down systematically:
+**CRITICAL**: Apply systematic reasoning to every task using this framework. This ensures thoughtful, well-reasoned implementations that align with project standards and best practices.
+
+---
+
+## 1. Chain-of-Thought (CoT) - Problem Decomposition
+
+Break down complex problems into logical steps with explicit reasoning:
+
+### Core Principles
+
+- **Decompose**: Split large tasks into smaller, manageable components
+- **Sequential Logic**: Show clear progression from problem → solution
+- **Explicit Reasoning**: Articulate WHY each step is necessary
+- **Intermediate Steps**: Don't jump to conclusions; show the work
 
 ### Simple Tasks (Quick CoT)
+
+For straightforward tasks, use minimal reasoning:
 - "Need to create API endpoint → Define route → Implement handler → Add tests → Done"
+- Quick CoT sufficient for read file, create script, simple component updates
 
 ### Complex Tasks (Full CoT)
-1. **Decompose**: Split into smaller, manageable components
-2. **Sequential Logic**: Show clear progression from problem → solution
-3. **Explicit Reasoning**: Articulate WHY each step is necessary
-4. **Intermediate Steps**: Don't jump to conclusions; show the work
+
+For complex implementations, break down systematically:
 
 **Example:**
 ```
 To implement authentication:
-1. Create User entity and DbContext (Foundation)
-2. Implement password hashing service (Security)
-3. Create JWT token generator (Authentication)
-4. Build register/login endpoints (API)
-5. Add integration tests (Validation)
+1. Create User entity and DbContext (Foundation - needed for data persistence)
+2. Implement password hashing service (Security - protect user credentials)
+3. Create JWT token generator (Authentication - stateless token-based auth)
+4. Build register/login endpoints (API - expose functionality)
+5. Add integration tests (Validation - ensure correctness)
+```
+
+**Another Example:**
+```
+To consolidate client management features:
+1. Read all existing client-related files (understand current state)
+2. Identify unique functionality across components (avoid duplication)
+3. Extract common patterns into reusable hooks/services (DRY principle)
+4. Merge features while preserving all functionality (no feature loss)
+5. Update all references to use consolidated code (maintain consistency)
+6. Verify no regressions with tests (quality assurance)
 ```
 
 ---
 
-## ReAct (Reasoning + Acting) - Iterative Development
+## 2. ReAct (Reasoning + Acting) - Iterative Development
 
-Use this six-phase cycle for complex implementations:
+Interleave thinking with action in iterative cycles. Use this six-phase cycle for complex implementations:
 
 ### 1. OBSERVE 🔍
-- Current state: What exists now?
-- User request: What is being asked?
-- Context: What's the broader situation?
-- Constraints: What limitations exist?
+
+**Systematically gather information before acting:**
+
+- **Current state**: What exists now? What files, components, patterns are in place?
+- **User request**: What is being asked? What's the explicit requirement?
+- **Context**: What's the broader situation? What's the project phase, constraints, priorities?
+- **Constraints**: What limitations exist? Technical, time, resource constraints?
+- **Dependencies**: What other systems/components are affected?
+
+**Tools for Observation:**
+- Read relevant files and documentation
+- Search codebase for similar patterns
+- Check existing implementations
+- Review project structure and conventions
 
 ### 2. ANALYZE 🧠
-- Root cause: Why does this issue exist?
-- Dependencies: What else is affected?
-- Implications: What are the consequences?
-- Alternatives: What other approaches exist?
+
+**Deep analysis before planning:**
+
+- **Root cause**: Why does this issue/requirement exist? What's the underlying need?
+- **Dependencies**: What else is affected? What components/services depend on this?
+- **Implications**: What are the consequences? How will this change affect the system?
+- **Alternatives**: What other approaches exist? What are the trade-offs?
+- **Pattern Recognition**: Have we solved similar problems before? What patterns can we reuse?
+
+**Analysis Questions:**
+- Does this align with existing architecture?
+- Are there existing patterns/components we should use?
+- What are the performance/security/maintainability implications?
+- How does this fit into the overall project roadmap?
 
 ### 3. PLAN 📋
-- Step-by-step approach with clear milestones
-- Verification points at each step
-- Rollback strategy if issues arise
-- Resource requirements (tools, packages, configurations)
+
+**Create a detailed, step-by-step approach:**
+
+- **Step-by-step approach** with clear milestones
+- **Verification points** at each step (when to check progress)
+- **Rollback strategy** if issues arise (how to undo if needed)
+- **Resource requirements** (tools, packages, configurations, dependencies)
+- **Testing strategy** (what to test, how to verify)
+
+**Planning Checklist:**
+- [ ] All dependencies identified
+- [ ] Verification points defined
+- [ ] Rollback plan documented
+- [ ] Testing approach clear
+- [ ] Documentation updates planned
 
 ### 4. ACT ⚡
-- Execute with incremental changes, not big bangs
-- Use existing patterns before creating new ones
-- Make changes systematically
-- Document as you go
+
+**Execute with precision and care:**
+
+- **Incremental changes**: Make small, focused changes, not big bangs
+- **Use existing patterns**: Leverage existing components/services before creating new ones
+- **Systematic execution**: Follow the plan, but adapt if needed
+- **Document as you go**: Update comments, documentation, commit messages
+- **Automation first**: Use existing scripts/tools before manual steps
+
+**Action Principles:**
+- Make one logical change at a time
+- Test after each significant change
+- Commit frequently with clear messages
+- Update documentation immediately
 
 ### 5. VERIFY ✅
-- Check results against expected outcomes
-- Run validation (build, tests, lint)
-- Update documentation
-- Test edge cases
+
+**Validate results against expected outcomes:**
+
+- **Check results**: Does the implementation match requirements?
+- **Run validation**: Build, tests, lint, type checking
+- **Update documentation**: Ensure docs reflect changes
+- **Test edge cases**: Verify behavior in unusual scenarios
+- **Cross-check**: Review against project standards and best practices
+
+**Verification Checklist:**
+- [ ] Code compiles/builds successfully
+- [ ] Tests pass (existing and new)
+- [ ] Linting passes
+- [ ] Type checking passes
+- [ ] Documentation updated
+- [ ] Edge cases tested
+- [ ] Follows project conventions
 
 ### 6. REFLECT 🤔
-- What worked well?
-- What could be improved?
-- What patterns emerged?
-- Update instructions based on learnings
+
+**Learn and improve for future work:**
+
+- **What worked well?** Identify successful patterns and approaches
+- **What could be improved?** Note areas for enhancement
+- **What patterns emerged?** Recognize reusable solutions
+- **What would prevent issues?** Think about process improvements
+- **Update instructions**: Document learnings in rules/guidelines
+
+**Reflection Questions:**
+- Did we follow best practices?
+- Could this have been done more efficiently?
+- What would make this easier next time?
+- Should we update project rules/guidelines?
 
 ---
 
-## System 2 Reasoning - Deliberate Analysis
+## 3. System 2 Reasoning - Deliberate Analysis
 
-Engage deep analytical thinking for complex decisions:
+Engage deliberate, analytical thinking for complex decisions. Don't rely on quick intuition for critical choices.
 
 ### Five Key Practices
+
 1. **Question Assumptions**: Don't accept requirements at face value
+   - Why is this needed? What problem does it solve?
+   - Are there alternative solutions?
+   - Is this the right time/place for this change?
+
 2. **Consider Trade-offs**: Every decision has pros and cons
+   - Performance vs. maintainability
+   - Speed vs. correctness
+   - Simplicity vs. flexibility
+   - Current needs vs. future scalability
+
 3. **Think Long-term**: How will this affect future work?
+   - Will this create technical debt?
+   - Is this pattern sustainable?
+   - How will this scale?
+   - What maintenance burden does this create?
+
 4. **Pattern Recognition**: Have we solved similar problems before?
+   - Look for existing solutions in codebase
+   - Identify reusable patterns
+   - Learn from past implementations
+   - Avoid reinventing the wheel
+
 5. **Meta-cognition**: Monitor your own reasoning process
+   - Am I thinking clearly about this?
+   - Am I missing something important?
+   - Should I consult documentation/rules?
+   - Do I need more information?
 
 ### Red Flags Requiring Deep Analysis
-- ⚠️ Architectural changes (affects multiple services)
-- ⚠️ Security implementations (authentication, authorization)
-- ⚠️ Performance optimizations (caching, database queries)
-- ⚠️ New patterns (precedent-setting decisions)
-- ⚠️ Breaking changes (API contracts, database schema)
+
+Engage System 2 reasoning when encountering:
+
+- ⚠️ **Structural changes** (affects multiple files/components)
+- ⚠️ **Deletions** (potential information/functionality loss)
+- ⚠️ **Consolidations** (complexity in merging, risk of losing features)
+- ⚠️ **New patterns** (precedent-setting decisions)
+- ⚠️ **Security implementations** (authentication, authorization, data protection)
+- ⚠️ **Performance optimizations** (caching, database queries, algorithms)
+- ⚠️ **Breaking changes** (API contracts, database schema, interfaces)
+- ⚠️ **User frustration** (indicates process failure, needs root cause analysis)
 
 ---
 
-## Application Guidelines
+## Practical Application Guidelines
 
-### For Simple Tasks
-- Quick CoT: "Need X → Create Y → Test Z → Done"
-- Single OBSERVE → ACT cycle
+### For Simple Tasks (read file, create script, simple component update)
 
-### For Complex Tasks
-- Full ReAct cycle required
-- Multiple iterations through all six phases
-- Deep System 2 reasoning for critical decisions
-- Document reasoning in commit messages
+- **Quick CoT**: "Need to read file → use read_file tool → done"
+- **Minimal reasoning**: Single OBSERVE → ACT cycle sufficient
+- **Fast execution**: Don't overthink straightforward tasks
 
-### When Mistakes Occur
+### For Complex Tasks (consolidate docs, restructure, new feature)
+
+- **Full ReAct cycle required**: Complete all six phases
+- **Multiple iterations**: May need multiple OBSERVE → ANALYZE → PLAN → ACT → VERIFY cycles
+- **Deep System 2 reasoning**: For critical architectural decisions
+- **Document reasoning**: In commit messages, code comments, documentation
+
+### When User Points Out Mistakes
+
+Follow this systematic response:
+
 1. **Acknowledge**: "You're right, I missed X"
-2. **Root Cause**: "This happened because..."
-3. **Immediate Fix**: Correct the issue
-4. **Prevention**: "Adding [check/validation] to prevent recurrence"
-5. **Learn**: Update patterns and instructions
+2. **Root Cause**: "This happened because..." (analyze why the mistake occurred)
+3. **Immediate Fix**: Correct the issue immediately
+4. **Prevention**: "I'm adding [protocol/check/validation] to prevent recurrence"
+5. **Update Instructions**: Modify rules/guidelines to embed learning
+
+---
+
+## Integration with Code Creation/Review
+
+### When Creating Code
+
+**Apply CoT + ReAct + Reasoning:**
+
+1. **OBSERVE**: Understand requirements, check existing patterns
+2. **ANALYZE**: Identify best approach, consider alternatives
+3. **PLAN**: Break down into steps, define verification points
+4. **ACT**: Implement following project patterns and conventions
+5. **VERIFY**: Test, lint, type-check, review against standards
+6. **REFLECT**: Document learnings, update patterns if needed
+
+### When Reviewing Code
+
+**Apply systematic review methodology:**
+
+1. **OBSERVE**: Read code thoroughly, understand context
+2. **ANALYZE**: Check against standards, identify issues/improvements
+3. **REASON**: Apply logical reasoning to evaluate quality
+4. **VERIFY**: Cross-check findings, validate concerns
+5. **ACT**: Document findings, suggest improvements
+6. **REFLECT**: Consider review process effectiveness
+
+**Review Checklist:**
+- [ ] Follows project conventions (naming, structure, patterns)
+- [ ] Implements requirements correctly
+- [ ] Handles errors appropriately
+- [ ] Includes proper tests
+- [ ] Documentation is clear and up-to-date
+- [ ] Performance considerations addressed
+- [ ] Security best practices followed
+- [ ] Code is maintainable and readable
 
 ---
 
 ## Remember
 
 - **Apply CoT/ReAct/Reasoning** for all complex tasks to ensure systematic, thoughtful implementation
-- Follow the ReAct cycle for complex tasks
-- Apply CoT reasoning for problem decomposition
-- Use System 2 reasoning for critical architectural decisions
+- **Follow the ReAct cycle** for complex tasks - don't skip phases
+- **Apply CoT reasoning** for problem decomposition - break down systematically
+- **Use System 2 reasoning** for critical architectural decisions - think deeply
+- **Document your reasoning** in commit messages and code comments
+- **Learn from mistakes** and update guidelines to prevent recurrence
+
+**The goal**: Create well-reasoned, maintainable code that follows project standards and best practices.
