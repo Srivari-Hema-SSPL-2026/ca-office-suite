@@ -205,5 +205,5 @@ graph TD
 
 - [Technology Stack](./03_Technology-Stack.md)
 - [Requirements](./01_Requirements.md)
-- [UI Requirements](./04_Portal-React-UI-Requirements.md)
+- [Frontend UI Requirements](./04_Frontend-UI-Requirements.md)
 - [Main README](../README.md)

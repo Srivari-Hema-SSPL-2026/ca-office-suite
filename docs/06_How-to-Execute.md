@@ -365,7 +365,7 @@ After successfully running the application:
 1. Explore the application features
 2. Review [01_Requirements.md](./01_Requirements.md) for feature details
 3. Check [02_Architecture.md](./02_Architecture.md) for architecture understanding
-4. Read [04_Portal-React-UI-Requirements.md](./04_Portal-React-UI-Requirements.md) for UI guidelines
+4. Read [04_Frontend-UI-Requirements.md](./04_Frontend-UI-Requirements.md) for UI guidelines
 
 ---
 

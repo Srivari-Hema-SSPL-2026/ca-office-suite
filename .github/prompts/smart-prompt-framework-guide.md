@@ -142,10 +142,15 @@ OUTPUT REQUIREMENTS:
 - Documentation with agent behavior specifications and limitations
 
 ARCHITECTURAL PATTERNS:
-- ReAct (Reasoning + Acting) for complex problem-solving
-- Chain-of-Thought for transparent agent reasoning
+- ReAct (Reasoning + Acting) for complex problem-solving (see comprehensive framework below)
+- Chain-of-Thought for transparent agent reasoning (see comprehensive framework below)
 - Tool integration with proper error handling
 - State management for multi-turn conversations
+
+REASONING FRAMEWORK:
+- Apply Chain-of-Thought + ReAct + Reasoning methodology (see detailed section below)
+- Use OBSERVE → ANALYZE → PLAN → ACT → VERIFY → REFLECT cycle
+- Engage System 2 reasoning for critical architectural decisions
 
 MANDATORY VALIDATION:
 - ✅ Agent evaluation tests pass with defined metrics
@@ -290,6 +295,409 @@ REFINEMENT 4: Add monitoring and validation requirements
 
 FINAL VALIDATION: Ensure all constraints are explicitly stated
 ```
+
+## 🧠 **Chain-of-Thought + ReAct + Reasoning Framework**
+
+**CRITICAL**: Apply systematic reasoning to every coding task using this framework. This ensures thoughtful, well-reasoned implementations that align with project standards and best practices.
+
+### **Why CoT + ReAct + Reasoning?**
+
+- **Prevents Rushed Decisions**: Forces systematic analysis before acting
+- **Reduces Errors**: Catches issues early through verification steps
+- **Improves Quality**: Ensures code follows best practices and patterns
+- **Enables Learning**: Reflection phase captures improvements for future tasks
+
+### **1. Chain-of-Thought (CoT) - Problem Decomposition**
+
+Break down complex problems into logical steps with explicit reasoning:
+
+#### **Core Principles**
+
+- **Decompose**: Split large tasks into smaller, manageable components
+- **Sequential Logic**: Show clear progression from problem → solution
+- **Explicit Reasoning**: Articulate WHY each step is necessary
+- **Intermediate Steps**: Don't jump to conclusions; show the work
+
+#### **Simple Tasks (Quick CoT)**
+
+For straightforward tasks, use minimal reasoning:
+- "Need to create API endpoint → Define route → Implement handler → Add tests → Done"
+- Quick CoT sufficient for read file, create script, simple component updates
+
+#### **Complex Tasks (Full CoT)**
+
+For complex implementations, break down systematically:
+
+**Example:**
+```
+To implement authentication:
+1. Create User entity and DbContext (Foundation - needed for data persistence)
+2. Implement password hashing service (Security - protect user credentials)
+3. Create JWT token generator (Authentication - stateless token-based auth)
+4. Build register/login endpoints (API - expose functionality)
+5. Add integration tests (Validation - ensure correctness)
+```
+
+**Another Example:**
+```
+To consolidate client management features:
+1. Read all existing client-related files (understand current state)
+2. Identify unique functionality across components (avoid duplication)
+3. Extract common patterns into reusable hooks/services (DRY principle)
+4. Merge features while preserving all functionality (no feature loss)
+5. Update all references to use consolidated code (maintain consistency)
+6. Verify no regressions with tests (quality assurance)
+```
+
+### **2. ReAct (Reasoning + Acting) - Iterative Development**
+
+Interleave thinking with action in iterative cycles. Use this six-phase cycle for complex implementations:
+
+#### **1. OBSERVE 🔍**
+
+**Systematically gather information before acting:**
+
+- **Current state**: What exists now? What files, components, patterns are in place?
+- **User request**: What is being asked? What's the explicit requirement?
+- **Context**: What's the broader situation? What's the project phase, constraints, priorities?
+- **Constraints**: What limitations exist? Technical, time, resource constraints?
+- **Dependencies**: What other systems/components are affected?
+
+**Tools for Observation:**
+- Read relevant files and documentation
+- Search codebase for similar patterns
+- Check existing implementations
+- Review project structure and conventions
+
+**Prompt Template:**
+
+```markdown
+OBSERVE:
+- Current state: [What exists now]
+- User request: [What is being asked]
+- Context: [Broader situation]
+- Constraints: [Limitations]
+- Dependencies: [Affected systems]
+```
+
+#### **2. ANALYZE 🧠**
+
+**Deep analysis before planning:**
+
+- **Root cause**: Why does this issue/requirement exist? What's the underlying need?
+- **Dependencies**: What else is affected? What components/services depend on this?
+- **Implications**: What are the consequences? How will this change affect the system?
+- **Alternatives**: What other approaches exist? What are the trade-offs?
+- **Pattern Recognition**: Have we solved similar problems before? What patterns can we reuse?
+
+**Analysis Questions:**
+- Does this align with existing architecture?
+- Are there existing patterns/components we should use?
+- What are the performance/security/maintainability implications?
+- How does this fit into the overall project roadmap?
+
+**Prompt Template:**
+
+```markdown
+ANALYZE:
+- Root cause: [Why this exists]
+- Dependencies: [What's affected]
+- Implications: [Consequences]
+- Alternatives: [Other approaches]
+- Patterns: [Reusable solutions]
+```
+
+#### **3. PLAN 📋**
+
+**Create a detailed, step-by-step approach:**
+
+- **Step-by-step approach** with clear milestones
+- **Verification points** at each step (when to check progress)
+- **Rollback strategy** if issues arise (how to undo if needed)
+- **Resource requirements** (tools, packages, configurations, dependencies)
+- **Testing strategy** (what to test, how to verify)
+
+**Planning Checklist:**
+- [ ] All dependencies identified
+- [ ] Verification points defined
+- [ ] Rollback plan documented
+- [ ] Testing approach clear
+- [ ] Documentation updates planned
+
+**Prompt Template:**
+
+```markdown
+PLAN:
+1. [Step 1] - [Verification point]
+2. [Step 2] - [Verification point]
+3. [Step 3] - [Verification point]
+...
+Rollback: [How to undo if needed]
+Testing: [What to test]
+```
+
+#### **4. ACT ⚡**
+
+**Execute with precision and care:**
+
+- **Incremental changes**: Make small, focused changes, not big bangs
+- **Use existing patterns**: Leverage existing components/services before creating new ones
+- **Systematic execution**: Follow the plan, but adapt if needed
+- **Document as you go**: Update comments, documentation, commit messages
+- **Automation first**: Use existing scripts/tools before manual steps
+
+**Action Principles:**
+- Make one logical change at a time
+- Test after each significant change
+- Commit frequently with clear messages
+- Update documentation immediately
+
+**Prompt Template:**
+
+```markdown
+ACT:
+- Making incremental changes
+- Using existing patterns: [Pattern name]
+- Following plan step: [Step number]
+- Documenting: [What's being documented]
+```
+
+#### **5. VERIFY ✅**
+
+**Validate results against expected outcomes:**
+
+- **Check results**: Does the implementation match requirements?
+- **Run validation**: Build, tests, lint, type checking
+- **Update documentation**: Ensure docs reflect changes
+- **Test edge cases**: Verify behavior in unusual scenarios
+- **Cross-check**: Review against project standards and best practices
+
+**Verification Checklist:**
+- [ ] Code compiles/builds successfully
+- [ ] Tests pass (existing and new)
+- [ ] Linting passes
+- [ ] Type checking passes
+- [ ] Documentation updated
+- [ ] Edge cases tested
+- [ ] Follows project conventions
+
+**Prompt Template:**
+
+```markdown
+VERIFY:
+- Build: [Status]
+- Tests: [Status]
+- Lint: [Status]
+- Types: [Status]
+- Docs: [Status]
+- Edge cases: [Status]
+```
+
+#### **6. REFLECT 🤔**
+
+**Learn and improve for future work:**
+
+- **What worked well?** Identify successful patterns and approaches
+- **What could be improved?** Note areas for enhancement
+- **What patterns emerged?** Recognize reusable solutions
+- **What would prevent issues?** Think about process improvements
+- **Update instructions**: Document learnings in rules/guidelines
+
+**Reflection Questions:**
+- Did we follow best practices?
+- Could this have been done more efficiently?
+- What would make this easier next time?
+- Should we update project rules/guidelines?
+
+**Prompt Template:**
+
+```markdown
+REFLECT:
+- What worked: [Successes]
+- What to improve: [Enhancements]
+- Patterns: [Reusable solutions]
+- Updates needed: [Documentation/rules]
+```
+
+### **3. System 2 Reasoning - Deliberate Analysis**
+
+Engage deliberate, analytical thinking for complex decisions. Don't rely on quick intuition for critical choices.
+
+#### **Five Key Practices**
+
+1. **Question Assumptions**: Don't accept requirements at face value
+   - Why is this needed? What problem does it solve?
+   - Are there alternative solutions?
+   - Is this the right time/place for this change?
+
+2. **Consider Trade-offs**: Every decision has pros and cons
+   - Performance vs. maintainability
+   - Speed vs. correctness
+   - Simplicity vs. flexibility
+   - Current needs vs. future scalability
+
+3. **Think Long-term**: How will this affect future work?
+   - Will this create technical debt?
+   - Is this pattern sustainable?
+   - How will this scale?
+   - What maintenance burden does this create?
+
+4. **Pattern Recognition**: Have we solved similar problems before?
+   - Look for existing solutions in codebase
+   - Identify reusable patterns
+   - Learn from past implementations
+   - Avoid reinventing the wheel
+
+5. **Meta-cognition**: Monitor your own reasoning process
+   - Am I thinking clearly about this?
+   - Am I missing something important?
+   - Should I consult documentation/rules?
+   - Do I need more information?
+
+#### **Red Flags Requiring Deep Analysis**
+
+Engage System 2 reasoning when encountering:
+
+- ⚠️ **Structural changes** (affects multiple files/components)
+- ⚠️ **Deletions** (potential information/functionality loss)
+- ⚠️ **Consolidations** (complexity in merging, risk of losing features)
+- ⚠️ **New patterns** (precedent-setting decisions)
+- ⚠️ **Security implementations** (authentication, authorization, data protection)
+- ⚠️ **Performance optimizations** (caching, database queries, algorithms)
+- ⚠️ **Breaking changes** (API contracts, database schema, interfaces)
+- ⚠️ **User frustration** (indicates process failure, needs root cause analysis)
+
+### **Practical Application Guidelines**
+
+#### **For Simple Tasks** (read file, create script, simple component update)
+
+- **Quick CoT**: "Need to read file → use read_file tool → done"
+- **Minimal reasoning**: Single OBSERVE → ACT cycle sufficient
+- **Fast execution**: Don't overthink straightforward tasks
+
+#### **For Complex Tasks** (consolidate docs, restructure, new feature)
+
+- **Full ReAct cycle required**: Complete all six phases
+- **Multiple iterations**: May need multiple OBSERVE → ANALYZE → PLAN → ACT → VERIFY cycles
+- **Deep System 2 reasoning**: For critical architectural decisions
+- **Document reasoning**: In commit messages, code comments, documentation
+
+#### **When User Points Out Mistakes**
+
+Follow this systematic response:
+
+1. **Acknowledge**: "You're right, I missed X"
+2. **Root Cause**: "This happened because..." (analyze why the mistake occurred)
+3. **Immediate Fix**: Correct the issue immediately
+4. **Prevention**: "I'm adding [protocol/check/validation] to prevent recurrence"
+5. **Update Instructions**: Modify rules/guidelines to embed learning
+
+### **Integration with S.M.A.R.T. Framework**
+
+#### **Role Definition + CoT**
+
+```markdown
+ROLE: You are a [Specific Role] with expertise in [Technology Stack]
+
+REASONING APPROACH:
+- Apply Chain-of-Thought to break down this task
+- Use ReAct cycle: OBSERVE → ANALYZE → PLAN → ACT → VERIFY → REFLECT
+- Engage System 2 reasoning for architectural decisions
+```
+
+#### **Mission + ReAct**
+
+```markdown
+MISSION: [Clear objective]
+
+REACT CYCLE:
+1. OBSERVE: [Current state, requirements, constraints]
+2. ANALYZE: [Root cause, dependencies, alternatives]
+3. PLAN: [Step-by-step approach with verification]
+4. ACT: [Execute systematically]
+5. VERIFY: [Validate against requirements]
+6. REFLECT: [Learn and document]
+```
+
+#### **Task Constraints + System 2 Reasoning**
+
+```markdown
+TASK CONSTRAINTS:
+- [Constraint 1]
+- [Constraint 2]
+
+SYSTEM 2 REASONING REQUIRED:
+- ⚠️ This involves [structural change/security/performance]
+- Consider trade-offs: [Pros vs. Cons]
+- Long-term impact: [Future implications]
+- Pattern recognition: [Similar solutions]
+```
+
+### **Example: Complete ReAct Cycle for Feature Implementation**
+
+```markdown
+## FEATURE: Implement Client Search with Advanced Filtering
+
+### 1. OBSERVE 🔍
+- Current state: Basic client list exists with DataGrid component
+- User request: Add advanced search with multiple filter criteria
+- Context: Frontend development phase, using React + TypeScript
+- Constraints: Must work with existing DataGrid, maintain performance
+- Dependencies: DataGrid component, client service, types
+
+### 2. ANALYZE 🧠
+- Root cause: Users need to filter clients by multiple criteria simultaneously
+- Dependencies: DataGrid filtering, client service API, state management
+- Implications: May need to enhance DataGrid or create separate filter component
+- Alternatives: 
+  - Enhance DataGrid filtering (reuse existing)
+  - Create separate AdvancedFilter component (more flexible)
+  - Use URL query params for filter state (shareable links)
+- Patterns: DataGrid already has basic filtering, can extend
+
+### 3. PLAN 📋
+1. Enhance DataGrid types to support advanced filters
+2. Create AdvancedFilter component with multiple criteria
+3. Integrate with DataGrid filtering logic
+4. Add URL query param support for shareable filters
+5. Test with various filter combinations
+6. Update documentation
+
+Verification: After each step, test filtering works correctly
+Rollback: Can revert to basic filtering if issues arise
+Testing: Unit tests for filter logic, integration tests for DataGrid
+
+### 4. ACT ⚡
+- Enhancing DataGrid types: [In progress]
+- Creating AdvancedFilter component: [Next]
+- Integrating with DataGrid: [Planned]
+- Adding URL support: [Planned]
+
+### 5. VERIFY ✅
+- Build: ✅ Passes
+- Tests: ✅ All pass
+- Lint: ✅ No issues
+- Types: ✅ No errors
+- Functionality: ✅ Filters work correctly
+- Edge cases: ✅ Tested empty results, multiple filters
+
+### 6. REFLECT 🤔
+- What worked: Reusing DataGrid filtering logic was efficient
+- What to improve: Could add filter presets for common searches
+- Patterns: AdvancedFilter component can be reused for other entities
+- Updates needed: Document AdvancedFilter usage in component library
+```
+
+### **Quick Reference: When to Use What**
+
+| Task Complexity | CoT Level | ReAct Phases | System 2 Reasoning |
+|----------------|-----------|--------------|-------------------|
+| Simple (read file) | Quick | OBSERVE → ACT | Not needed |
+| Medium (add feature) | Full | All 6 phases | For critical decisions |
+| Complex (restructure) | Full | Multiple cycles | Always required |
+| Critical (security) | Full | Multiple cycles | Always required |
+
+---
 
 ## 📊 **Output Format Control**
 
@@ -631,6 +1039,7 @@ Use this checklist before submitting any coding agent task:
 - [ ] Test dataset requirements specified
 - [ ] Tracing requirements included
 - [ ] Safety guardrails documented
+- [ ] CoT + ReAct + Reasoning framework applied (see comprehensive section)
 
 ### **Output Expectations**
 

@@ -141,7 +141,7 @@ The **Chartered Accountants Office Suite** is a modern, scalable office manageme
 
 ## UI Requirements
 
-See [04_Portal-React-UI-Requirements.md](./04_Portal-React-UI-Requirements.md) for detailed UI/UX requirements including:
+See [04_Frontend-UI-Requirements.md](./04_Frontend-UI-Requirements.md) for detailed UI/UX requirements including:
 
 - Layout & Structure
 - Typography & Icons
@@ -248,5 +248,5 @@ See [04_Portal-React-UI-Requirements.md](./04_Portal-React-UI-Requirements.md) f
 
 - [Architecture](./02_Architecture.md)
 - [Technology Stack](./03_Technology-Stack.md)
-- [UI Requirements](./04_Portal-React-UI-Requirements.md)
+- [Frontend UI Requirements](./04_Frontend-UI-Requirements.md)
 - [Main README](../README.md)
