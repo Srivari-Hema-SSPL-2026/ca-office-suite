@@ -32,6 +32,8 @@ The **Chartered Accountants Office Suite** is a modern, scalable office manageme
 - Document association and history tracking
 - Client communication logs
 
+**Implementation Note (Week 1)**: The initial backend + UI implementation for this module is defined in `docs/Requirements/Week1_Task.md`, using real engagement data from `docs/Data/Clients_Control_Account_IT.csv` to populate `clients` and `engagements` in PostgreSQL, expose CRUD APIs via FastAPI, and surface them through a React DataGrid.
+
 **Status**: ✅ Frontend UI implemented with DataGrid component
 
 ---
