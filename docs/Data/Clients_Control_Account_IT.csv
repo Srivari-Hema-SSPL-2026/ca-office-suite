@@ -1,0 +1,42 @@
+﻿Serial Number,File_Number,File_Number_As_Per,Client_Name,PAN,Type,Type2,Senior,Assistant,Status
+a1b2c3d4-e5f6-4789-a012-b3c4d5e6f789,1,001SRIA,Sri Associates,ABCDE1234A,AOP (TRUST),Trusts-Regd,Lakshmi,P Rohitha,Filed
+a1b2c3d4-e5f6-4789-a012-b3c4d5e6f789,2,001SRIA,Sri Associates,ABCDE1234A,AOP (TRUST),Trusts-NotRegd,Ajay ,Kajal,Pending for Tax payment
+a1b2c3d4-e5f6-4789-a012-b3c4d5e6f789,3,001SRIA,Sri Associates,ABCDE1234A,AOP(MMR),Non-corporate-Audit,Ajay,Aakanksha,Details Received
+f2g3h4i5-j6k7-4890-b123-c4d5e6f7g890,1,002TECH,Tech Solutions Pvt Ltd,FGHIJ5678K,PRIVATE LTD.,Corporate-Audit,Sai,Rajeshwari,Work in Progress
+f2g3h4i5-j6k7-4890-b123-c4d5e6f7g890,2,002TECH,Tech Solutions Pvt Ltd,FGHIJ5678K,PRIVATE LTD.,Corporate-Non-Audit,Lakshmi,Varun,Pending for Details
+k3l4m5n6-o7p8-4901-c234-d5e6f7g8h901,1,003GLOB,Global Traders,KLMNO9012P,FIRM,Non-corporate-Audit,Ajay ,Naveen,Completed
+k3l4m5n6-o7p8-4901-c234-d5e6f7g8h901,2,003GLOB,Global Traders,KLMNO9012P,FIRM,Non-corporate-Non-Audit,Vijay,Apoorva,Filed
+p4q5r6s7-t8u9-4912-d345-e6f7g8h9i012,1,004SUNR,Sunrise Industries,PQRST3456U,PRIVATE LTD.,Corporate-Audit,PSM,Pravallika,Completed
+p4q5r6s7-t8u9-4912-d345-e6f7g8h9i012,2,004SUNR,Sunrise Industries,PQRST3456U,PRIVATE LTD.,Corporate-Non-Audit,Ashwitha,Parijatha,Pending for Tax Filing
+u5v6w7x8-y9z0-4923-e456-f7g8h9i0j123,1,005CREA,Creative Solutions,UVWXY7890Z,LLP,Non-corporate-Audit-44AD,PSM,Bhavani,Pending for Tax payment
+u5v6w7x8-y9z0-4923-e456-f7g8h9i0j123,2,005CREA,Creative Solutions,UVWXY7890Z,LLP,Non-corporate-Non-Audit,Ashwitha,Dinesh,Details Received
+a6b7c8d9-e0f1-4934-f567-g8h9i0j1k234,1,006METR,Metro Builders,ABCDE2345B,HUF,Individual-Audit,Sai,Vamshee,Finalisation
+a6b7c8d9-e0f1-4934-f567-g8h9i0j1k234,2,006METR,Metro Builders,ABCDE2345B,HUF,Individual-Non-Audit,Lakshmi,Gopal Bhavani,Not Turned up
+f7g8h9i0-j1k2-4945-g678-h9i0j1k2l345,1,007PHAR,Pharma Exports Ltd,FGHIJ6789L,PRIVATE LTD.,Corporate-Audit,Ajay ,Sushma,To Do Later
+f7g8h9i0-j1k2-4945-g678-h9i0j1k2l345,2,007PHAR,Pharma Exports Ltd,FGHIJ6789L,PRIVATE LTD.,Corporate-Non-Audit,Ajay,Sahithi,Work in Progress
+k8l9m0n1-o2p3-4956-h789-i0j1k2l3m456,1,008AGRI,Agri Products Co-op,KLMNO0123M,Co-operative Society,Trusts-NotRegd,Vijay,Vijay,Pending for Details
+k8l9m0n1-o2p3-4956-h789-i0j1k2l3m456,2,008AGRI,Agri Products Co-op,KLMNO0123M,Co-operative Society,Non-corporate-Audit,Lakshmi,Ajay,Completed
+p9q0r1s2-t3u4-4967-i890-j1k2l3m4n567,1,009TEXT,Textile Mills India,PQRST1234N,FIRM,Non-corporate-Audit-44AD,PSM,Anil,Pending for Tax Filing
+p9q0r1s2-t3u4-4967-i890-j1k2l3m4n567,2,009TEXT,Textile Mills India,PQRST1234N,FIRM,Non-corporate-Non-Audit,Ashwitha,Apoorva,Filed
+u0v1w2x3-y4z5-4978-j901-k2l3m4n5o678,1,010AUTO,Auto Components LLP,UVWXY2345O,LLP,Non-corporate-Audit,Sai,Rajeshwari,Work in Progress
+u0v1w2x3-y4z5-4978-j901-k2l3m4n5o678,2,010AUTO,Auto Components LLP,UVWXY2345O,LLP,Non-corporate-Non-Audit,Lakshmi,Varun,Pending for Details
+a1b2c3d4-e5f6-4989-k012-l3m4n5o6p789,1,011REAL,Real Estate Developers,ABCDE3456C,PRIVATE LTD.,Corporate-Audit,Ajay ,Naveen,Completed
+a1b2c3d4-e5f6-4989-k012-l3m4n5o6p789,2,011REAL,Real Estate Developers,ABCDE3456C,PRIVATE LTD.,Corporate-Non-Audit,Vijay,Apoorva,Filed
+f2g3h4i5-j6k7-4990-l123-m4n5o6p7q890,1,012FOOD,Food Processing Unit,FGHIJ7890P,PRIVATE LTD.,Corporate-Audit,PSM,Pravallika,Completed
+f2g3h4i5-j6k7-4990-l123-m4n5o6p7q890,2,012FOOD,Food Processing Unit,FGHIJ7890P,PRIVATE LTD.,Corporate-Non-Audit,Ashwitha,Parijatha,Pending for Tax Filing
+k3l4m5n6-o7p8-5001-m234-n5o6p7q8r901,1,013EDUC,Education Trust Foundation,KLMNO4567Q,AOP (TRUST),Trusts-Regd,PSM,Bhavani,Pending for Tax payment
+k3l4m5n6-o7p8-5001-m234-n5o6p7q8r901,2,013EDUC,Education Trust Foundation,KLMNO4567Q,AOP (TRUST),Trusts-NotRegd,Ashwitha,Dinesh,Details Received
+p4q5r6s7-t8u9-5012-n345-o6p7q8r9s012,1,014HEAL,Healthcare Services Pvt Ltd,PQRST5678R,PRIVATE LTD.,Corporate-Audit,Sai,Vamshee,Finalisation
+p4q5r6s7-t8u9-5012-n345-o6p7q8r9s012,2,014HEAL,Healthcare Services Pvt Ltd,PQRST5678R,PRIVATE LTD.,Corporate-Non-Audit,Lakshmi,Gopal Bhavani,Not Turned up
+u5v6w7x8-y9z0-5023-o456-p7q8r9s0t123,1,015TOUR,Tourism & Travels,UVWXY6789S,LLP,Non-corporate-Audit,Ajay ,Sushma,To Do Later
+u5v6w7x8-y9z0-5023-o456-p7q8r9s0t123,2,015TOUR,Tourism & Travels,UVWXY6789S,LLP,Non-corporate-Non-Audit,Ajay,Sahithi,Work in Progress
+a6b7c8d9-e0f1-5034-p567-q8r9s0t1u234,1,016CONS,Construction Materials Ltd,ABCDE7890T,PRIVATE LTD.,Corporate-Audit,Vijay,Vijay,Pending for Details
+a6b7c8d9-e0f1-5034-p567-q8r9s0t1u234,2,016CONS,Construction Materials Ltd,ABCDE7890T,PRIVATE LTD.,Corporate-Non-Audit,Lakshmi,Ajay,Completed
+f7g8h9i0-j1k2-5045-q678-r9s0t1u2v345,1,017RETA,Retail Chain Stores,FGHIJ8901U,PRIVATE LTD.,Corporate-Audit,PSM,Anil,Pending for Tax Filing
+f7g8h9i0-j1k2-5045-q678-r9s0t1u2v345,2,017RETA,Retail Chain Stores,FGHIJ8901U,PRIVATE LTD.,Corporate-Non-Audit,Ashwitha,Apoorva,Filed
+k8l9m0n1-o2p3-5056-r789-s0t1u2v3w456,1,018MANU,Manufacturing Industries,KLMNO9012V,PRIVATE LTD.,Corporate-Audit,Sai,Rajeshwari,Work in Progress
+k8l9m0n1-o2p3-5056-r789-s0t1u2v3w456,2,018MANU,Manufacturing Industries,KLMNO9012V,PRIVATE LTD.,Corporate-Non-Audit,Lakshmi,Varun,Pending for Details
+p9q0r1s2-t3u4-5067-s890-t1u2v3w4x567,1,019FINA,Financial Advisory Services,PQRST0123W,FIRM,Non-corporate-Audit,Ajay ,Naveen,Completed
+p9q0r1s2-t3u4-5067-s890-t1u2v3w4x567,2,019FINA,Financial Advisory Services,PQRST0123W,FIRM,Non-corporate-Non-Audit,Vijay,Apoorva,Filed
+u0v1w2x3-y4z5-5078-t901-u2v3w4x5y678,1,020LOGI,Logistics & Transport,UVWXY1234X,LLP,Non-corporate-Audit-44AD,PSM,Pravallika,Completed
+u0v1w2x3-y4z5-5078-t901-u2v3w4x5y678,2,020LOGI,Logistics & Transport,UVWXY1234X,LLP,Non-corporate-Non-Audit,Ashwitha,Parijatha,Pending for Tax Filing

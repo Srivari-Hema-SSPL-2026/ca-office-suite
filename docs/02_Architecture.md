@@ -35,7 +35,8 @@ graph TD
 
     subgraph DataLayer [Data Layer]
         style DataLayer fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
-        Postgres[(PostgreSQL Database)]
+        Postgres[(PostgreSQL<br/>OLTP Primary)]
+        AnalyticsDB[(Analytics Database<br/>TimescaleDB/Read Replica)]
         DocStore[Document Storage System]
         Redis[Redis Cache]
     end
@@ -48,8 +49,9 @@ graph TD
     FastAPI --> DocStore
     FastAPI --> Redis
 
-    Analytics --> Postgres
+    Analytics --> AnalyticsDB
     Analytics --> Redis
+    AnalyticsDB -.ETL/ELT.-> Postgres
 
     Workflows --> Postgres
     Workflows --> DocStore
@@ -126,10 +128,19 @@ graph TD
 
 ### 5. Data Layer
 
-- **PostgreSQL Database**
-  - Primary relational database
+- **PostgreSQL Database** (OLTP)
+  - Primary relational database for transactions
   - ACID compliance
-  - Complex queries and transactions
+  - CRUD operations and business logic
+  - Real-time data operations
+
+- **Analytics Database** (OLAP)
+  - **TimescaleDB** (recommended) or PostgreSQL read replica
+  - Optimized for analytics and reporting
+  - Materialized views for pre-aggregated data
+  - Time-series analytics support
+  - Complex aggregations and heavy queries
+  - ETL/ELT pipeline from PostgreSQL
 
 - **Redis Cache**
   - Session management
