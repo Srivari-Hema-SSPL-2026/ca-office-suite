@@ -158,13 +158,13 @@ ca-office-suite/
 │       ├── 07_ai-reasoning-framework.mdc
 │       └── README.md
 │
-├── tools/                    # Development tools (future)
+├── tools/                    # Development tools (migrations, PowerShell scripts)
 ├── tests/                    # Integration tests (future)
 ├── LICENSE
 └── README.md                 # This file
 
-Note: Backend services (.NET Aspire, Python FastAPI) and database 
-migrations will be added in future phases.
+Note: FastAPI backend and PostgreSQL database are implemented (Week 1 Task complete).
+.NET Aspire BFF and API Gateway will be added in future phases.
 ```
 
 ---
@@ -173,7 +173,7 @@ migrations will be added in future phases.
 
 For environment variable configuration, see [05_Setup-and-Prerequisites.md](docs/05_Setup-and-Prerequisites.md#environment-variables).
 
-**Note**: Currently, the frontend uses mock data, so environment variables are not required for basic development.
+**Note**: The frontend connects to the FastAPI backend. For full functionality, ensure the backend is running (see `docs/10_Week1-Execution-Guide.md`).
 
 ---
 

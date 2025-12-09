@@ -158,6 +158,7 @@ See [04_Frontend-UI-Requirements.md](./04_Frontend-UI-Requirements.md) for detai
 
 ### ✅ Completed
 
+**Frontend:**
 - React frontend application structure
 - Layout components (Navbar, Footer, Layout)
 - Core pages (Home, Login, Clients, Tasks, Help)
@@ -167,42 +168,57 @@ See [04_Frontend-UI-Requirements.md](./04_Frontend-UI-Requirements.md) for detai
   - LocalStorage persistence
   - Responsive design
 - Authentication context (mock implementation)
-- Mock data services
+- API client service (connects to FastAPI backend)
 - Routing and navigation
 - Basic styling and responsive design
 
+**Backend (Week 1 Task - ✅ Complete):**
+- Python FastAPI application (`src/CAOfficeSuite.Api/`)
+- PostgreSQL database schema (`docs/database/schema.sql`)
+- SQLAlchemy models (Client, Engagement)
+- Pydantic schemas for validation
+- CRUD API endpoints (clients, engagements)
+- Pagination, filtering, sorting
+- CSV import script
+- API documentation (Swagger UI)
+
+**Database:**
+- PostgreSQL schema with `clients` and `engagements` tables
+- Data imported from CSV (20 clients, 40 engagements)
+
 ### ⏳ In Progress
 
-- Backend API integration (when backend is ready)
+- CRUD UI forms/modals (create, update, delete for Clients and Engagements)
 - Enhanced error handling
 - Loading states and user feedback
 - Form validation
-- Test coverage expansion
+- Test coverage expansion (backend tests)
 
 ### 📋 Planned
 
-- Backend services (.NET Aspire)
-- Database integration (PostgreSQL)
-- Real authentication and authorization
+- .NET Aspire BFF and API Gateway
+- Real authentication and authorization (JWT, RBAC)
 - Document management system
 - Billing and invoicing
 - Workflow automation
-- Analytics and reporting
+- Analytics and reporting (Heavy Dashboards)
+- Analytics database (TimescaleDB or PostgreSQL read replica)
 - Mobile app (future consideration)
 
 ---
 
 ## Current Development Focus
 
-1. **Frontend Completion**: Finish remaining UI components and pages
-2. **BFF Development**: Implement .NET Aspire BFF to host React frontend
-3. **API Gateway**: Set up API Gateway within Aspire for service orchestration
-4. **Python FastAPI Services**: Develop primary backend services using FastAPI
-5. **Work Processes**: Implement workflow engine for business process automation
-6. **Heavy Dashboards**: Build advanced analytics and visualization dashboards
-7. **Backend Integration**: Connect frontend to BFF and API Gateway
-8. **State Management**: Enhance state management as needed
-9. **Testing**: Expand test coverage across all layers
+1. **Frontend CRUD UI**: Complete create/update/delete forms for Clients and Engagements
+2. **Testing Expansion**: Add backend tests (pytest) and expand frontend test coverage
+3. **Error Handling**: Enhance error handling and user feedback
+4. **Performance Optimization**: Implement caching (Redis) and optimize queries
+5. **Security Implementation**: JWT authentication, RBAC, input validation
+6. **BFF Development**: Implement .NET Aspire BFF to host React frontend (future)
+7. **API Gateway**: Set up API Gateway within Aspire for service orchestration (future)
+8. **Work Processes**: Implement workflow engine for business process automation (future)
+9. **Heavy Dashboards**: Build advanced analytics and visualization dashboards (future)
+10. **Analytics Database**: Set up TimescaleDB or PostgreSQL read replica (future)
 
 ---
 
