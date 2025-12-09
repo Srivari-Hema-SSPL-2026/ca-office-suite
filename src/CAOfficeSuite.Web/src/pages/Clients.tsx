@@ -11,11 +11,14 @@ import {
   faTimesCircle,
   faCalendarAlt,
   faTasks,
+  faPlus,
+  faEdit,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../store/useAuth';
 import { clientApiService } from '../services/apiClient';
 import type { Client, Engagement, ClientQueryParams } from '../types';
-import { DataGrid, type Column } from '../components/common';
+import { DataGrid, ClientFormModal, type Column } from '../components/common';
 import './Clients.css';
 
 export function Clients() {
@@ -40,6 +43,9 @@ function ClientList() {
   const [totalClients, setTotalClients] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(50);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingClient, setEditingClient] = useState<Client | null>(null);
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   // Fetch clients from API
   const fetchClients = useCallback(async (params: ClientQueryParams = {}) => {
@@ -68,8 +74,75 @@ function ClientList() {
     fetchClients();
   }, [fetchClients]);
 
+  const handleCreate = () => {
+    setEditingClient(null);
+    setIsModalOpen(true);
+  };
+
+  const handleEdit = (client: Client) => {
+    setEditingClient(client);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async (clientId: string) => {
+    if (!window.confirm('Are you sure you want to delete this client? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      await clientApiService.deleteClient(clientId);
+      await fetchClients(); // Refresh the list
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to delete client';
+      alert(`Error: ${errorMessage}`);
+      console.error('Error deleting client:', err);
+    }
+  };
+
+  const handleSave = async (clientData: Omit<Client, 'id' | 'created_at' | 'updated_at'>) => {
+    try {
+      if (editingClient) {
+        await clientApiService.updateClient(editingClient.id, clientData);
+      } else {
+        await clientApiService.createClient(clientData);
+      }
+      await fetchClients(); // Refresh the list
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to save client';
+      throw new Error(errorMessage);
+    }
+  };
+
   // Define columns for the DataGrid
   const columns: Column<Client>[] = [
+    {
+      id: 'actions',
+      label: 'Actions',
+      accessor: 'id',
+      sortable: false,
+      filterable: false,
+      width: 120,
+      render: (_, row) => (
+        <div className="action-buttons">
+          <button
+            onClick={() => handleEdit(row)}
+            className="btn-icon"
+            title="Edit client"
+            aria-label="Edit client"
+          >
+            <FontAwesomeIcon icon={faEdit} />
+          </button>
+          <button
+            onClick={() => handleDelete(row.id)}
+            className="btn-icon btn-danger"
+            title="Delete client"
+            aria-label="Delete client"
+          >
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
+        </div>
+      ),
+    },
     {
       id: 'name',
       label: 'Client Name',
@@ -154,8 +227,14 @@ function ClientList() {
   return (
     <div className="clients-page">
       <div className="page-header">
-        <h1>Client Control</h1>
-        <p>Manage your client portfolio ({totalClients} total)</p>
+        <div>
+          <h1>Client Control</h1>
+          <p>Manage your client portfolio ({totalClients} total)</p>
+        </div>
+        <button onClick={handleCreate} className="btn-primary">
+          <FontAwesomeIcon icon={faPlus} />
+          Create Client
+        </button>
       </div>
 
       <DataGrid
@@ -164,6 +243,16 @@ function ClientList() {
         loading={loading}
         emptyMessage="No clients found"
         storageKey="clients"
+      />
+
+      <ClientFormModal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setEditingClient(null);
+        }}
+        onSave={handleSave}
+        client={editingClient}
       />
     </div>
   );

@@ -4,6 +4,10 @@
 
 .page-header {
   margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .page-header h1 {
@@ -662,4 +666,58 @@
 
 .retry-btn:hover {
   background: var(--blue-700);
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-icon {
+  background: none;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--gray-600);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  background-color: var(--gray-100);
+  border-color: var(--gray-400);
+}
+
+.btn-icon.btn-danger {
+  color: #ef4444;
+  border-color: #fecaca;
+}
+
+.btn-icon.btn-danger:hover {
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.page-header .btn-primary {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.page-header .btn-primary:hover {
+  background-color: var(--primary-color-dark, #2563eb);
 }
