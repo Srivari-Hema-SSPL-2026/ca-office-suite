@@ -1,7 +1,7 @@
 # Project Context & Architecture
 
-**Version**: 1.0  
-**Last Updated**: December 7, 2025
+**Version**: 1.1  
+**Last Updated**: December 8, 2025
 
 ---
 
@@ -67,9 +67,11 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
 
 ## Current Project Status
 
-### Phase: Frontend Development (In Progress)
+### Phase: Full-Stack Development (Frontend + Backend)
 
 **Current Implementation:**
+
+**Frontend (✅ ~70% Complete):**
 - ✅ React 19 + TypeScript 5 frontend application
 - ✅ Vite 7 build tool
 - ✅ React Router 7 for navigation
@@ -78,11 +80,30 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
 - ✅ Layout components (Navbar, Footer, Layout)
 - ✅ Core pages (Home, Login, Clients, Tasks, Help)
 - ✅ Authentication context (mock implementation)
-- ✅ Mock data services
+- ✅ API client service (connects to FastAPI backend)
 - ✅ Vitest testing setup
+- ⚠️ CRUD UI forms/modals (in progress)
 
-**Project Location:**
+**Backend (✅ 100% Complete - Week 1 Task):**
+- ✅ Python FastAPI application (`src/CAOfficeSuite.Api/`)
+- ✅ PostgreSQL database schema (`docs/database/schema.sql`)
+- ✅ SQLAlchemy models (Client, Engagement)
+- ✅ Pydantic schemas for validation
+- ✅ CRUD API endpoints (clients, engagements)
+- ✅ Pagination, filtering, sorting
+- ✅ Database connection and configuration
+- ✅ CSV import script (`tools/migrations/import_clients_csv.py`)
+- ✅ API documentation (Swagger/OpenAPI)
+
+**Database (✅ Complete):**
+- ✅ PostgreSQL schema with `clients` and `engagements` tables
+- ✅ UUID primary keys, foreign keys, indexes
+- ✅ Data imported from CSV (20 clients, 40 engagements)
+
+**Project Locations:**
 - Frontend: `src/CAOfficeSuite.Web/`
+- Backend: `src/CAOfficeSuite.Api/`
+- Database Schema: `docs/database/schema.sql`
 
 **Technology Stack (Current):**
 
@@ -96,19 +117,32 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
 - Vitest 4.0.13 (testing)
 - ESLint 9.39.1
 
-**Backend Architecture (Planned):**
+**Backend Architecture:**
+
+**Current Implementation (✅ Complete):**
+- **Python FastAPI** - Primary backend services (`src/CAOfficeSuite.Api/`)
+  - ✅ Business logic services (Client, Engagement CRUD)
+  - ✅ RESTful API endpoints with pagination, filtering, sorting
+  - ✅ SQLAlchemy ORM for database access
+  - ✅ Pydantic schemas for request/response validation
+  - ✅ API documentation (Swagger UI at `/docs`)
+- **PostgreSQL** - Primary relational database
+  - ✅ Schema implemented (`docs/database/schema.sql`)
+  - ✅ `clients` and `engagements` tables
+  - ✅ Data imported from CSV
+
+**Planned (Future Implementation):**
 - **.NET Aspire** - Cloud-native application framework
   - BFF (Backend For Frontend) - Hosts React.js frontend
   - API Gateway - Service orchestration and routing
-- **Python FastAPI** - Primary backend services (preferred)
-  - Business logic services
+- **Python FastAPI** - Additional services
   - Analytics and dashboard services
   - Data processing services
 - **Work Processes** - Workflow engine for business process automation
-- **PostgreSQL** - Primary relational database
 - **Redis** - Caching, session management, and real-time data
 - **Document Storage** - Secure file storage system (Azure Blob / AWS S3 / Local)
 - **Heavy Dashboards** - Advanced analytics, visualization, and reporting services
+- **Analytics Database** - TimescaleDB or PostgreSQL read replica for heavy reporting
 
 ---
 
@@ -117,36 +151,75 @@ The application follows a **Backend For Frontend (BFF) pattern** with API Gatewa
 ```
 ca-office-suite/
 ├── src/
-│   └── CAOfficeSuite.Web/          # React frontend application
-│       ├── src/
-│       │   ├── components/
-│       │   │   ├── common/          # Reusable components (DataGrid, ColumnManager)
-│       │   │   └── layout/         # Layout components (Navbar, Footer, Layout)
-│       │   ├── pages/              # Page components (Home, Login, Clients, Tasks, Help)
-│       │   ├── services/           # API service layer (currently mock data)
-│       │   ├── store/              # State management (AuthContext)
-│       │   ├── types/              # TypeScript type definitions
-│       │   └── test/               # Test files
-│       ├── public/
-│       ├── package.json
-│       ├── vite.config.ts
-│       └── tsconfig.json
+│   ├── CAOfficeSuite.Web/          # React frontend application ✅
+│   │   ├── src/
+│   │   │   ├── components/
+│   │   │   │   ├── common/          # Reusable components (DataGrid, ColumnManager)
+│   │   │   │   └── layout/         # Layout components (Navbar, Footer, Layout)
+│   │   │   ├── pages/              # Page components (Home, Login, Clients, Tasks, Help)
+│   │   │   ├── services/           # API service layer (apiClient.ts connects to FastAPI)
+│   │   │   ├── store/              # State management (AuthContext)
+│   │   │   ├── types/              # TypeScript type definitions
+│   │   │   └── test/               # Test files
+│   │   ├── public/
+│   │   ├── package.json
+│   │   ├── vite.config.ts
+│   │   └── tsconfig.json
+│   │
+│   └── CAOfficeSuite.Api/          # Python FastAPI backend ✅
+│       ├── main.py                 # FastAPI application entry point
+│       ├── config.py               # Configuration settings
+│       ├── database.py             # Database connection
+│       ├── models/                 # SQLAlchemy models
+│       │   ├── client.py
+│       │   └── engagement.py
+│       ├── routers/                # API route handlers
+│       │   ├── clients.py
+│       │   └── engagements.py
+│       ├── schemas/                # Pydantic schemas
+│       │   ├── client.py
+│       │   └── engagement.py
+│       ├── services/               # Business logic
+│       │   ├── client_service.py
+│       │   └── engagement_service.py
+│       ├── requirements.txt        # Python dependencies
+│       └── README.md
 │
 ├── docs/                            # Documentation
 │   ├── 01_Requirements.md
 │   ├── 02_Architecture.md
 │   ├── 03_Technology-Stack.md
-│   ├── 04_Portal-React-UI-Requirements.md
+│   ├── 04_Frontend-UI-Requirements.md
 │   ├── 05_Setup-and-Prerequisites.md
 │   ├── 06_How-to-Execute.md
 │   ├── 07_Code-Quality.md
 │   ├── 08_Development-Roadmap.md
-│   └── images/
+│   ├── 10_Week1-Execution-Guide.md
+│   ├── 11_Week1-Implementation-Summary.md
+│   ├── 12_Data-Store-Analysis-for-Heavy-Reporting.md
+│   ├── 13_FastAPI-Selection-Analysis.md
+│   ├── 14_Workspace-Review-2025-12-08.md
+│   ├── Data/                       # CSV data files
+│   │   └── Clients_Control_Account_IT.csv
+│   ├── database/                   # Database schema
+│   │   └── schema.sql
+│   ├── images/                     # Diagrams and assets
+│   └── Requirements/              # Task definitions
+│       ├── Week1_Task.md
+│       └── Week1_Task_Alignment_Analysis.md
+│
+├── tools/                           # Development tools
+│   ├── migrations/                 # Data import scripts
+│   │   └── import_clients_csv.py
+│   └── psscripts/                  # PowerShell automation scripts
+│       ├── Get-FileStats.ps1
+│       ├── Get-RepoHealth.ps1
+│       ├── Review-CodeQuality.ps1
+│       └── Validate-References.ps1
 │
 ├── .cursor/                         # Cursor IDE rules and guidelines
 │   └── rules/                       # Cursor AI coding rules
 │
-├── tools/                           # Development tools
 ├── tests/                           # Integration tests (future)
 ├── LICENSE
 └── README.md                        # Main project documentation
@@ -156,10 +229,13 @@ ca-office-suite/
 
 ## Key Features (Current & Planned)
 
-### 1. Client Control & Engagement ✅ (Frontend Ready)
-- Client list with DataGrid (sorting, filtering, pagination, column management)
-- Client search and filtering
-- Client detail view (planned)
+### 1. Client Control & Engagement ✅ (Frontend + Backend)
+- ✅ Client list with DataGrid (sorting, filtering, pagination, column management)
+- ✅ Client search and filtering
+- ✅ Client detail view with engagements
+- ✅ Backend API (FastAPI) with full CRUD operations
+- ✅ Database schema (PostgreSQL) with clients and engagements tables
+- ⚠️ CRUD UI forms/modals (create, update, delete) - in progress
 
 ### 2. Task & Compliance Management ✅ (Frontend Ready)
 - Task list with DataGrid
@@ -199,26 +275,31 @@ ca-office-suite/
 
 ## Current Development Focus
 
-1. **Frontend Completion**: Finish remaining UI components and pages
-2. **BFF Development**: Implement .NET Aspire BFF to host React frontend
-3. **API Gateway**: Set up API Gateway within Aspire for service orchestration
-4. **Python FastAPI Services**: Develop primary backend services using FastAPI
-5. **Work Processes**: Implement workflow engine for business process automation
-6. **Heavy Dashboards**: Build advanced analytics and visualization dashboards
-7. **Backend Integration**: Connect frontend to BFF and API Gateway
-8. **State Management**: Enhance state management as needed
-9. **Testing**: Expand test coverage across all layers
+1. **Frontend CRUD UI**: Complete create/update/delete forms for Clients and Engagements
+2. **Testing Expansion**: Add backend tests (pytest) and expand frontend test coverage
+3. **Error Handling**: Enhance error handling and user feedback
+4. **Performance Optimization**: Implement caching (Redis) and optimize queries
+5. **Security Implementation**: JWT authentication, RBAC, input validation
+6. **BFF Development**: Implement .NET Aspire BFF to host React frontend (future)
+7. **API Gateway**: Set up API Gateway within Aspire for service orchestration (future)
+8. **Work Processes**: Implement workflow engine for business process automation (future)
+9. **Heavy Dashboards**: Build advanced analytics and visualization dashboards (future)
+10. **Analytics Database**: Set up TimescaleDB or PostgreSQL read replica (future)
 
 ---
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18.x or higher
-- npm or yarn
+- **Node.js** 18.x or higher (for frontend)
+- **Python** 3.12+ (for backend)
+- **PostgreSQL** 14+ (for database)
+- **npm** or **yarn** (for frontend)
+- **pip** (for backend)
 
 ### Development Setup
 
+**Frontend:**
 ```bash
 # Navigate to frontend directory
 cd src/CAOfficeSuite.Web
@@ -236,11 +317,44 @@ npm test
 npm run build
 ```
 
+**Backend:**
+```bash
+# Navigate to backend directory
+cd src/CAOfficeSuite.Api
+
+# Create virtual environment (recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run FastAPI server
+uvicorn main:app --reload
+
+# API documentation available at http://localhost:8000/docs
+```
+
+**Database:**
+```bash
+# Create database and run schema
+psql -U postgres -c "CREATE DATABASE ca_office_suite;"
+psql -U postgres -d ca_office_suite -f docs/database/schema.sql
+
+# Import data from CSV
+python tools/migrations/import_clients_csv.py
+```
+
+For detailed setup instructions, see `docs/10_Week1-Execution-Guide.md`.
+
 ---
 
 ## Notes
 
-- Currently using **mock data** for development
-- Backend services are **planned** but not yet implemented
-- The project structure may evolve as backend services are added
+- **Backend is implemented**: FastAPI backend is fully functional with PostgreSQL database
+- **Frontend connects to real API**: `apiClient.ts` makes HTTP calls to FastAPI backend (not mock data)
+- **Week 1 Task Complete**: Database schema, FastAPI backend, and basic frontend integration are complete
+- **Next Steps**: Complete CRUD UI forms, expand testing, enhance error handling
+- **Future**: .NET Aspire BFF and API Gateway will wrap the FastAPI services
 - All frontend code is in `src/CAOfficeSuite.Web/`
+- All backend code is in `src/CAOfficeSuite.Api/`

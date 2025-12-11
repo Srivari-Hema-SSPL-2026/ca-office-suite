@@ -309,10 +309,12 @@ npm run lint -- --fix
 
 ### Development Environment
 
-- Uses mock data (no backend required)
+- Connects to FastAPI backend (running on http://localhost:8000)
 - Hot Module Replacement enabled
 - Source maps enabled for debugging
 - Verbose logging
+
+**Note**: Backend must be running for full functionality. See `docs/10_Week1-Execution-Guide.md` for backend setup.
 
 ### Production Environment
 
